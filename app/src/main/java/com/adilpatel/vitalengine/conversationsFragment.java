@@ -11,8 +11,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 
-public class OneFragment extends Fragment{
-
+public class conversationsFragment extends Fragment {
     private String currentUserId;
     private ArrayAdapter namesArrayAdapter;
     //private ArrayList<String> names;
@@ -23,7 +22,7 @@ public class OneFragment extends Fragment{
     public static int [] images={R.drawable.msgone,R.drawable.msgtwo};
 
 
-    public OneFragment() {
+    public conversationsFragment() {
         // Required empty public constructor
     }
 
@@ -36,32 +35,32 @@ public class OneFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_one, container, false);
-        usersListView = (ListView) rootView.findViewById(R.id.usersListView);
-        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, names);
+        View rootView = inflater.inflate(R.layout.fragment_conversations, container, false);
+        usersListView = (ListView) rootView.findViewById(R.id.conversationsListView);
+
 
         ArrayList<MessageData> arrMessageData = new ArrayList<MessageData>();
-
+//
         MessageData msg1 = new MessageData();
-        msg1.setName("Anant Kharod, MD");
-        msg1.setMessage("What time do you want to get started adding more stuff go over the line");
-        msg1.setImage(R.drawable.msgone);
+        msg1.setName("William Fonbah -> Mustafa Ahmed");
+        msg1.setMessage("Mustafa Ahmed: What time do you want to get started adding more stuff go over the line");
+        msg1.setImage(R.drawable.group);
         msg1.setRead(true);
-        msg1.setSubject("Test Subject");
-
+        msg1.setSubject("Test Subject 1");
 
         MessageData msg2 = new MessageData();
-        msg2.setName("Mustafa Ahmed, MD");
-        msg2.setMessage("Presentation is tomorrow");
-        msg2.setImage(R.drawable.msgtwo);
+        //msg2.setName("Group 2");
+        msg2.setMessage("Anant Kharod: Presentation is tomorrow");
+        msg2.setImage(R.drawable.group);
         msg2.setSubject("Subject 2");
 
 
         arrMessageData.add(msg1);
         arrMessageData.add(msg2);
 
-        CustomAdapterMessages adapter = new CustomAdapterMessages(getActivity().getBaseContext(), arrMessageData);
+        CustomAdapterConversations adapter = new CustomAdapterConversations(getActivity().getBaseContext(), arrMessageData);
         usersListView.setAdapter(adapter);
 
 

@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new OneFragment(), "Referral");
-        adapter.addFrag(new OneFragment(), "Conversations");
+        adapter.addFrag(new conversationsFragment(), "Conversations");
         adapter.addFrag(new OneFragment(), "Messages");
         adapter.addFrag(new OneFragment(), "All");
         viewPager.setAdapter(adapter);

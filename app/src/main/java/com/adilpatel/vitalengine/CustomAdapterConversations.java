@@ -13,16 +13,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Created by Adil on 5/17/16.
+ * Created by Adil on 5/29/16.
  */
-public class CustomAdapterMessages extends BaseAdapter {
-
+public class CustomAdapterConversations extends BaseAdapter {
 
     ArrayList<MessageData> arrMessageData;
     Context context;
     private static LayoutInflater inflater = null;
 
-    public CustomAdapterMessages(Context mainActivity, ArrayList<MessageData> arrMessageData){
+    public CustomAdapterConversations(Context mainActivity, ArrayList<MessageData> arrMessageData){
 
 
         this.arrMessageData = arrMessageData;
@@ -37,7 +36,7 @@ public class CustomAdapterMessages extends BaseAdapter {
 
     public int getCount() {
         return arrMessageData.size();
-   }
+    }
 
     @Override
     public Object getItem(int position) {
@@ -50,44 +49,43 @@ public class CustomAdapterMessages extends BaseAdapter {
     }
 
     public class ViewHolder {
-        TextView tv;
-        ImageView iv;
-        TextView tv1;
+        TextView conversationName;
+        ImageView conversationImage;
+        TextView conversationMessage;
         TextView unreadCount;
         FrameLayout unreadCountBackground;
-        TextView subject;
-
+        TextView convoSubject;
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder=new ViewHolder();
 
-        View rootView = inflater.inflate(R.layout.user_list_item , null);
+        View rootView = inflater.inflate(R.layout.conversations_list_item , null);
 
 
-        holder.tv = (TextView) rootView.findViewById(R.id.myTV);
-        holder.iv=(ImageView) rootView.findViewById(R.id.myIV);
-        holder.tv1= (TextView) rootView.findViewById(R.id.myTV1);
-        holder.unreadCount = (TextView) rootView.findViewById(R.id.unreadCount);
-        holder.subject = (TextView)rootView.findViewById(R.id.subjectTitle);
+        holder.conversationName = (TextView) rootView.findViewById(R.id.conversationName);
+        holder.conversationImage =(ImageView) rootView.findViewById(R.id.conversationImage);
+        holder.conversationMessage= (TextView) rootView.findViewById(R.id.conversationMessage);
+        holder.convoSubject = (TextView) rootView.findViewById(R.id.ConversationSubjectTitle);
+        //holder.unreadCount = (TextView) rootView.findViewById(R.id.unreadCount);
         //holder.unreadCountBackground = (FrameLayout)rootView.findViewById(R.id.unreadCountBackground);
 
 
-        holder.tv1.setText("" + arrMessageData.get(position).getMessage());
-        holder.tv.setText(""+ arrMessageData.get(position).getName());
-        holder.iv.setImageResource(arrMessageData.get(position).getImage());
-        holder.subject.setText("" + arrMessageData.get(position).getSubject());
+        holder.conversationMessage.setText("" + arrMessageData.get(position).getMessage());
+        holder.conversationName.setText("" + arrMessageData.get(position).getName());
+        holder.conversationImage.setImageResource(arrMessageData.get(position).getImage());
+        holder.convoSubject.setText("" + arrMessageData.get(position).getSubject());
 
         if (arrMessageData.get(position).isRead() == true){
-            holder.tv1.setTypeface(Typeface.DEFAULT_BOLD);
+            holder.conversationMessage.setTypeface(Typeface.DEFAULT_BOLD);
 
 
         }
-        if (arrMessageData.get(position).isRead() == false) {
-            holder.unreadCount.setText("");
-            //holder.unreadCountBackground.setBackgroundColor(Color.WHITE);
-            holder.unreadCount.setTypeface(Typeface.DEFAULT_BOLD);
-        }
+//        if (arrMessageData.get(position).isRead() == false) {
+//            holder.unreadCount.setText("");
+//            //holder.unreadCountBackground.setBackgroundColor(Color.WHITE);
+//            holder.unreadCount.setTypeface(Typeface.DEFAULT_BOLD);
+//        }
 
 
 

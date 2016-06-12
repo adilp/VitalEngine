@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
@@ -8,14 +8,13 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/myIV"
+        android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
+        android:scaleType="centerCrop"
         android:layout_marginLeft="10dp"
         android:padding="5dp"/>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -24,22 +23,78 @@
             android:text="Default Text"
             android:textStyle="bold"
             android:layout_toRightOf="@+id/myIV"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"/>
+            android:layout_alignTop="@+id/myIV"
+            android:layout_marginLeft="20dp"
+            android:paddingTop="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/subject"
+        android:text="Subject: "
+        android:textStyle="bold"
+        android:layout_below="@+id/myTV"
+        android:paddingTop="2dp"
+        android:layout_alignLeft="@+id/myTV" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/subjectTitle"
+        android:text="subject"
+        android:layout_below="@+id/myTV"
+
+        android:paddingTop="2dp"
+
+        android:layout_toRightOf="@+id/subject"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
             android:id="@+id/myTV1"
             android:text="Default Text"
-            android:layout_toRightOf="@+id/myIV"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:layout_below="@+id/subject"
+            android:layout_alignLeft="@+id/myTV"
             android:layout_marginTop="5dp"
             android:scrollHorizontally="true"
             android:ellipsize="end"
-            android:maxLines="1"/>
+            android:maxLines="1"
+            android:paddingBottom="10dp"/>
 
-    </LinearLayout>
+    <TextView
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_centerVertical="true"
+        android:background="@drawable/rounded_textview"
+        android:gravity="center_vertical|center_horizontal"
+        android:padding="1dp"
+        android:singleLine="true"
+        android:text="1"
+        android:textColor="#FFF"
+        android:textSize="11sp"
+    android:id="@+id/unreadCount"
+    android:layout_gravity = "center" />
+        <!--<FrameLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/myTV"-->
+            <!--android:layout_alignRight="@+id/myTV1"-->
+            <!--android:layout_alignBottom="@+id/myTV1"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:paddingRight="10dp"-->
+            <!--android:background="#00B200"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:id="@+id/unreadCountBackground">-->
 
-</LinearLayout>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/unreadCount"-->
+                <!--android:layout_gravity = "center"-->
+                <!--android:textColor="#ffffff"-->
+                <!--android:text="2"/>-->
+        <!--</FrameLayout>-->
+
+
+
+</RelativeLayout>
