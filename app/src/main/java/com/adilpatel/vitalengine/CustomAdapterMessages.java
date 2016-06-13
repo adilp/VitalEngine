@@ -62,21 +62,21 @@ public class CustomAdapterMessages extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder=new ViewHolder();
 
-        View rootView = inflater.inflate(R.layout.user_list_item , null);
+        View rootView = inflater.inflate(R.layout.message_list_item, null);
 
 
         holder.tv = (TextView) rootView.findViewById(R.id.myTV);
         holder.iv=(ImageView) rootView.findViewById(R.id.myIV);
         holder.tv1= (TextView) rootView.findViewById(R.id.myTV1);
         holder.unreadCount = (TextView) rootView.findViewById(R.id.unreadCount);
-        holder.subject = (TextView)rootView.findViewById(R.id.subjectTitle);
+        //holder.subject = (TextView)rootView.findViewById(R.id.subjectTitle);
         //holder.unreadCountBackground = (FrameLayout)rootView.findViewById(R.id.unreadCountBackground);
 
 
         holder.tv1.setText("" + arrMessageData.get(position).getMessage());
         holder.tv.setText(""+ arrMessageData.get(position).getName());
         holder.iv.setImageResource(arrMessageData.get(position).getImage());
-        holder.subject.setText("" + arrMessageData.get(position).getSubject());
+        //holder.subject.setText("" + arrMessageData.get(position).getSubject());
 
         if (arrMessageData.get(position).isRead() == true){
             holder.tv1.setTypeface(Typeface.DEFAULT_BOLD);

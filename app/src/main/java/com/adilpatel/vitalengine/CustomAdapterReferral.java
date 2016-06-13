@@ -1,7 +1,6 @@
 package com.adilpatel.vitalengine;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +12,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Created by Adil on 5/29/16.
+ * Created by Adil on 6/13/16.
  */
-public class CustomAdapterConversations extends BaseAdapter {
+public class CustomAdapterReferral extends BaseAdapter {
 
     ArrayList<MessageData> arrMessageData;
     Context context;
     private static LayoutInflater inflater = null;
 
-    public CustomAdapterConversations(Context mainActivity, ArrayList<MessageData> arrMessageData){
+    public CustomAdapterReferral(Context mainActivity, ArrayList<MessageData> arrMessageData){
 
 
         this.arrMessageData = arrMessageData;
@@ -49,38 +48,39 @@ public class CustomAdapterConversations extends BaseAdapter {
     }
 
     public class ViewHolder {
-        TextView conversationName;
-        ImageView conversationImage;
-        TextView conversationMessage;
+        TextView referralName;
+        ImageView referralImage;
+        TextView referralMessage;
         TextView unreadCount;
         FrameLayout unreadCountBackground;
-        TextView convoSubject;
+        TextView referralSubject;
+
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder=new ViewHolder();
 
-        View rootView = inflater.inflate(R.layout.conversations_list_item , null);
+        View rootView = inflater.inflate(R.layout.referral_list_item, null);
 
 
-        holder.conversationName = (TextView) rootView.findViewById(R.id.conversationName);
-        holder.conversationImage =(ImageView) rootView.findViewById(R.id.conversationImage);
-        holder.conversationMessage= (TextView) rootView.findViewById(R.id.conversationMessage);
+        holder.referralName = (TextView) rootView.findViewById(R.id.referralName);
+        holder.referralImage =(ImageView) rootView.findViewById(R.id.referralImage);
+        holder.referralMessage= (TextView) rootView.findViewById(R.id.referralMessage);
         //holder.convoSubject = (TextView) rootView.findViewById(R.id.ConversationSubjectTitle);
         //holder.unreadCount = (TextView) rootView.findViewById(R.id.unreadCount);
         //holder.unreadCountBackground = (FrameLayout)rootView.findViewById(R.id.unreadCountBackground);
 
 
-        holder.conversationMessage.setText("" + arrMessageData.get(position).getMessage());
-        holder.conversationName.setText("" + arrMessageData.get(position).getName());
-        holder.conversationImage.setImageResource(arrMessageData.get(position).getImage());
+        holder.referralMessage.setText("" + arrMessageData.get(position).getMessage());
+        holder.referralName.setText("" + arrMessageData.get(position).getName());
+        holder.referralImage.setImageResource(arrMessageData.get(position).getImage());
         //holder.convoSubject.setText("" + arrMessageData.get(position).getSubject());
 
-        if (arrMessageData.get(position).isRead() == true){
-            holder.conversationMessage.setTypeface(Typeface.DEFAULT_BOLD);
-
-
-        }
+//        if (arrMessageData.get(position).isRead() == true){
+//            holder.tv1.setTypeface(Typeface.DEFAULT_BOLD);
+//
+//
+//        }
 //        if (arrMessageData.get(position).isRead() == false) {
 //            holder.unreadCount.setText("");
 //            //holder.unreadCountBackground.setBackgroundColor(Color.WHITE);

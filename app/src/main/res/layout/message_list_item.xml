@@ -1,10 +1,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/myIV"
@@ -12,7 +13,8 @@
         android:layout_centerVertical="true"
         android:scaleType="centerCrop"
         android:layout_marginLeft="10dp"
-        android:padding="5dp"/>
+        android:padding="5dp"
+        app:civ_border_width="1dp"/>
 
 
 
@@ -26,26 +28,35 @@
             android:layout_alignTop="@+id/myIV"
             android:layout_marginLeft="20dp"
             android:paddingTop="10dp"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/subject"
-        android:text="Subject: "
-        android:textStyle="bold"
-        android:layout_below="@+id/myTV"
-        android:paddingTop="2dp"
-        android:layout_alignLeft="@+id/myTV" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/subjectTitle"
-        android:text="subject"
-        android:layout_below="@+id/myTV"
+        android:id="@+id/messageTimestamp"
+        android:text="2:30pm"
+        android:paddingTop="10dp"
+        android:layout_alignTop="@+id/myIV"
+        android:layout_alignParentEnd="true" />
 
-        android:paddingTop="2dp"
 
-        android:layout_toRightOf="@+id/subject"/>
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/subject"-->
+        <!--android:text="Subject: "-->
+        <!--android:textStyle="bold"-->
+        <!--android:layout_below="@+id/myTV"-->
+        <!--android:paddingTop="2dp"-->
+        <!--android:layout_alignLeft="@+id/myTV" />-->
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/subjectTitle"-->
+        <!--android:text="subject"-->
+        <!--android:layout_below="@+id/myTV"-->
+
+        <!--android:paddingTop="2dp"-->
+
+        <!--android:layout_toRightOf="@+id/subject"/>-->
 
         <TextView
             android:layout_width="wrap_content"
@@ -53,7 +64,7 @@
             android:layout_marginEnd="10dp"
             android:id="@+id/myTV1"
             android:text="Default Text"
-            android:layout_below="@+id/subject"
+            android:layout_below="@+id/myTV"
             android:layout_alignLeft="@+id/myTV"
             android:layout_marginTop="5dp"
             android:scrollHorizontally="true"

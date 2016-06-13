@@ -11,7 +11,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 
-public class OneFragment extends Fragment{
+public class messageFragment extends Fragment{
 
     private String currentUserId;
     private ArrayAdapter namesArrayAdapter;
@@ -23,7 +23,7 @@ public class OneFragment extends Fragment{
     public static int [] images={R.drawable.msgone,R.drawable.msgtwo};
 
 
-    public OneFragment() {
+    public messageFragment() {
         // Required empty public constructor
     }
 
@@ -37,9 +37,13 @@ public class OneFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_one, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_message, container, false);
         usersListView = (ListView) rootView.findViewById(R.id.usersListView);
         //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, names);
+
+
+
+
 
         ArrayList<MessageData> arrMessageData = new ArrayList<MessageData>();
 
@@ -68,7 +72,6 @@ public class OneFragment extends Fragment{
         return rootView;
 
     }
-
 
 
 

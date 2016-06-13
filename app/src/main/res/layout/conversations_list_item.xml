@@ -4,7 +4,8 @@
     android:orientation="horizontal">
 
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/conversationImage"
@@ -12,7 +13,9 @@
         android:layout_centerVertical="true"
         android:scaleType="centerCrop"
         android:layout_marginLeft="10dp"
-        android:padding="5dp"/>
+        android:padding="5dp"
+        app:civ_border_width="1dp"
+        />
 
 
 
@@ -27,25 +30,8 @@
         android:layout_alignTop="@+id/conversationImage"
         android:layout_marginLeft="20dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/conversationSubject"
-        android:text="Subject: "
-        android:textStyle="bold"
-        android:layout_below="@+id/conversationName"
-        android:paddingTop="2dp"
-        android:layout_alignLeft="@+id/conversationName" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ConversationSubjectTitle"
-        android:text="subject"
-        android:layout_below="@+id/conversationName"
 
-        android:paddingTop="2dp"
 
-        android:layout_toRightOf="@+id/conversationSubject"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -53,13 +39,22 @@
         android:layout_marginEnd="10dp"
         android:id="@+id/conversationMessage"
         android:text="Default Text"
-        android:layout_below="@+id/conversationSubject"
+        android:layout_below="@+id/conversationName"
         android:layout_alignLeft="@+id/conversationName"
         android:layout_marginTop="5dp"
         android:scrollHorizontally="true"
         android:ellipsize="end"
         android:maxLines="1"
         android:paddingBottom="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/messageTimestamp"
+        android:text="2:30pm"
+        android:paddingTop="10dp"
+        android:layout_alignTop="@+id/conversationName"
+        android:layout_alignParentEnd="true" />
 
     <!--<TextView-->
         <!--android:layout_width="26dp"-->
