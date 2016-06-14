@@ -29,10 +29,51 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
-    <android.support.design.widget.FloatingActionButton
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom|end"-->
+        <!--android:layout_margin="16dp"-->
+        <!--android:src="@drawable/ic_plus"/>-->
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        xmlns:fab="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/right_labels"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_plus"/>
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        fab:fab_addButtonColorNormal="@color/colorAccent"
+        fab:fab_addButtonColorPressed="@color/white_pressed"
+        fab:fab_addButtonPlusIconColor="@color/half_black"
+        fab:fab_labelStyle="@style/menu_labels_style"
+        fab:fab_labelsPosition="left">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_title="New Referral"
+            fab:fab_size="mini"
+            fab:fab_colorPressed="@color/white_pressed"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_size="mini"
+            fab:fab_title="New Message"
+            fab:fab_colorPressed="@color/white_pressed"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_size="mini"
+            fab:fab_title="New Conversation"
+            fab:fab_colorPressed="@color/white_pressed"/>
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 </android.support.design.widget.CoordinatorLayout>

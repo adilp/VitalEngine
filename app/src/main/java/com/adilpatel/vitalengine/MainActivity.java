@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
+
     private int[] tabIcons = {
         R.drawable.comments,
             R.drawable.message,
