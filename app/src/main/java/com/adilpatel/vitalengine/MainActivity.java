@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFrag(new referralFragment(), "Referral");
         adapter.addFrag(new conversationsFragment(), "Conversations");
         adapter.addFrag(new messageFragment(), "Messages");
-        adapter.addFrag(new messageFragment(), "All");
+        adapter.addFrag(new allFragment(), "All");
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(1);
 

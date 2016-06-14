@@ -1,0 +1,98 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/allImage"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:scaleType="centerCrop"
+        android:layout_marginLeft="10dp"
+        android:padding="5dp"
+        app:civ_border_width="1dp"
+        />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/allName"
+        android:text="Default Text"
+        android:textStyle="bold"
+        android:paddingTop="10dp"
+        android:layout_toRightOf="@+id/allImage"
+        android:layout_alignTop="@+id/allImage"
+        android:layout_marginLeft="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/allSubject"
+        android:text="Patient: "
+        android:textStyle="bold"
+        android:layout_below="@+id/allName"
+        android:paddingTop="2dp"
+        android:layout_alignLeft="@+id/allName" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/allTitle"
+        android:text="subject"
+        android:layout_below="@+id/allName"
+
+        android:paddingTop="2dp"
+
+        android:layout_toRightOf="@+id/allSubject"/>
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/allMessage"
+        android:text="Default Text"
+        android:layout_below="@+id/allSubject"
+        android:layout_alignLeft="@+id/allSubject"
+        android:layout_marginTop="5dp"
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingBottom="10dp"/>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/allTimestamp"
+        android:text="2:30pm"
+        android:paddingTop="10dp"
+        android:layout_alignTop="@+id/allName"
+        android:layout_alignParentEnd="true" />
+
+    <!--<TextView-->
+    <!--android:layout_width="26dp"-->
+    <!--android:layout_height="26dp"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:background="@drawable/rounded_textview"-->
+    <!--android:gravity="center_vertical|center_horizontal"-->
+    <!--android:padding="1dp"-->
+    <!--android:singleLine="true"-->
+    <!--android:text="1"-->
+    <!--android:textColor="#FFF"-->
+    <!--android:textSize="11sp"-->
+    <!--android:id="@+id/unreadCount"-->
+    <!--android:layout_gravity = "center" />-->
+
+
+
+
+</RelativeLayout>
