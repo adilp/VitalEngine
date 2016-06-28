@@ -54,17 +54,27 @@ public class allFragment extends Fragment {
         msg1.setImage(R.drawable.msgone);
         msg1.setRead(true);
         msg1.setSubject("Test Subject");
+        msg1.setType("referral");
 
 
         MessageData msg2 = new MessageData();
-        msg2.setName("ALL");
+        msg2.setName("Group 1");
         msg2.setMessage("Adil Patel: Presentation is tomorrow");
-        msg2.setImage(R.drawable.msgtwo);
-        msg2.setSubject("Subject 2");
+        msg2.setImage(R.drawable.group);
+        msg2.setType("conversation");
+      // msg2.setSubject("Subject 2");
+
+       MessageData msg3 = new MessageData();
+        msg3.setName("Adil Patel");
+        msg3.setMessage("Presentation is tomorrow");
+        msg3.setImage(R.drawable.msgthree);
+        msg3.setType("message");
+        //msg2.setSubject("Subject 2");
 
 
         arrMessageData.add(msg1);
         arrMessageData.add(msg2);
+        arrMessageData.add(msg3);
 
         CustomAdapterAll adapter = new CustomAdapterAll(getActivity().getBaseContext(), arrMessageData);
         usersListView.setAdapter(adapter);

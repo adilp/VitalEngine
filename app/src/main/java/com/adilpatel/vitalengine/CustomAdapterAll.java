@@ -1,6 +1,7 @@
 package com.adilpatel.vitalengine;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,7 @@ public class CustomAdapterAll extends BaseAdapter{
         TextView allMessage;
         TextView unreadCount;
         FrameLayout unreadCountBackground;
+        TextView allTitle;
         TextView allSubject;
 
     }
@@ -66,6 +68,7 @@ public class CustomAdapterAll extends BaseAdapter{
         holder.allName = (TextView) rootView.findViewById(R.id.allName);
         holder.allImage =(ImageView) rootView.findViewById(R.id.allImage);
         holder.allMessage = (TextView) rootView.findViewById(R.id.allMessage);
+        holder.allTitle = (TextView) rootView.findViewById(R.id.allTitle);
         holder.allSubject = (TextView) rootView.findViewById(R.id.allSubject);
         //holder.unreadCount = (TextView) rootView.findViewById(R.id.unreadCount);
         //holder.unreadCountBackground = (FrameLayout)rootView.findViewById(R.id.unreadCountBackground);
@@ -74,7 +77,24 @@ public class CustomAdapterAll extends BaseAdapter{
         holder.allMessage.setText("" + arrMessageData.get(position).getMessage());
         holder.allName.setText("" + arrMessageData.get(position).getName());
         holder.allImage.setImageResource(arrMessageData.get(position).getImage());
-        holder.allSubject.setText("" + arrMessageData.get(position).getSubject());
+        holder.allTitle.setText("" + arrMessageData.get(position).getSubject());
+
+        if (arrMessageData.get(position).getSubject() != "") {
+            holder.allSubject.setText("Patient: ");
+
+        }
+        else {
+            holder.allSubject.setVisibility(View.GONE);
+        }
+
+        if (arrMessageData.get(position).getType() == "message"){
+            rootView.setBackgroundColor(Color.parseColor("#EAEAFF"));
+        }
+
+        if (arrMessageData.get(position).getType() == "conversation"){
+            rootView.setBackgroundColor(Color.parseColor("#EAFFEA"));
+        }
+
 
 //        if (arrMessageData.get(position).isRead() == true){
 //            holder.tv1.setTypeface(Typeface.DEFAULT_BOLD);
