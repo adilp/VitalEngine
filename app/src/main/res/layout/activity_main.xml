@@ -53,6 +53,7 @@
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
+            android:id="@+id/newReferralFab"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/white"
             fab:fab_title="New Referral"
@@ -61,6 +62,7 @@
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
+            android:id="@+id/newMessageFab"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/white"
             fab:fab_size="mini"
@@ -69,6 +71,7 @@
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
+            android:id="@+id/newConversationFab"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/white"
             fab:fab_size="mini"

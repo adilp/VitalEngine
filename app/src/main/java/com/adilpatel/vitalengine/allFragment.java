@@ -59,7 +59,7 @@ public class allFragment extends Fragment {
 
         MessageData msg2 = new MessageData();
         msg2.setName("Group 1");
-        msg2.setMessage("Adil Patel: Presentation is tomorrow");
+        msg2.setMessage("Adil Patel: Presentation is tomorrow adding");
         msg2.setImage(R.drawable.group);
         msg2.setType("conversation");
       // msg2.setSubject("Subject 2");

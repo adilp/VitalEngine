@@ -14,6 +14,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +72,38 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
 
+        //FloatingActionButton button = (FloatingActionButton) findViewById(R.id.right_labels);
+        //FloatingActionButton newReferralFab = (FloatingActionButton)findViewById(R.id.newReferralFab);
+
+        FloatingActionButton newReferralFab = (FloatingActionButton) findViewById(R.id.newReferralFab);
+        FloatingActionButton newMessageFab = (FloatingActionButton) findViewById(R.id.newMessageFab);
+        FloatingActionButton newConversationFab = (FloatingActionButton) findViewById(R.id.newConversationFab);
+
+        newReferralFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(MainActivity.this, "New Referral Button clicked", Toast.LENGTH_SHORT).show();
+                //Intent myIntent = new Intent(MainActivity.this, referralMainActivity.class);
+                //MainActivity.this.startActivity(myIntent);
+            }
+        });
+
+        newMessageFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(MainActivity.this, "New Message Button clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        newConversationFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(MainActivity.this, "New Conversation Button clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
     }
