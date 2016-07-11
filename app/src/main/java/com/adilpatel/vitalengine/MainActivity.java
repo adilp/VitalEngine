@@ -1,5 +1,6 @@
 package com.adilpatel.vitalengine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -84,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Toast.makeText(MainActivity.this, "New Referral Button clicked", Toast.LENGTH_SHORT).show();
-                //Intent myIntent = new Intent(MainActivity.this, referralMainActivity.class);
-                //MainActivity.this.startActivity(myIntent);
+                Intent myIntent = new Intent(MainActivity.this, newRefMainActivity.class);
+                MainActivity.this.startActivity(myIntent);
             }
         });
 
