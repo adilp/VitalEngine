@@ -1,7 +1,7 @@
-package com.adilpatel.vitalengine;
+package com.adilpatel.vitalengine.ListAdapters;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,18 +10,21 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.adilpatel.vitalengine.MessageData;
+import com.adilpatel.vitalengine.R;
+
 import java.util.ArrayList;
 
 /**
- * Created by Adil on 6/14/16.
+ * Created by Adil on 5/29/16.
  */
-public class CustomAdapterAll extends BaseAdapter{
+public class CustomAdapterConversations extends BaseAdapter {
 
     ArrayList<MessageData> arrMessageData;
     Context context;
     private static LayoutInflater inflater = null;
 
-    public CustomAdapterAll(Context mainActivity, ArrayList<MessageData> arrMessageData){
+    public CustomAdapterConversations(Context mainActivity, ArrayList<MessageData> arrMessageData){
 
 
         this.arrMessageData = arrMessageData;
@@ -49,58 +52,38 @@ public class CustomAdapterAll extends BaseAdapter{
     }
 
     public class ViewHolder {
-        TextView allName;
-        ImageView allImage;
-        TextView allMessage;
+        TextView conversationName;
+        ImageView conversationImage;
+        TextView conversationMessage;
         TextView unreadCount;
         FrameLayout unreadCountBackground;
-        TextView allTitle;
-        TextView allSubject;
-
+        TextView convoSubject;
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder=new ViewHolder();
 
-        View rootView = inflater.inflate(R.layout.all_list_item, null);
+        View rootView = inflater.inflate(R.layout.conversations_list_item , null);
 
 
-        holder.allName = (TextView) rootView.findViewById(R.id.allName);
-        holder.allImage =(ImageView) rootView.findViewById(R.id.allImage);
-        holder.allMessage = (TextView) rootView.findViewById(R.id.allMessage);
-        holder.allTitle = (TextView) rootView.findViewById(R.id.allTitle);
-        holder.allSubject = (TextView) rootView.findViewById(R.id.allSubject);
+        holder.conversationName = (TextView) rootView.findViewById(R.id.conversationName);
+        holder.conversationImage =(ImageView) rootView.findViewById(R.id.conversationImage);
+        holder.conversationMessage= (TextView) rootView.findViewById(R.id.conversationMessage);
+        //holder.convoSubject = (TextView) rootView.findViewById(R.id.ConversationSubjectTitle);
         //holder.unreadCount = (TextView) rootView.findViewById(R.id.unreadCount);
         //holder.unreadCountBackground = (FrameLayout)rootView.findViewById(R.id.unreadCountBackground);
 
 
-        holder.allMessage.setText("" + arrMessageData.get(position).getMessage());
-        holder.allName.setText("" + arrMessageData.get(position).getName());
-        holder.allImage.setImageResource(arrMessageData.get(position).getImage());
-        holder.allTitle.setText("" + arrMessageData.get(position).getSubject());
+        holder.conversationMessage.setText("" + arrMessageData.get(position).getMessage());
+        holder.conversationName.setText("" + arrMessageData.get(position).getName());
+        holder.conversationImage.setImageResource(arrMessageData.get(position).getImage());
+        //holder.convoSubject.setText("" + arrMessageData.get(position).getSubject());
 
-        if (arrMessageData.get(position).getSubject() != "") {
-            holder.allSubject.setText("Patient: ");
+        if (arrMessageData.get(position).isRead() == true){
+            holder.conversationMessage.setTypeface(Typeface.DEFAULT_BOLD);
+
 
         }
-        else {
-            holder.allSubject.setVisibility(View.GONE);
-        }
-
-        if (arrMessageData.get(position).getType() == "message"){
-            rootView.setBackgroundColor(Color.parseColor("#EAEAFF"));
-        }
-
-        if (arrMessageData.get(position).getType() == "conversation"){
-            rootView.setBackgroundColor(Color.parseColor("#EAFFEA"));
-        }
-
-
-//        if (arrMessageData.get(position).isRead() == true){
-//            holder.tv1.setTypeface(Typeface.DEFAULT_BOLD);
-//
-//
-//        }
 //        if (arrMessageData.get(position).isRead() == false) {
 //            holder.unreadCount.setText("");
 //            //holder.unreadCountBackground.setBackgroundColor(Color.WHITE);

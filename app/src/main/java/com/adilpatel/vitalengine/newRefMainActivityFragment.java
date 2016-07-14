@@ -1,10 +1,11 @@
 package com.adilpatel.vitalengine;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 /**
@@ -12,7 +13,12 @@ import android.widget.ImageView;
  */
 public class newRefMainActivityFragment extends Fragment {
 
+    private nextScreenCallback callback;
+    public interface nextScreenCallback{
+        public void nextButtonClicked(int flag);
+    }
     ImageView allImage;
+    Button next;
 
     public newRefMainActivityFragment() {
     }
@@ -26,6 +32,15 @@ public class newRefMainActivityFragment extends Fragment {
         allImage = (ImageView) view.findViewById(R.id.newRefPatientPic);
 
         allImage.setImageResource(R.drawable.msgone);
+
+        next = (Button) view.findViewById(R.id.btn_next);
+
+        next.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                callback.nextButtonClicked(1);
+            }
+
+        });
 
         return view;
 

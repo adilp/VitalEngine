@@ -1,4 +1,4 @@
-package com.adilpatel.vitalengine;
+package com.adilpatel.vitalengine.FragmentPackage;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,11 +8,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.adilpatel.vitalengine.ListAdapters.CustomAdapterAll;
+import com.adilpatel.vitalengine.MessageData;
+import com.adilpatel.vitalengine.R;
+
 import java.util.ArrayList;
 
 
 
-public class referralFragment extends Fragment {
+public class allFragment extends Fragment {
 
     private String currentUserId;
     private ArrayAdapter namesArrayAdapter;
@@ -24,7 +28,7 @@ public class referralFragment extends Fragment {
     public static int [] images={R.drawable.msgone,R.drawable.msgtwo};
 
 
-    public referralFragment() {
+    public allFragment() {
         // Required empty public constructor
     }
 
@@ -38,8 +42,8 @@ public class referralFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_referral, container, false);
-        usersListView = (ListView) rootView.findViewById(R.id.referralListView);
+        View rootView = inflater.inflate(R.layout.fragment_all, container, false);
+        usersListView = (ListView) rootView.findViewById(R.id.allListView);
         //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, names);
 
 
@@ -49,33 +53,39 @@ public class referralFragment extends Fragment {
         ArrayList<MessageData> arrMessageData = new ArrayList<MessageData>();
 
         MessageData msg1 = new MessageData();
-        msg1.setName("Adil Patel");
+        msg1.setName("ALL");
         msg1.setMessage("Mustafa Ahmed: What time do you want to get started adding more stuff go over the line");
         msg1.setImage(R.drawable.msgone);
         msg1.setRead(true);
         msg1.setSubject("Test Subject");
+        msg1.setType("referral");
 
 
         MessageData msg2 = new MessageData();
-        msg2.setName("Mustafa Ahmed, MD");
-        msg2.setMessage("Adil Patel: Presentation is tomorrow");
-        msg2.setImage(R.drawable.msgtwo);
-        msg2.setSubject("Subject 2");
+        msg2.setName("Group 1");
+        msg2.setMessage("Adil Patel: Presentation is tomorrow adding");
+        msg2.setImage(R.drawable.group);
+        msg2.setType("conversation");
+      // msg2.setSubject("Subject 2");
+
+       MessageData msg3 = new MessageData();
+        msg3.setName("Adil Patel");
+        msg3.setMessage("Presentation is tomorrow");
+        msg3.setImage(R.drawable.msgthree);
+        msg3.setType("message");
+        //msg2.setSubject("Subject 2");
 
 
         arrMessageData.add(msg1);
         arrMessageData.add(msg2);
+        arrMessageData.add(msg3);
 
-        CustomAdapterReferral adapter = new CustomAdapterReferral(getActivity().getBaseContext(), arrMessageData);
+        CustomAdapterAll adapter = new CustomAdapterAll(getActivity().getBaseContext(), arrMessageData);
         usersListView.setAdapter(adapter);
 
 
         return rootView;
 
     }
-
-
-
-
 
 }

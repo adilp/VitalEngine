@@ -1,4 +1,4 @@
-package com.adilpatel.vitalengine;
+package com.adilpatel.vitalengine.ActivitiesPackage;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.adilpatel.vitalengine.FragmentPackage.allFragment;
+import com.adilpatel.vitalengine.FragmentPackage.conversationsFragment;
+import com.adilpatel.vitalengine.FragmentPackage.messageFragment;
+import com.adilpatel.vitalengine.FragmentPackage.referralFragment;
+import com.adilpatel.vitalengine.R;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -85,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Toast.makeText(MainActivity.this, "New Referral Button clicked", Toast.LENGTH_SHORT).show();
-                Intent myIntent = new Intent(MainActivity.this, newRefMainActivity.class);
+                Intent myIntent = new Intent(MainActivity.this, newReferenceActivity.class);
                 MainActivity.this.startActivity(myIntent);
             }
         });
