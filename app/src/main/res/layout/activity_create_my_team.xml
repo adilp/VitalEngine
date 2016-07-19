@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ActivitiesPackage.CreateMyTeamActivity">
+    tools:context=".ActivitiesPackage.CreateMyTeamActivity"
+    android:clickable="false">
 
 
     <!--<ListView xmlns:android="http://schemas.android.com/apk/res/android"-->
@@ -18,13 +19,22 @@
         <!--android:background="#ffffff"-->
         <!--android:id="@+id/newTeamListView">-->
     <!--</ListView>-->
+    <!--<android.support.v7.widget.SearchView-->
+        <!--android:id="@+id/search"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--/>-->
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/recycleView">
+        android:id="@+id/recycleView"
+        android:clickable="true"
+        >
 
     </android.support.v7.widget.RecyclerView>
+
+
 
 
 </RelativeLayout>

@@ -7,9 +7,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.adilpatel.vitalengine.R;
-import com.adilpatel.vitalengine.refPatientFrag;
 
-public class newReferenceActivity extends AppCompatActivity implements refPatientFrag.nextScreenCallback {
+public class newReferenceActivity extends AppCompatActivity  {
 
     Button next;
 
@@ -61,10 +60,5 @@ public class newReferenceActivity extends AppCompatActivity implements refPatien
 //        ft.commit();
 //    }
 
-    @Override
-    public void nextButtonClicked(int flag) {
-        if (flag == 1) {
-//            pushFragments(new CreateMyTeamFrag(), true, "Create");
-        }
-    }
+
 }

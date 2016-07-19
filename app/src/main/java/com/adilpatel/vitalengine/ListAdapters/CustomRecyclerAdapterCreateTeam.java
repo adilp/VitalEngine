@@ -10,6 +10,7 @@ import com.adilpatel.vitalengine.ListViewRowHolder;
 import com.adilpatel.vitalengine.MessageData;
 import com.adilpatel.vitalengine.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,11 +43,19 @@ public class CustomRecyclerAdapterCreateTeam extends RecyclerView.Adapter<ListVi
 
         holder.person.setText(messageData.getName());
         holder.pic.setImageResource(messageData.getImage());
+        holder.specialty.setText(messageData.getSubject());
+        holder.location.setText(messageData.getMessage());
 
     }
 
     @Override
     public int getItemCount() {
         return messageDataList.size();
+    }
+
+    public void setFilter(List<MessageData> messageModels) {
+        messageDataList = new ArrayList<>();
+        messageDataList.addAll(messageModels);
+        notifyDataSetChanged();
     }
 }

@@ -8,4 +8,7 @@
     <string name="title_activity_referral">New Referral</string>
     <string name="title_activity_referral_main">referralMainActivity</string>
     <string name="title_activity_new_ref_main">newRefMainActivity</string>
+    <string name="app_label">App labal</string>
+    <string name="search_hint">app hint</string>
+    <string name="search_title">search title</string>
 </resources>
