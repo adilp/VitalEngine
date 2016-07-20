@@ -9,7 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.adilpatel.vitalengine.MessageData;
+import com.adilpatel.vitalengine.Models.MessageData;
 import com.adilpatel.vitalengine.R;
 
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ public class CustomAdapterReferral extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder=new ViewHolder();
 
-        View rootView = inflater.inflate(R.layout.referral_list_item, null);
+        View rootView = inflater.inflate(R.layout.list_item_referral, null);
 
 
         holder.referralName = (TextView) rootView.findViewById(R.id.referralName);

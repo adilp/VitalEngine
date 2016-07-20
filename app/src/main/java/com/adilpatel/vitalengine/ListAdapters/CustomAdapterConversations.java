@@ -10,7 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.adilpatel.vitalengine.MessageData;
+import com.adilpatel.vitalengine.Models.MessageData;
 import com.adilpatel.vitalengine.R;
 
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ public class CustomAdapterConversations extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder=new ViewHolder();
 
-        View rootView = inflater.inflate(R.layout.conversations_list_item , null);
+        View rootView = inflater.inflate(R.layout.list_item_conversations, null);
 
 
         holder.conversationName = (TextView) rootView.findViewById(R.id.conversationName);

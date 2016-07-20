@@ -1,4 +1,4 @@
-package com.adilpatel.vitalengine;
+package com.adilpatel.vitalengine.Models;
 
 /**
  * Created by Adil on 6/11/16.

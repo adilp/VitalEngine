@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.adilpatel.vitalengine.ListAdapters.CustomAdapterConversations;
-import com.adilpatel.vitalengine.MessageData;
+import com.adilpatel.vitalengine.Models.MessageData;
 import com.adilpatel.vitalengine.R;
 
 import java.util.ArrayList;

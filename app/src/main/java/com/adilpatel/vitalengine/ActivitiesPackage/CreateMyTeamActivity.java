@@ -12,20 +12,28 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.adilpatel.vitalengine.ListAdapters.CustomRecyclerAdapterCreateTeam;
-import com.adilpatel.vitalengine.MessageData;
+import com.adilpatel.vitalengine.Models.MyTeamModel;
 import com.adilpatel.vitalengine.R;
+import com.adilpatel.vitalengine.expand.Ingredient;
+import com.adilpatel.vitalengine.expand.Recipe;
+import com.adilpatel.vitalengine.expand.RecipeAdapter;
+import com.bignerdranch.expandablerecyclerview.Adapter.ExpandableRecyclerAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CreateMyTeamActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
-    List<MessageData> messageDataList = new ArrayList<MessageData>();
+    List<MyTeamModel> teamDataList = new ArrayList<MyTeamModel>();
 
     private RecyclerView mRecyclerView;
     private CustomRecyclerAdapterCreateTeam adapter;
+    private RecipeAdapter mAdapter;
+
 
 
     ListView usersListView;
@@ -45,31 +53,70 @@ public class CreateMyTeamActivity extends AppCompatActivity implements SearchVie
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
+        Ingredient beef = new Ingredient("beef");
+        Ingredient cheese = new Ingredient("cheese");
+        Ingredient salsa = new Ingredient("salsa");
+        Ingredient tortilla = new Ingredient("tortilla");
+        Ingredient ketchup = new Ingredient("ketchup");
+        Ingredient bun = new Ingredient("bun");
+
+        Recipe taco = new Recipe("taco", Arrays.asList(beef, cheese, salsa, tortilla));
+        Recipe quesadilla = new Recipe("quesadilla", Arrays.asList(cheese, tortilla));
+        Recipe burger = new Recipe("burger", Arrays.asList(beef, cheese, ketchup, bun));
+        final List<Recipe> recipes = Arrays.asList(taco, quesadilla, burger);
+
+        mAdapter = new RecipeAdapter(this, recipes);
 
 
 
-        MessageData msg1 = new MessageData();
+
+
+        MyTeamModel msg1 = new MyTeamModel();
         msg1.setName("Anant Kharod (1245319599)");
-        msg1.setImage(R.drawable.msgone);
-        msg1.setSubject("Cardiology");
-        msg1.setMessage("Chicago, IL");
+        msg1.setImages(R.drawable.msgone);
+        msg1.setSpecialty("Cardiology");
+        msg1.setLocation("Chicago, IL");
 
-        MessageData msg2 = new MessageData();
+        MyTeamModel msg2 = new MyTeamModel();
         msg2.setName("Adil Patel (1316019912)");
-        msg2.setSubject("Dermatology");
-        msg2.setMessage("Birmingham, AL");
-        msg2.setImage(R.drawable.msgthree);
+        msg2.setSpecialty("Dermatology");
+        msg2.setLocation("Birmingham, AL");
+        msg2.setImages(R.drawable.msgthree);
 
 
-        messageDataList.add(msg1);
-        messageDataList.add(msg2);
+        teamDataList.add(msg1);
+        teamDataList.add(msg2);
 
         Log.i(TAG, "Message: " + msg1);
 
         //arrMessageData.add(msg1);
 
-        adapter = new CustomRecyclerAdapterCreateTeam(this,messageDataList);
-        mRecyclerView.setAdapter(adapter);
+        //adapter = new CustomRecyclerAdapterCreateTeam(this,teamDataList);
+
+        mAdapter.setExpandCollapseListener(new ExpandableRecyclerAdapter.ExpandCollapseListener() {
+            @Override
+            public void onListItemExpanded(int position) {
+                Recipe expandedRecipe = recipes.get(position);
+
+
+                Toast.makeText(CreateMyTeamActivity.this,
+                        "Expand",
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+
+            @Override
+            public void onListItemCollapsed(int position) {
+                Recipe collapsedRecipe = recipes.get(position);
+
+
+                Toast.makeText(CreateMyTeamActivity.this,
+                        "Collapse",
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
+        mRecyclerView.setAdapter(mAdapter);
 
 
 
@@ -90,7 +137,7 @@ public class CreateMyTeamActivity extends AppCompatActivity implements SearchVie
                     @Override
                     public boolean onMenuItemActionCollapse(MenuItem item) {
                         // Do something when collapsed
-                        adapter.setFilter(messageDataList);
+                        adapter.setFilter(teamDataList);
                         return true; // Return true to collapse action view
                     }
 
@@ -124,16 +171,16 @@ public class CreateMyTeamActivity extends AppCompatActivity implements SearchVie
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        final List<MessageData> filteredModelList = filter(messageDataList, newText);
+        final List<MyTeamModel> filteredModelList = filter(teamDataList, newText);
         adapter.setFilter(filteredModelList);
         return true;
     }
 
-    private List<MessageData> filter(List<MessageData> models, String query) {
+    private List<MyTeamModel> filter(List<MyTeamModel> models, String query) {
         query = query.toLowerCase();
 
-        final List<MessageData> filteredModelList = new ArrayList<>();
-        for (MessageData model : models) {
+        final List<MyTeamModel> filteredModelList = new ArrayList<>();
+        for (MyTeamModel model : models) {
             final String text = model.getName().toLowerCase();
             if (text.contains(query)) {
                 filteredModelList.add(model);

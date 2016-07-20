@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.adilpatel.vitalengine.ListViewRowHolder;
-import com.adilpatel.vitalengine.MessageData;
+import com.adilpatel.vitalengine.Models.MyTeamModel;
 import com.adilpatel.vitalengine.R;
 
 import java.util.ArrayList;
@@ -19,18 +19,18 @@ import java.util.List;
 public class CustomRecyclerAdapterCreateTeam extends RecyclerView.Adapter<ListViewRowHolder>{
 
 
-    private List<MessageData> messageDataList;
+    private List<MyTeamModel> teamDataList;
     private Context context;
 
-    public CustomRecyclerAdapterCreateTeam(Context context, List<MessageData> messageDataList){
-        this.messageDataList = messageDataList;
+    public CustomRecyclerAdapterCreateTeam(Context context, List<MyTeamModel> teamDataList){
+        this.teamDataList = teamDataList;
         this.context = context;
     }
 
 
     @Override
     public ListViewRowHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.create_team_list_item, null);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_create_team, null);
 
         ListViewRowHolder holder = new ListViewRowHolder(v);
         return holder;
@@ -39,23 +39,23 @@ public class CustomRecyclerAdapterCreateTeam extends RecyclerView.Adapter<ListVi
     @Override
     public void onBindViewHolder(ListViewRowHolder holder, int position) {
 
-        MessageData messageData = messageDataList.get(position);
+        MyTeamModel messageData = teamDataList.get(position);
 
         holder.person.setText(messageData.getName());
-        holder.pic.setImageResource(messageData.getImage());
-        holder.specialty.setText(messageData.getSubject());
-        holder.location.setText(messageData.getMessage());
+        holder.pic.setImageResource(messageData.getImages());
+        holder.specialty.setText(messageData.getSpecialty());
+        holder.location.setText(messageData.getLocation());
 
     }
 
     @Override
     public int getItemCount() {
-        return messageDataList.size();
+        return teamDataList.size();
     }
 
-    public void setFilter(List<MessageData> messageModels) {
-        messageDataList = new ArrayList<>();
-        messageDataList.addAll(messageModels);
+    public void setFilter(List<MyTeamModel> teamModels) {
+        teamDataList = new ArrayList<>();
+        teamDataList.addAll(teamModels);
         notifyDataSetChanged();
     }
 }

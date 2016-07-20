@@ -1,0 +1,107 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/teamImage"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:scaleType="centerCrop"
+        android:layout_marginLeft="10dp"
+        android:padding="5dp"
+        app:civ_border_width="1dp"
+        />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/teamName"
+        android:text="Default Text"
+        android:paddingTop="10dp"
+        android:layout_toRightOf="@+id/teamImage"
+        android:layout_alignTop="@+id/teamImage"
+        android:layout_marginLeft="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/teamSpecialtyTitle"
+        android:text="Specialty: "
+        android:layout_below="@+id/teamName"
+        android:paddingTop="2dp"
+        android:layout_alignLeft="@+id/teamName" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/teamSpecialty"
+        android:text="subject"
+        android:layout_below="@+id/teamName"
+
+        android:paddingTop="2dp"
+
+        android:layout_toRightOf="@+id/teamSpecialtyTitle"/>
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/teamLocationTitle"
+        android:text="Location: "
+        android:layout_below="@+id/teamSpecialtyTitle"
+        android:layout_alignLeft="@+id/teamSpecialtyTitle"
+        android:layout_marginTop="5dp"
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingBottom="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/teamLocation"
+        android:text="subject"
+        android:layout_below="@+id/teamSpecialty"
+
+        android:paddingTop="2dp"
+
+        android:layout_toRightOf="@+id/teamLocationTitle"/>
+    <ImageButton
+        android:id="@+id/parent_list_item_expand_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_margin="8dp"
+        android:layout_alignTop="@+id/teamSpecialty"
+        android:src="@android:drawable/arrow_down_float" />
+
+
+
+
+    <!--<TextView-->
+    <!--android:layout_width="26dp"-->
+    <!--android:layout_height="26dp"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:background="@drawable/rounded_textview"-->
+    <!--android:gravity="center_vertical|center_horizontal"-->
+    <!--android:padding="1dp"-->
+    <!--android:singleLine="true"-->
+    <!--android:text="1"-->
+    <!--android:textColor="#FFF"-->
+    <!--android:textSize="11sp"-->
+    <!--android:id="@+id/unreadCount"-->
+    <!--android:layout_gravity = "center" />-->
+
+
+
+
+</RelativeLayout>
