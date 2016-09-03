@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context=".ActivitiesPackage.ReferralStory.CreateMyTeamActivity"
+    android:clickable="false"
+    android:weightSum="1">
+
+
+    <ExpandableListView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:padding="16dp"
+        android:background="#ffffff"
+        android:id="@+id/CreateReferralTeamListView"
+        android:layout_weight="1">
+    </ExpandableListView>
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/sampleText"-->
+        <!--android:text="Hello"/>-->
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/sampleText2"-->
+        <!--android:text="Hello2"/>-->
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/sampleText3"-->
+        <!--android:text="Hello3"/>-->
+
+    <Button
+        android:id="@+id/nextbuttonReferralTeam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:layout_below="@+id/CreateReferralTeamListView"
+        android:layout_centerHorizontal="true" />
+    <!--<android.support.v7.widget.SearchView-->
+    <!--android:id="@+id/search"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--/>-->
+
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/recycleView"-->
+    <!--android:clickable="true"-->
+    <!-->-->
+
+    <!--</android.support.v7.widget.RecyclerView>-->
+
+
+
+
+</LinearLayout>

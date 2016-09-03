@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -54,9 +53,9 @@ public class CustomAdapterReferral extends BaseAdapter {
         TextView referralName;
         ImageView referralImage;
         TextView referralMessage;
-        TextView unreadCount;
-        FrameLayout unreadCountBackground;
-        TextView referralSubject;
+        TextView referralPatient;
+        TextView referralTimeStamp;
+
 
     }
     @Override
@@ -69,35 +68,15 @@ public class CustomAdapterReferral extends BaseAdapter {
         holder.referralName = (TextView) rootView.findViewById(R.id.referralName);
         holder.referralImage =(ImageView) rootView.findViewById(R.id.referralImage);
         holder.referralMessage= (TextView) rootView.findViewById(R.id.referralMessage);
-        //holder.convoSubject = (TextView) rootView.findViewById(R.id.ConversationSubjectTitle);
-        //holder.unreadCount = (TextView) rootView.findViewById(R.id.unreadCount);
-        //holder.unreadCountBackground = (FrameLayout)rootView.findViewById(R.id.unreadCountBackground);
-
+        holder.referralPatient = (TextView) rootView.findViewById(R.id.subjectTitle);
+        holder.referralTimeStamp = (TextView) rootView.findViewById(R.id.referralTimestamp);
 
         holder.referralMessage.setText("" + arrMessageData.get(position).getMessage());
         holder.referralName.setText("" + arrMessageData.get(position).getName());
         holder.referralImage.setImageResource(arrMessageData.get(position).getImage());
-        //holder.convoSubject.setText("" + arrMessageData.get(position).getSubject());
+        holder.referralPatient.setText("" + arrMessageData.get(position).getSubject());
+        holder.referralTimeStamp.setText("" + arrMessageData.get(position).getTime());
 
-//        if (arrMessageData.get(position).isRead() == true){
-//            holder.tv1.setTypeface(Typeface.DEFAULT_BOLD);
-//
-//
-//        }
-//        if (arrMessageData.get(position).isRead() == false) {
-//            holder.unreadCount.setText("");
-//            //holder.unreadCountBackground.setBackgroundColor(Color.WHITE);
-//            holder.unreadCount.setTypeface(Typeface.DEFAULT_BOLD);
-//        }
-
-
-
-//        rootView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(context, "Clicked item is : " + names[position], Toast.LENGTH_LONG).show();
-//            }
-//        });
         return rootView;
     }
 }

@@ -69,6 +69,7 @@ public class CustomAdapterConversations extends BaseAdapter {
         holder.conversationName = (TextView) rootView.findViewById(R.id.conversationName);
         holder.conversationImage =(ImageView) rootView.findViewById(R.id.conversationImage);
         holder.conversationMessage= (TextView) rootView.findViewById(R.id.conversationMessage);
+        //holder.convoSubject = (TextView) rootView.findViewById(R.id.subjectTitle);
         //holder.convoSubject = (TextView) rootView.findViewById(R.id.ConversationSubjectTitle);
         //holder.unreadCount = (TextView) rootView.findViewById(R.id.unreadCount);
         //holder.unreadCountBackground = (FrameLayout)rootView.findViewById(R.id.unreadCountBackground);
@@ -78,6 +79,7 @@ public class CustomAdapterConversations extends BaseAdapter {
         holder.conversationName.setText("" + arrMessageData.get(position).getName());
         holder.conversationImage.setImageResource(arrMessageData.get(position).getImage());
         //holder.convoSubject.setText("" + arrMessageData.get(position).getSubject());
+       // holder.convoSubject.setText("" + arrMessageData.get(position).getSubject());
 
         if (arrMessageData.get(position).isRead() == true){
             holder.conversationMessage.setTypeface(Typeface.DEFAULT_BOLD);

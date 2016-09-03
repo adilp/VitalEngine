@@ -12,6 +12,37 @@ public class MessageData {
         String name = "";
         String subject = "";
         String type = "";
+        int id = -1;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+
+    public String getPatient() {
+        return patient;
+    }
+
+    public void setPatient(String patient) {
+        this.patient = patient;
+    }
+
+    String patient = "";
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    String time = "";
 
         public String getMessage() {
             return message;

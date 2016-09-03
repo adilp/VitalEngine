@@ -59,6 +59,7 @@ public class CustomAdapterAll extends BaseAdapter{
         FrameLayout unreadCountBackground;
         TextView allTitle;
         TextView allSubject;
+        TextView patient;
 
     }
     @Override
@@ -73,6 +74,7 @@ public class CustomAdapterAll extends BaseAdapter{
         holder.allMessage = (TextView) rootView.findViewById(R.id.allMessage);
         holder.allTitle = (TextView) rootView.findViewById(R.id.allTitle);
         holder.allSubject = (TextView) rootView.findViewById(R.id.allSubject);
+        holder.patient = (TextView) rootView.findViewById(R.id.allTitle);
         //holder.unreadCount = (TextView) rootView.findViewById(R.id.unreadCount);
         //holder.unreadCountBackground = (FrameLayout)rootView.findViewById(R.id.unreadCountBackground);
 
@@ -81,8 +83,9 @@ public class CustomAdapterAll extends BaseAdapter{
         holder.allName.setText("" + arrMessageData.get(position).getName());
         holder.allImage.setImageResource(arrMessageData.get(position).getImage());
         holder.allTitle.setText("" + arrMessageData.get(position).getSubject());
+        holder.patient.setText("" + arrMessageData.get(position).getPatient());
 
-        if (arrMessageData.get(position).getSubject() != "") {
+        if (arrMessageData.get(position).getPatient() != "") {
             holder.allSubject.setText("Patient: ");
 
         }

@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="vertical"
+    android:paddingStart="10dp">
 
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -15,6 +16,7 @@
         android:layout_marginLeft="10dp"
         android:padding="5dp"
         app:civ_border_width="1dp"
+        android:focusable="false"
         />
 
 
@@ -27,7 +29,8 @@
         android:paddingTop="10dp"
         android:layout_toRightOf="@+id/teamImageChild"
         android:layout_alignTop="@+id/teamImageChild"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="20dp"
+        android:focusable="false"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -36,7 +39,8 @@
         android:text="Specialty: "
         android:layout_below="@+id/teamNameChild"
         android:paddingTop="2dp"
-        android:layout_alignLeft="@+id/teamNameChild" />
+        android:layout_alignLeft="@+id/teamNameChild"
+        android:focusable="false"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,7 +50,8 @@
 
         android:paddingTop="2dp"
 
-        android:layout_toRightOf="@+id/teamSpecialtyTitleChild"/>
+        android:layout_toRightOf="@+id/teamSpecialtyTitleChild"
+        android:focusable="false"/>
 
 
 
@@ -63,7 +68,8 @@
         android:scrollHorizontally="true"
         android:ellipsize="end"
         android:maxLines="1"
-        android:paddingBottom="10dp"/>
+        android:paddingBottom="10dp"
+        android:focusable="false"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -74,10 +80,21 @@
 
         android:paddingTop="2dp"
 
-        android:layout_toRightOf="@+id/teamLocationTitleChild"/>
+        android:layout_toRightOf="@+id/teamLocationTitleChild"
+        android:focusable="false"/>
 
 
-
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkBoxChild"
+        android:layout_alignParentRight="true"
+        android:layout_margin="8dp"
+        android:layout_alignTop="@+id/teamSpecialtyChild"
+        android:focusable="false"
+        android:clickable="false"
+        android:checked="true"
+        />
 
 
     <!--<TextView-->

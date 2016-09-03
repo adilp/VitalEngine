@@ -1,9 +1,12 @@
 package com.adilpatel.vitalengine.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Adil on 7/19/16.
  */
-public class MyTeamModel {
+public class MyTeamModel implements Parcelable {
 
     String name = "";
     boolean isRead = false;
@@ -59,4 +62,16 @@ public class MyTeamModel {
     public void setStaffType(String staffType) {
         this.staffType = staffType;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+    }
+
+
 }
