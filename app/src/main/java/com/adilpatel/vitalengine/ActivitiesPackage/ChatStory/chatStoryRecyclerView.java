@@ -55,7 +55,7 @@ public class chatStoryRecyclerView extends RecyclerView.Adapter<chatStoryRecycle
         }
 
         else {
-            View contactView = inflater.inflate(R.layout.message_left, parent, false);
+            View contactView = inflater.inflate(R.layout.message_none, parent, false);
 
             ViewHolder viewHolder = new ViewHolder(contactView);
 

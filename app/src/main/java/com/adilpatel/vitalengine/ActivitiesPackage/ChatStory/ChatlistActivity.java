@@ -290,20 +290,26 @@ public class ChatlistActivity extends AppCompatActivity {
 
                             int userIdInteger = Integer.parseInt(userId);
 
+                        Integer sysMessage = (Integer) object.get("isAnnotation");
+
+                        if (sysMessage == 1){
+                            first.setDirection(2);
+                        }
+
                             if (from == userIdInteger){
                                 first.setDirection(0);
                                 Log.e("Fromuser", String.valueOf(from));
                             } else {
-                                first.setDirection(1);
-                                first.setSender((String) object.get("createdBy"));
-                               Log.e("Fromuser", String.valueOf(from));
+                                if (first.getDirection() == 2){
+
+                                } else {
+                                    first.setDirection(1);
+                                    first.setSender((String) object.get("createdBy"));
+                                    Log.e("Fromuser", String.valueOf(from));
+                                }
                             }
 
-                            Integer sysMessage = (Integer) object.get("isAnnotation");
 
-                            if (sysMessage == 1){
-                                first.setDirection(2);
-                            }
 
 
 
