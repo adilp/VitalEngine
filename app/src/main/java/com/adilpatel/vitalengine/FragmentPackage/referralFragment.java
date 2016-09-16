@@ -1,28 +1,25 @@
 package com.adilpatel.vitalengine.FragmentPackage;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.adilpatel.vitalengine.API.BasicAuthInterceptor;
-import com.adilpatel.vitalengine.ActivitiesPackage.ChatStory.ChatlistActivity;
 import com.adilpatel.vitalengine.ActivitiesPackage.MainActivity;
-import com.adilpatel.vitalengine.ListAdapters.CustomAdapterReferral;
 import com.adilpatel.vitalengine.Models.MessageData;
 import com.adilpatel.vitalengine.R;
+import com.adilpatel.vitalengine.homeScreenRecycler.referralsRecyclerViewAdapter;
 import com.android.volley.RequestQueue;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
@@ -46,7 +43,8 @@ public class referralFragment extends Fragment {
     private String currentUserId;
     private ArrayAdapter namesArrayAdapter;
     //private ArrayList<String> names;
-    private ListView usersListView;
+    //private ListView usersListView;
+    private RecyclerView usersListView;
     String names[] = {"Anant Kharod, MD", "Mustafa Ahmed, MD"};
     String msg[] = {"What time do you want to get started adding more stuff go over the line", "Presentation is tomorrow"};
     boolean readUnread [] = {false,false};
@@ -57,7 +55,9 @@ public class referralFragment extends Fragment {
 
     RequestQueue requestQue;
 
-    CustomAdapterReferral adapter;
+    //CustomAdapterReferral adapter;
+
+    referralsRecyclerViewAdapter adapter;
 
 
     public referralFragment() {
@@ -81,28 +81,33 @@ public class referralFragment extends Fragment {
        // OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new StethoInterceptor()).build();
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_referral, container, false);
-        usersListView = (ListView) rootView.findViewById(R.id.referralListView);
+        //usersListView = (ListView) rootView.findViewById(R.id.referralListView);
+        usersListView = (RecyclerView) rootView.findViewById(R.id.referralListView);
 
 
         callApi();
 
-        usersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                MessageData obj = arrMessageData.get(position);
 
 
-
-                Toast.makeText(getActivity(), "CLICKED " + obj.getId(), Toast.LENGTH_SHORT).show();
-
-                Intent myIntent = new Intent(getActivity(), ChatlistActivity.class);
-                //myIntent.putParcelableArrayListExtra("NAME", (ArrayList<? extends Parcelable>) selectedStaff);
-                myIntent.putExtra("refId", obj.getId());
-                //myIntent.putExtra("messagePerson", currentPerson);
-                startActivity(myIntent);
-            }
-        });
+//        usersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                MessageData obj = arrMessageData.get(position);
+//
+//                int test = obj.getId();
+//
+//
+//
+//                Toast.makeText(getActivity(), "CLICKED " + obj.getId(), Toast.LENGTH_SHORT).show();
+//
+//                Intent myIntent = new Intent(getActivity(), ChatlistActivity.class);
+//                //myIntent.putParcelableArrayListExtra("NAME", (ArrayList<? extends Parcelable>) selectedStaff);
+//                myIntent.putExtra("refId", obj.getId());
+//                //myIntent.putExtra("messagePerson", currentPerson);
+//                startActivity(myIntent);
+//            }
+//        });
 
 
 
@@ -121,8 +126,12 @@ public class referralFragment extends Fragment {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
-                    adapter = new CustomAdapterReferral(getActivity().getBaseContext(), arrMessageData);
+                    adapter = new referralsRecyclerViewAdapter(getActivity().getBaseContext(), arrMessageData);
                     usersListView.setAdapter(adapter);
+                    LinearLayoutManager layoutManager
+                            = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+                    usersListView.setLayoutManager(layoutManager);
+
                     break;
                 default:
                     Log.d("TAG", msg.what + " ? ");
@@ -164,7 +173,7 @@ public class referralFragment extends Fragment {
         //String url = "https://randomuser.me/api/";
         String url  = "https://staging.vitalengine.com/portal-api/api/user/inbox/list?userId=" +
                 userId +
-                "&folderId=-1&tagId=0&page=1&itemPerPage=10&showMsgInFolder=false";
+                "&folderId=-1&tagId=0&page=1&itemPerPage=1000&showMsgInFolder=false";
 
         //String url = "https://staging.vitalengine.com/portal-api/api/login/getUserDetails?userName=ezhu";
 

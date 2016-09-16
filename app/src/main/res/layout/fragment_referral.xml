@@ -5,14 +5,23 @@
     tools:context=".FragmentPackage.referralFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <!--<ListView xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--xmlns:tools="http://schemas.android.com/tools"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:padding="16dp"-->
+        <!--android:background="#ffffff"-->
+        <!--android:id="@+id/referralListView">-->
+    <!--</ListView>-->
+
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:background="#ffffff"
         android:id="@+id/referralListView">
-    </ListView>
+
+    </android.support.v7.widget.RecyclerView>
 
 
 </FrameLayout>

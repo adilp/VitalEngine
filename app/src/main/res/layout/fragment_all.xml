@@ -5,14 +5,23 @@
     tools:context=".FragmentPackage.conversationsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <!--<ListView xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--xmlns:tools="http://schemas.android.com/tools"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:padding="16dp"-->
+        <!--android:background="#ffffff"-->
+        <!--android:id="@+id/allListView"-->
+        <!--android:transcriptMode="alwaysScroll">-->
+    <!--</ListView>-->
+
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:background="#ffffff"
-        android:id="@+id/allListView"
-        android:transcriptMode="alwaysScroll">
-    </ListView>
+        android:id="@+id/allListView">
+
+    </android.support.v7.widget.RecyclerView>
 
 </FrameLayout>

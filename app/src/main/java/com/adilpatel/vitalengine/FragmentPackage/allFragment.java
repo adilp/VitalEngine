@@ -6,18 +6,19 @@ import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import com.adilpatel.vitalengine.API.BasicAuthInterceptor;
-import com.adilpatel.vitalengine.ListAdapters.CustomAdapterAll;
 import com.adilpatel.vitalengine.Models.MessageData;
 import com.adilpatel.vitalengine.R;
+import com.adilpatel.vitalengine.homeScreenRecycler.allRecyclerViewAdapter;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import org.json.JSONArray;
@@ -37,14 +38,17 @@ public class allFragment extends Fragment {
     private String currentUserId;
     private ArrayAdapter namesArrayAdapter;
     //private ArrayList<String> names;
-    private ListView usersListView;
+    //private ListView usersListView;
+    private RecyclerView usersListView;
     String names[] = {"Anant Kharod, MD", "Mustafa Ahmed, MD"};
     String msg[] = {"What time do you want to get started adding more stuff go over the line", "Presentation is tomorrow"};
     boolean readUnread [] = {false,false};
     public static int [] images={R.drawable.msgone,R.drawable.msgtwo};
 
     ArrayList<MessageData> arrMessageData; //= new ArrayList<MessageData>();
-    CustomAdapterAll adapter;
+    //CustomAdapterAll adapter;
+
+    allRecyclerViewAdapter adapter;
 
 
     public allFragment() {
@@ -62,7 +66,8 @@ public class allFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_all, container, false);
-        usersListView = (ListView) rootView.findViewById(R.id.allListView);
+        //usersListView = (ListView) rootView.findViewById(R.id.allListView);
+        usersListView = (RecyclerView) rootView.findViewById(R.id.allListView);
         //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, names);
 
 
@@ -113,8 +118,11 @@ public class allFragment extends Fragment {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
-                    adapter = new CustomAdapterAll(getActivity().getBaseContext(), arrMessageData);
+                    adapter = new allRecyclerViewAdapter(getActivity().getBaseContext(), arrMessageData);
                     usersListView.setAdapter(adapter);
+                    LinearLayoutManager layoutManager
+                            = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+                    usersListView.setLayoutManager(layoutManager);
                     break;
                 default:
                     Log.d("TAG", msg.what + " ? ");

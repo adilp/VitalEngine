@@ -6,18 +6,19 @@ import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import com.adilpatel.vitalengine.API.BasicAuthInterceptor;
-import com.adilpatel.vitalengine.ListAdapters.CustomAdapterConversations;
 import com.adilpatel.vitalengine.Models.MessageData;
 import com.adilpatel.vitalengine.R;
+import com.adilpatel.vitalengine.homeScreenRecycler.conversationRecyclerViewAdapter;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import org.json.JSONArray;
@@ -36,14 +37,16 @@ public class conversationsFragment extends Fragment {
     private String currentUserId;
     private ArrayAdapter namesArrayAdapter;
     //private ArrayList<String> names;
-    private ListView usersListView;
+    //private ListView usersListView;
+    private RecyclerView usersListView;
     String names[] = {"Anant Kharod, MD", "Mustafa Ahmed, MD"};
     String msg[] = {"What time do you want to get started adding more stuff go over the line", "Presentation is tomorrow"};
     boolean readUnread [] = {false,false};
     public static int [] images={R.drawable.msgone,R.drawable.msgtwo};
 
     ArrayList<MessageData> arrMessageData; //= new ArrayList<MessageData>();
-    CustomAdapterConversations adapter;
+    //CustomAdapterConversations adapter;
+    conversationRecyclerViewAdapter adapter;
 
 
 
@@ -63,7 +66,8 @@ public class conversationsFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_conversations, container, false);
-        usersListView = (ListView) rootView.findViewById(R.id.conversationsListView);
+//        usersListView = (ListView) rootView.findViewById(R.id.conversationsListView);
+        usersListView = (RecyclerView) rootView.findViewById(R.id.conversationsListView);
 
 
         //ArrayList<MessageData> arrMessageData = new ArrayList<MessageData>();
@@ -100,8 +104,11 @@ public class conversationsFragment extends Fragment {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
-                    adapter = new CustomAdapterConversations(getActivity().getBaseContext(), arrMessageData);
+                    adapter = new conversationRecyclerViewAdapter(getActivity().getBaseContext(), arrMessageData);
                     usersListView.setAdapter(adapter);
+                    LinearLayoutManager layoutManager
+                            = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+                    usersListView.setLayoutManager(layoutManager);
                     break;
                 default:
                     Log.d("TAG", msg.what + " ? ");
@@ -140,7 +147,7 @@ public class conversationsFragment extends Fragment {
         //String url = "https://randomuser.me/api/";
         String url  = "https://staging.vitalengine.com/portal-api/api/user/inbox/list?userId=" +
                 userId +
-                "&folderId=-1&tagId=0&page=1&itemPerPage=10&showMsgInFolder=false";
+                "&folderId=-1&tagId=0&page=1&itemPerPage=1000&showMsgInFolder=false";
 
         //String url = "https://staging.vitalengine.com/portal-api/api/login/getUserDetails?userName=ezhu";
 
@@ -200,6 +207,8 @@ public class conversationsFragment extends Fragment {
 
                             //String time = object.get("conversationDate");
 
+                            Log.e("ConversationTest", object.getString("fromUser"));
+
                             MessageData msg3 = new MessageData();
                             msg3.setName((String) object.get("fromUser"));
                             msg3.setMessage((String) object.get("message"));
@@ -207,6 +216,7 @@ public class conversationsFragment extends Fragment {
                             msg3.setRead(true);
                             msg3.setSubject((String) object.get("subject"));
                             msg3.setType((String) object.get("conversationDate"));
+                            msg3.setId((Integer) object.get("conversationId"));
 
                             arrMessageData.add(msg3);
                         } else {

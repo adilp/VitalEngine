@@ -43,4 +43,14 @@ public class chatMessageModel {
 
     String sender;
 
+    public int isAnnoted() {
+        return isAnnoted;
+    }
+
+    public void setIsAnnoted(int isAnnoted) {
+        this.isAnnoted = isAnnoted;
+    }
+
+    int isAnnoted;
+
 }

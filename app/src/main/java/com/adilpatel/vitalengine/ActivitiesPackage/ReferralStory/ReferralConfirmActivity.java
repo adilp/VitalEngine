@@ -5,8 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +36,9 @@ public class ReferralConfirmActivity extends AppCompatActivity {
     TextView patientDob;
     TextView patientFor;
     ImageView patientImage;
+    EditText refMessage;
+    Button refSendButton;
+
 
     private ReferralConfirmAdapter listAdapter;
     //private TwoWayView lvTest;
@@ -115,6 +122,8 @@ public class ReferralConfirmActivity extends AppCompatActivity {
         patientDob = (TextView)findViewById(R.id.referralConfirmDOB);
         patientFor = (TextView)findViewById(R.id.referralComfirmFor);
         patientImage = (ImageView)findViewById(R.id.referralConfirmPatientImage);
+        refMessage = (EditText)findViewById(R.id.refMessageBodyField);
+        refSendButton = (Button)findViewById(R.id.refSendButton);
 
         patientName.setText(receivedPatient.getName());
         patientDob.setText(receivedPatient.getDOB());
@@ -166,6 +175,18 @@ public class ReferralConfirmActivity extends AppCompatActivity {
         End
          */
 
+
+        refSendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Editable messageText = refMessage.getText();
+                sendMessageApi(messageText);
+            }
+        });
+
+    }
+
+    public void sendMessageApi(Editable messageText){
 
 
     }
