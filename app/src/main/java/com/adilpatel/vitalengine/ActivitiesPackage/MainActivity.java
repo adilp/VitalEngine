@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.adilpatel.vitalengine.ActivitiesPackage.Conversation.CreateMessageRecipientActivity;
-import com.adilpatel.vitalengine.ActivitiesPackage.ReferralStory.newReferenceActivity;
+import com.adilpatel.vitalengine.ActivitiesPackage.ReferralStory.RecyclerCreateMyTeamActivity;
 import com.adilpatel.vitalengine.FragmentPackage.allFragment;
 import com.adilpatel.vitalengine.FragmentPackage.conversationsFragment;
 import com.adilpatel.vitalengine.FragmentPackage.messageFragment;
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Toast.makeText(MainActivity.this, "New Referral Button clicked", Toast.LENGTH_SHORT).show();
-                Intent myIntent = new Intent(MainActivity.this, newReferenceActivity.class);
+                Intent myIntent = new Intent(MainActivity.this, RecyclerCreateMyTeamActivity.class);
                 MainActivity.this.startActivity(myIntent);
             }
         });
