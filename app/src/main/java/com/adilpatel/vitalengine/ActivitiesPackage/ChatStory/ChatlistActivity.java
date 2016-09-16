@@ -45,6 +45,10 @@ public class ChatlistActivity extends AppCompatActivity {
     private Integer ref;
     private String type;
 
+    private String conversation = "conversation";
+    private String referral = "referral";
+    private String message = "message";
+
    // private ArrayList<String> otherMessage;
 
 
@@ -125,6 +129,10 @@ public class ChatlistActivity extends AppCompatActivity {
 
     private void sendMessageApi(Editable messageText,  final String type){
 
+
+
+
+
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new BasicAuthInterceptor()).addNetworkInterceptor(new StethoInterceptor()).build();
 
         String credentials = "ezhu:Ccare@123";
@@ -139,14 +147,42 @@ public class ChatlistActivity extends AppCompatActivity {
         String auth_token_type = settings.getString("tokenType", "");
         String userId = settings.getString("userId", "");
 
+        String url = null;
+        RequestBody formBody = new FormBody.Builder().build();
 
-        String url = "https://staging.vitalengine.com/portal-api/api/user/referral/post/save";
+        if (type.equals(conversation)){
+            url = "https://staging.vitalengine.com/portal-api/api/user/conversation/post/save";
 
-        RequestBody formBody = new FormBody.Builder()
-                .add("referralId", String.valueOf(ref))
-                .add("message", String.valueOf(messageText))
-                .add("userId", userId)
-                .build();
+            formBody = new FormBody.Builder()
+                    .add("conversationId", String.valueOf(ref))
+                    .add("message", String.valueOf(messageText))
+                    .add("userId", userId)
+                    .build();
+
+        }
+
+        if (type.equals(referral)){
+            url = "https://staging.vitalengine.com/portal-api/api/user/referral/post/save";
+
+            formBody = new FormBody.Builder()
+                    .add("referralId", String.valueOf(ref))
+                    .add("message", String.valueOf(messageText))
+                    .add("userId", userId)
+                    .build();
+        }
+        else {
+             url = "https://staging.vitalengine.com/portal-api/api/user/message/post/save";
+
+            formBody = new FormBody.Builder()
+                    .add("conversationId", String.valueOf(ref))
+                    .add("message", String.valueOf(messageText))
+                    .add("userId", userId)
+                    .build();
+        }
+
+
+
+
 
         Request request = new Request.Builder().url(url).post(formBody)
                 .addHeader("Authorization", auth_token_type + " " + auth_token_string)
@@ -188,9 +224,9 @@ public class ChatlistActivity extends AppCompatActivity {
 
     private void callApi(String type) {
 
-        String conversation = "conversation";
-        String referral = "referral";
-        String message = "message";
+//        String conversation = "conversation";
+//        String referral = "referral";
+//        String message = "message";
 
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new BasicAuthInterceptor()).addNetworkInterceptor(new StethoInterceptor()).build();
 
