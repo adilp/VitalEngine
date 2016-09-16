@@ -47,7 +47,8 @@
         <activity
             android:name=".LoginActivity2"
             android:label="@string/title_activity_login2" />
-        <activity android:name=".ActivitiesPackage.ReferralStory.RecyclerCreateMyTeamActivity"></activity>
+        <activity android:name=".ActivitiesPackage.RecyclerReferral.RecyclerCreateMyTeamActivity" />
+        <activity android:name=".ActivitiesPackage.RecyclerReferral.CreateMyTeamStaffActivity"></activity>
     </application>
 
 </manifest>

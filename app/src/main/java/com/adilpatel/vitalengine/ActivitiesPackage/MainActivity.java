@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.adilpatel.vitalengine.ActivitiesPackage.Conversation.CreateMessageRecipientActivity;
-import com.adilpatel.vitalengine.ActivitiesPackage.ReferralStory.RecyclerCreateMyTeamActivity;
+import com.adilpatel.vitalengine.ActivitiesPackage.RecyclerReferral.RecyclerCreateMyTeamActivity;
 import com.adilpatel.vitalengine.FragmentPackage.allFragment;
 import com.adilpatel.vitalengine.FragmentPackage.conversationsFragment;
 import com.adilpatel.vitalengine.FragmentPackage.messageFragment;

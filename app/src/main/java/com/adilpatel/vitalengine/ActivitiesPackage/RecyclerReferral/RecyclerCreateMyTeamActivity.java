@@ -1,4 +1,4 @@
-package com.adilpatel.vitalengine.ActivitiesPackage.ReferralStory;
+package com.adilpatel.vitalengine.ActivitiesPackage.RecyclerReferral;
 
 import android.content.Context;
 import android.content.SharedPreferences;

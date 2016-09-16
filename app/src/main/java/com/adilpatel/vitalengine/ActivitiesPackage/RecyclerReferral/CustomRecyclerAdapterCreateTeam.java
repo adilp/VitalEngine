@@ -1,4 +1,4 @@
-package com.adilpatel.vitalengine.ActivitiesPackage.ReferralStory;
+package com.adilpatel.vitalengine.ActivitiesPackage.RecyclerReferral;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -30,7 +30,7 @@ public class CustomRecyclerAdapterCreateTeam extends RecyclerView.Adapter<ListVi
     public ListViewRowHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_create_team, null);
 
-        ListViewRowHolder holder = new ListViewRowHolder(v);
+        ListViewRowHolder holder = new ListViewRowHolder(v, context, (ArrayList<DoctorObject>) messageDataList);
         return holder;
     }
 
