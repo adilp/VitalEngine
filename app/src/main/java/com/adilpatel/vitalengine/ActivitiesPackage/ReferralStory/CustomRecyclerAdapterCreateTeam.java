@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.adilpatel.vitalengine.Models.MessageData;
+import com.adilpatel.vitalengine.Models.DoctorObject;
 import com.adilpatel.vitalengine.R;
 
 import java.util.ArrayList;
@@ -17,10 +17,10 @@ import java.util.List;
  */
 public class CustomRecyclerAdapterCreateTeam extends RecyclerView.Adapter<ListViewRowHolder> {
 
-    private List<MessageData> messageDataList;
+    private List<DoctorObject> messageDataList;
     private Context context;
 
-    public CustomRecyclerAdapterCreateTeam(Context context, List<MessageData> messageDataList) {
+    public CustomRecyclerAdapterCreateTeam(Context context, List<DoctorObject> messageDataList) {
         this.messageDataList = messageDataList;
         this.context = context;
     }
@@ -37,10 +37,10 @@ public class CustomRecyclerAdapterCreateTeam extends RecyclerView.Adapter<ListVi
     @Override
     public void onBindViewHolder(ListViewRowHolder holder, int position) {
 
-        MessageData messageData = messageDataList.get(position);
+        DoctorObject messageData = messageDataList.get(position);
 
-        holder.person.setText(messageData.getName());
-        holder.pic.setImageResource(messageData.getImage());
+        holder.person.setText(messageData.getDocname());
+        holder.pic.setImageResource(messageData.getDocPic());
 
     }
 
@@ -49,7 +49,7 @@ public class CustomRecyclerAdapterCreateTeam extends RecyclerView.Adapter<ListVi
         return messageDataList.size();
     }
 
-    public void setFilter(List<MessageData> messageModels) {
+    public void setFilter(List<DoctorObject> messageModels) {
         messageDataList = new ArrayList<>();
         messageDataList.addAll(messageModels);
         notifyDataSetChanged();
