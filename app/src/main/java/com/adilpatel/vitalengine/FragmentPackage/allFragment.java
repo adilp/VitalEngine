@@ -161,7 +161,7 @@ public class allFragment extends Fragment {
         //String url = "https://randomuser.me/api/";
         String url  = "https://staging.vitalengine.com/portal-api/api/user/inbox/list?userId=" +
                 userId +
-                "&folderId=-1&tagId=0&page=1&itemPerPage=10&showMsgInFolder=false";
+                "&folderId=-1&tagId=0&page=1&itemPerPage=100&showMsgInFolder=false";
 
         //String url = "https://staging.vitalengine.com/portal-api/api/login/getUserDetails?userName=ezhu";
 

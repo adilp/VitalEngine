@@ -331,12 +331,12 @@ public class ChatlistActivity extends AppCompatActivity {
                         if (sysMessage == 1){
                             first.setDirection(2);
                         }
-
-                            if (from == userIdInteger){
+                        else {
+                            if (from == userIdInteger) {
                                 first.setDirection(0);
                                 Log.e("Fromuser", String.valueOf(from));
                             } else {
-                                if (first.getDirection() == 2){
+                                if (first.getDirection() == 2) {
 
                                 } else {
                                     first.setDirection(1);
@@ -344,6 +344,7 @@ public class ChatlistActivity extends AppCompatActivity {
                                     Log.e("Fromuser", String.valueOf(from));
                                 }
                             }
+                        }
 
 
 
