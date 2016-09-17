@@ -52,9 +52,9 @@ public class ListViewRowHolder extends RecyclerView.ViewHolder implements View.O
 
         Intent myIntent = new Intent(ctx, CreateMyTeamStaffActivity.class);
         //myIntent.putParcelableArrayListExtra("NAME", (ArrayList<? extends Parcelable>) selectedStaff);
-        //myIntent.putExtra("refId", obj.getId());
-        myIntent.putExtra("typeOfActivity", "referral");
+        myIntent.putExtra("docId", obj.getDocId());
         //myIntent.putExtra("messagePerson", currentPerson);
         ctx.startActivity(myIntent);
+
     }
 }

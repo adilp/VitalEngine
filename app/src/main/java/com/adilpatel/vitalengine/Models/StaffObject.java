@@ -63,6 +63,16 @@ public class StaffObject implements Parcelable {
     String StaffLocation = "";
     String staffType = "";
 
+    public int getStaffId() {
+        return staffId;
+    }
+
+    public void setStaffId(int staffId) {
+        this.staffId = staffId;
+    }
+
+    int staffId;
+
 
 
     protected StaffObject(Parcel in) {

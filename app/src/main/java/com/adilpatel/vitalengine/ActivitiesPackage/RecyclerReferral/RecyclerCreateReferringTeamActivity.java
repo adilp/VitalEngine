@@ -1,6 +1,7 @@
 package com.adilpatel.vitalengine.ActivitiesPackage.RecyclerReferral;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -34,47 +35,38 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class RecyclerCreateMyTeamActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class RecyclerCreateReferringTeamActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     List<DoctorObject> messageDataList;
 
     private RecyclerView mRecyclerView;
-    private CustomRecyclerAdapterCreateTeam adapter;
+    private CustomRecyclerAdapterCreateReferringTeam adapter;
+
 
 
     //ListView usersListView;
     Context context;
 
     private static final String TAG = "MyActivity";
+    int myDoc;
+    int myStaff;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recycler_create_my_team);
+        setContentView(R.layout.activity_recycler_create_referring_team);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewReferringTeam);
+
+        Intent b = getIntent();
+
+        myDoc = b.getExtras().getInt("myDocId");
+        myStaff = b.getExtras().getInt("myStaffId");
 
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
-
-//        DoctorObject msg1 = new DoctorObject();
-//        msg1.setDocname("Anant Kharod");
-//        msg1.setDocPic(R.drawable.msgone);
-//
-//        DoctorObject msg2 = new DoctorObject();
-//        msg2.setDocname("Adil");
-//        msg2.setDocPic(R.drawable.msgthree);
-//
-//        messageDataList.add(msg1);
-//        messageDataList.add(msg2);
-
-        //Log.i(TAG, "Message: " + msg1);
-
-        //arrMessageData.add(msg1);
-
-        //callapi("");
-
     }
 
     @Override
@@ -111,11 +103,6 @@ public class RecyclerCreateMyTeamActivity extends AppCompatActivity implements S
 
     }
 
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
-
     public void clearData() {
 
 
@@ -135,6 +122,11 @@ public class RecyclerCreateMyTeamActivity extends AppCompatActivity implements S
     }
 
     @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
     public boolean onQueryTextChange(String newText) {
         if (newText.isEmpty()){
             clearData();
@@ -149,30 +141,15 @@ public class RecyclerCreateMyTeamActivity extends AppCompatActivity implements S
 
     }
 
-
-
-//    private List<DoctorObject> filter(List<DoctorObject> models, String query) {
-//        query = query.toLowerCase();
-//
-//        final List<DoctorObject> filteredModelList = new ArrayList<>();
-//        for (DoctorObject model : models) {
-//            final String text = model.getDocname().toLowerCase();
-//            if (text.contains(query)) {
-//                filteredModelList.add(model);
-//            }
-//        }
-//        return filteredModelList;
-//    }
-
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
-                    adapter = new CustomRecyclerAdapterCreateTeam(RecyclerCreateMyTeamActivity.this, messageDataList);
+                    adapter = new CustomRecyclerAdapterCreateReferringTeam(RecyclerCreateReferringTeamActivity.this, (ArrayList<DoctorObject>) messageDataList, myDoc, myStaff);
                     mRecyclerView.setAdapter(adapter);
                     LinearLayoutManager layoutManager
-                            = new LinearLayoutManager(RecyclerCreateMyTeamActivity.this, LinearLayoutManager.VERTICAL, false);
+                            = new LinearLayoutManager(RecyclerCreateReferringTeamActivity.this, LinearLayoutManager.VERTICAL, false);
                     mRecyclerView.setLayoutManager(layoutManager);
                     break;
                 default:
@@ -277,5 +254,3 @@ public class RecyclerCreateMyTeamActivity extends AppCompatActivity implements S
     }
 
 }
-
-

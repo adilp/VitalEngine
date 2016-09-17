@@ -31,6 +31,16 @@ public class DoctorObject implements Parcelable {
 
     String Docname = "";
 
+    public Integer getDocId() {
+        return DocId;
+    }
+
+    public void setDocId(Integer docId) {
+        DocId = docId;
+    }
+
+    int DocId;
+
     public String getDocname() {
         return Docname;
     }
