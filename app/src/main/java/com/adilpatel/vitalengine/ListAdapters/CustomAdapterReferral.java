@@ -73,7 +73,7 @@ public class CustomAdapterReferral extends BaseAdapter {
 
         holder.referralMessage.setText("" + arrMessageData.get(position).getMessage());
         holder.referralName.setText("" + arrMessageData.get(position).getName());
-        holder.referralImage.setImageResource(arrMessageData.get(position).getImage());
+        holder.referralImage.setImageBitmap(arrMessageData.get(position).getImage());
         holder.referralPatient.setText("" + arrMessageData.get(position).getSubject());
         holder.referralTimeStamp.setText("" + arrMessageData.get(position).getTime());
 

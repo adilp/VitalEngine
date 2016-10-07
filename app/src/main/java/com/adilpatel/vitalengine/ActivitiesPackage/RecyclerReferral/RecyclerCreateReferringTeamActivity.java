@@ -17,9 +17,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.adilpatel.vitalengine.API.BasicAuthInterceptor;
 import com.adilpatel.vitalengine.Models.DoctorObject;
+import com.adilpatel.vitalengine.Models.Patient;
+import com.adilpatel.vitalengine.Models.StaffObject;
 import com.adilpatel.vitalengine.R;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
@@ -49,7 +52,8 @@ public class RecyclerCreateReferringTeamActivity extends AppCompatActivity imple
 
     private static final String TAG = "MyActivity";
     int myDoc;
-    int myStaff;
+    List<StaffObject> myStaff;
+    Patient patient;
 
 
 
@@ -60,10 +64,15 @@ public class RecyclerCreateReferringTeamActivity extends AppCompatActivity imple
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewReferringTeam);
 
+        myStaff = new ArrayList<>();
+
         Intent b = getIntent();
 
         myDoc = b.getExtras().getInt("myDocId");
-        myStaff = b.getExtras().getInt("myStaffId");
+        myStaff = b.getExtras().getParcelableArrayList("Staff");
+        patient = b.getExtras().getParcelable("Patient");
+
+        Toast.makeText(this, "MyStaff " + myStaff.size(), Toast.LENGTH_SHORT).show();
 
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
@@ -146,7 +155,7 @@ public class RecyclerCreateReferringTeamActivity extends AppCompatActivity imple
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
-                    adapter = new CustomRecyclerAdapterCreateReferringTeam(RecyclerCreateReferringTeamActivity.this, (ArrayList<DoctorObject>) messageDataList, myDoc, myStaff);
+                    adapter = new CustomRecyclerAdapterCreateReferringTeam(RecyclerCreateReferringTeamActivity.this, (ArrayList<DoctorObject>) messageDataList, myDoc, (ArrayList<StaffObject>) myStaff, patient);
                     mRecyclerView.setAdapter(adapter);
                     LinearLayoutManager layoutManager
                             = new LinearLayoutManager(RecyclerCreateReferringTeamActivity.this, LinearLayoutManager.VERTICAL, false);
@@ -228,7 +237,7 @@ public class RecyclerCreateReferringTeamActivity extends AppCompatActivity imple
                         DoctorObject msg3 = new DoctorObject();
                         String firstname = (String) object.get("display_name");
                         String lastname = (String) object.get("last_name");
-                        msg3.setDocname(firstname + "" + lastname);
+                        msg3.setDocname(firstname);
                         msg3.setDocLocation((String) object.get("city"));
                         msg3.setDocPic(R.drawable.msgone);
                         msg3.setDocspecialty((String) object.get("speciality_name"));

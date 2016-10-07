@@ -1,6 +1,7 @@
 package com.adilpatel.vitalengine.ActivitiesPackage.RecyclerReferral;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 
 import com.adilpatel.vitalengine.API.BasicAuthInterceptor;
 import com.adilpatel.vitalengine.Models.DoctorObject;
+import com.adilpatel.vitalengine.Models.Patient;
 import com.adilpatel.vitalengine.R;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
@@ -44,6 +46,7 @@ public class RecyclerCreateMyTeamActivity extends AppCompatActivity implements S
 
     //ListView usersListView;
     Context context;
+    private Patient patient;
 
     private static final String TAG = "MyActivity";
 
@@ -58,22 +61,11 @@ public class RecyclerCreateMyTeamActivity extends AppCompatActivity implements S
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
-//        DoctorObject msg1 = new DoctorObject();
-//        msg1.setDocname("Anant Kharod");
-//        msg1.setDocPic(R.drawable.msgone);
-//
-//        DoctorObject msg2 = new DoctorObject();
-//        msg2.setDocname("Adil");
-//        msg2.setDocPic(R.drawable.msgthree);
-//
-//        messageDataList.add(msg1);
-//        messageDataList.add(msg2);
+        Intent b = getIntent();
 
-        //Log.i(TAG, "Message: " + msg1);
+        patient = b.getExtras().getParcelable("Patient");
 
-        //arrMessageData.add(msg1);
 
-        //callapi("");
 
     }
 
@@ -169,7 +161,7 @@ public class RecyclerCreateMyTeamActivity extends AppCompatActivity implements S
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
-                    adapter = new CustomRecyclerAdapterCreateTeam(RecyclerCreateMyTeamActivity.this, messageDataList);
+                    adapter = new CustomRecyclerAdapterCreateTeam(RecyclerCreateMyTeamActivity.this, messageDataList,patient);
                     mRecyclerView.setAdapter(adapter);
                     LinearLayoutManager layoutManager
                             = new LinearLayoutManager(RecyclerCreateMyTeamActivity.this, LinearLayoutManager.VERTICAL, false);
@@ -251,7 +243,7 @@ public class RecyclerCreateMyTeamActivity extends AppCompatActivity implements S
                         DoctorObject msg3 = new DoctorObject();
                         String firstname = (String) object.get("display_name");
                         String lastname = (String) object.get("last_name");
-                        msg3.setDocname(firstname + "" + lastname);
+                        msg3.setDocname(firstname);
                         msg3.setDocLocation((String) object.get("city"));
                         msg3.setDocPic(R.drawable.msgone);
                         msg3.setDocspecialty((String) object.get("speciality_name"));

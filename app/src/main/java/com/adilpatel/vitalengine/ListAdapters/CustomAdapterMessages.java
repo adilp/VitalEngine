@@ -78,7 +78,7 @@ public class CustomAdapterMessages extends BaseAdapter {
 
         holder.tv1.setText("" + arrMessageData.get(position).getMessage());
         holder.tv.setText(""+ arrMessageData.get(position).getName());
-        holder.iv.setImageResource(arrMessageData.get(position).getImage());
+        holder.iv.setImageBitmap(arrMessageData.get(position).getImage());
         //holder.subject.setText("" + arrMessageData.get(position).getSubject());
 
         if (arrMessageData.get(position).isRead() == true){

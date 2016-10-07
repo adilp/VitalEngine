@@ -2,15 +2,19 @@ package com.adilpatel.vitalengine.ActivitiesPackage.RecyclerReferral;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.adilpatel.vitalengine.Models.DoctorObject;
+import com.adilpatel.vitalengine.Models.Patient;
+import com.adilpatel.vitalengine.Models.StaffObject;
 import com.adilpatel.vitalengine.R;
 
 import java.util.ArrayList;
@@ -25,14 +29,15 @@ public class CustomRecyclerAdapterCreateReferringTeam extends RecyclerView.Adapt
     private List<DoctorObject> messageDataList;
     private Context context;
     private int myDoc;
-    private int myStaff;
-
+    private List<StaffObject> myStaff;
+    private Patient patient;
 
     // Pass in the contact array into the constructor
-    public CustomRecyclerAdapterCreateReferringTeam(Context mainActivity, ArrayList<DoctorObject> messageDataList, int myDoc, int myStaff) {
+    public CustomRecyclerAdapterCreateReferringTeam(Context mainActivity, ArrayList<DoctorObject> messageDataList, int myDoc, ArrayList<StaffObject> myStaff, Patient patient) {
         this.messageDataList = messageDataList;
         this.myDoc = myDoc;
         this.myStaff = myStaff;
+        this.patient= patient;
 
         context = mainActivity;
 
@@ -56,7 +61,7 @@ public class CustomRecyclerAdapterCreateReferringTeam extends RecyclerView.Adapt
 
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(contactView, context,messageDataList, myDoc, myStaff);
+        ViewHolder viewHolder = new ViewHolder(contactView, context,messageDataList, myDoc, myStaff, patient);
         return viewHolder;
     }
 
@@ -73,7 +78,7 @@ public class CustomRecyclerAdapterCreateReferringTeam extends RecyclerView.Adapt
         ImageView image = viewHolder.pic;
         image.setImageResource(contact.getDocPic());
 
-
+        viewHolder.selected.setVisibility(View.INVISIBLE);
 
     }
 
@@ -96,14 +101,17 @@ public class CustomRecyclerAdapterCreateReferringTeam extends RecyclerView.Adapt
         // for any view that will be set as you render a row
         public ImageView pic;
         public TextView person;
-        public int myDoc, myStaff;
+        public int myDoc;
+        public List<StaffObject> myStaff;
+        CheckBox selected;
+        Patient patient;
 
         ArrayList<DoctorObject> message = new ArrayList<DoctorObject>();
         Context ctx;
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
-        public ViewHolder(View itemView, Context ctx, List<DoctorObject> message, int myDoc, int myStaff ) {
+        public ViewHolder(View itemView, Context ctx, List<DoctorObject> message, int myDoc, List<StaffObject> myStaff, Patient patient) {
             // Stores the itemView in a public final member variable that can be used
             // to access the context from any ViewHolder instance.
             super(itemView);
@@ -112,10 +120,12 @@ public class CustomRecyclerAdapterCreateReferringTeam extends RecyclerView.Adapt
             itemView.setOnClickListener(this);
             this.myDoc = myDoc;
             this.myStaff = myStaff;
-
+            this.patient = patient;
             this.pic = (ImageView) itemView.findViewById(R.id.teamImage);
             this.person = (TextView) itemView.findViewById(R.id.teamName);
             this.message = (ArrayList<DoctorObject>) message;
+            this.selected = (CheckBox) itemView.findViewById(R.id.visibleButton);
+
 
         }
 
@@ -130,9 +140,9 @@ public class CustomRecyclerAdapterCreateReferringTeam extends RecyclerView.Adapt
             Toast.makeText(ctx, "CLICKED " + obj.getDocname(), Toast.LENGTH_SHORT).show();
 //
             Intent myIntent = new Intent(ctx, RecyclerCreateReferringTeamStaffActivity.class);
-//            //myIntent.putParcelableArrayListExtra("NAME", (ArrayList<? extends Parcelable>) selectedStaff);
+            myIntent.putParcelableArrayListExtra("Staff", (ArrayList<? extends Parcelable>) myStaff);
             myIntent.putExtra("myDoc", myDoc);
-            myIntent.putExtra("myStaff", myStaff);
+            myIntent.putExtra("Patient",patient);
             myIntent.putExtra("referringDoc", obj.getDocId());
             ctx.startActivity(myIntent);
         }

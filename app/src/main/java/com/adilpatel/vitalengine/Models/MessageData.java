@@ -1,5 +1,7 @@
 package com.adilpatel.vitalengine.Models;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by Adil on 6/11/16.
  */
@@ -8,7 +10,7 @@ public class MessageData {
 
         String message = "";
         boolean isRead = false;
-        int images;
+        Bitmap images;
         String name = "";
         String subject = "";
         String type = "";
@@ -60,11 +62,11 @@ public class MessageData {
             this.isRead = isRead;
         }
 
-        public void setImage (int images){
+        public void setImage (Bitmap images){
             this.images = images;
         }
 
-        public int getImage(){
+        public Bitmap getImage(){
             return images;
         }
 

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.adilpatel.vitalengine.Models.DoctorObject;
+import com.adilpatel.vitalengine.Models.Patient;
 import com.adilpatel.vitalengine.R;
 
 import java.util.ArrayList;
@@ -19,10 +20,12 @@ public class CustomRecyclerAdapterCreateTeam extends RecyclerView.Adapter<ListVi
 
     private List<DoctorObject> messageDataList;
     private Context context;
+    private Patient patient;
 
-    public CustomRecyclerAdapterCreateTeam(Context context, List<DoctorObject> messageDataList) {
+    public CustomRecyclerAdapterCreateTeam(Context context, List<DoctorObject> messageDataList, Patient patient) {
         this.messageDataList = messageDataList;
         this.context = context;
+        this.patient = patient;
     }
 
 
@@ -30,7 +33,7 @@ public class CustomRecyclerAdapterCreateTeam extends RecyclerView.Adapter<ListVi
     public ListViewRowHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_create_team, null);
 
-        ListViewRowHolder holder = new ListViewRowHolder(v, context, (ArrayList<DoctorObject>) messageDataList);
+        ListViewRowHolder holder = new ListViewRowHolder(v, context, (ArrayList<DoctorObject>) messageDataList, patient);
         return holder;
     }
 
@@ -41,6 +44,8 @@ public class CustomRecyclerAdapterCreateTeam extends RecyclerView.Adapter<ListVi
 
         holder.person.setText(messageData.getDocname());
         holder.pic.setImageResource(messageData.getDocPic());
+
+        holder.selected.setVisibility(View.INVISIBLE);
 
     }
 

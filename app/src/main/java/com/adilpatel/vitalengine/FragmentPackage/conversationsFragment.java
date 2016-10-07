@@ -1,6 +1,8 @@
 package com.adilpatel.vitalengine.FragmentPackage;
 
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,6 +27,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 
 import okhttp3.Call;
@@ -47,7 +52,7 @@ public class conversationsFragment extends Fragment {
     ArrayList<MessageData> arrMessageData; //= new ArrayList<MessageData>();
     //CustomAdapterConversations adapter;
     conversationRecyclerViewAdapter adapter;
-
+    Bitmap image;
 
 
     public conversationsFragment() {
@@ -75,14 +80,14 @@ public class conversationsFragment extends Fragment {
         MessageData msg1 = new MessageData();
         msg1.setName("Group 1");
         msg1.setMessage("Mustafa Ahmed: What time do you want to get started adding more stuff go over the line");
-        msg1.setImage(R.drawable.group);
+        //msg1.setImage(R.drawable.group);
         msg1.setRead(true);
         //msg1.setSubject("Test Subject 1");
 
         MessageData msg2 = new MessageData();
         msg2.setName("Group 2");
         msg2.setMessage("Anant Kharod: Presentation is tomorrow");
-        msg2.setImage(R.drawable.group);
+        //msg2.setImage(R.drawable.group);
         //msg2.setSubject("Subject 2");
 
 
@@ -212,7 +217,8 @@ public class conversationsFragment extends Fragment {
                             MessageData msg3 = new MessageData();
                             msg3.setName((String) object.get("fromUser"));
                             msg3.setMessage((String) object.get("message"));
-                            msg3.setImage(R.drawable.msgone);
+                            getImage((String) object.get("photo"));
+                            msg3.setImage(image);
                             msg3.setRead(true);
                             msg3.setSubject((String) object.get("subject"));
                             msg3.setType((String) object.get("conversationDate"));
@@ -241,6 +247,38 @@ public class conversationsFragment extends Fragment {
 
 
         });
+    }
+    public void getImage(String id) throws IOException {
+
+        String credentials = "ezhu:Ccare@123";
+        String auth = "Basic "
+                + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+
+        Log.e("Test", auth);
+
+
+        //SharedPreferences preferences = this.getActivity().getSharedPreferences("token", Context.MODE_PRIVATE);
+
+        SharedPreferences settings = PreferenceManager
+                .getDefaultSharedPreferences(getActivity());
+        String auth_token_string = settings.getString("token", ""/*default value*/);
+        String auth_token_type = settings.getString("tokenType", "");
+        String userId = settings.getString("userId", "");
+
+        Log.i("prefs", auth_token_type);
+
+
+        URL imgurl = new URL("https://staging.vitalengine.com/portal-api/" + id);
+        URLConnection conn = imgurl.openConnection();
+        conn.addRequestProperty("Authorization", auth_token_type + " "+ auth_token_string);
+        conn.connect();
+
+        InputStream in = conn.getInputStream();
+
+        Bitmap bmp = BitmapFactory.decodeStream(in);
+        image = bmp;
+
+
     }
 
 }

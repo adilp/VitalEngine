@@ -25,7 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ActivitiesPackage.ReferralStory.newReferenceActivity" />
+        <activity android:name=".ActivitiesPackage.RecyclerReferral.newReferenceActivity" />
         <activity android:name=".ActivitiesPackage.ReferralStory.CreateMyTeamActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -36,7 +36,7 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity android:name=".ActivitiesPackage.ReferralStory.CreateReferralTeamActivity" />
-        <activity android:name=".ActivitiesPackage.ReferralStory.ReferralConfirmActivity" />
+        <activity android:name=".ActivitiesPackage.RecyclerReferral.RecyclerReferralConfirmActivity" />
         <activity android:name=".ActivitiesPackage.Conversation.CreateMessageRecipientActivity" />
         <activity android:name=".ActivitiesPackage.Conversation.MessageConfirmActivity" />
         <activity android:name=".ActivitiesPackage.ChatStory.ChatlistActivity" />

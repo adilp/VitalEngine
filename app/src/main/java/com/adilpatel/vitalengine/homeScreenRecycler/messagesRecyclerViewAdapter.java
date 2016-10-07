@@ -65,7 +65,7 @@ public class messagesRecyclerViewAdapter extends RecyclerView.Adapter<messagesRe
         TextView message = viewHolder.tv1;
         message.setText(contact.getMessage());
         ImageView image = viewHolder.iv;
-        image.setImageResource(contact.getImage());
+        image.setImageBitmap(contact.getImage());
 //        TextView patient = viewHolder.referralPatient;
 //        patient.setText(contact.getSubject());
 //        TextView time = viewHolder.referralTimeStamp;

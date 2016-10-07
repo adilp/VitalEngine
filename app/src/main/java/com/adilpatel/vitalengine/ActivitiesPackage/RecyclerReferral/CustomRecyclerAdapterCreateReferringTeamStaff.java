@@ -1,11 +1,11 @@
 package com.adilpatel.vitalengine.ActivitiesPackage.RecyclerReferral;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,15 +24,13 @@ public class CustomRecyclerAdapterCreateReferringTeamStaff extends RecyclerView.
 
 private List<StaffObject> messageDataList;
 private Context context;
- private    int myDoc, myStaff, referringDoc;
+
+
 
 
 // Pass in the contact array into the constructor
-public CustomRecyclerAdapterCreateReferringTeamStaff(Context mainActivity, ArrayList<StaffObject> messageDataList, int myDoc, int myStaff, int referringDoc) {
+public CustomRecyclerAdapterCreateReferringTeamStaff(Context mainActivity, ArrayList<StaffObject> messageDataList) {
         this.messageDataList = messageDataList;
-        this.myDoc = myDoc;
-        this.myStaff = myStaff;
-        this.referringDoc = referringDoc;
         context = mainActivity;
 
         }
@@ -55,7 +53,7 @@ public CustomRecyclerAdapterCreateReferringTeamStaff.ViewHolder onCreateViewHold
 
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(contactView, context,messageDataList, myDoc, myStaff, referringDoc);
+        ViewHolder viewHolder = new ViewHolder(contactView, context,messageDataList);
         return viewHolder;
         }
 
@@ -64,13 +62,31 @@ public CustomRecyclerAdapterCreateReferringTeamStaff.ViewHolder onCreateViewHold
 @Override
 public void onBindViewHolder(CustomRecyclerAdapterCreateReferringTeamStaff.ViewHolder viewHolder, int position) {
         // Get the data model based on position
-        StaffObject contact = messageDataList.get(position);
+        final StaffObject contact = messageDataList.get(position);
 
         // Set item views based on your views and data model
         TextView person = viewHolder.person;
         person.setText(contact.getStaffname());
         ImageView image = viewHolder.pic;
         image.setImageResource(contact.getStaffPic());
+
+    CheckBox selection = viewHolder.selected;
+
+    selection.setChecked(contact.isChecked());
+
+    viewHolder.selected.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            CheckBox cb = (CheckBox) v;
+            //int clickedPos = ((Integer) cb.getTag()).intValue();
+
+            contact.setChecked(cb.isChecked());
+
+
+
+        }
+    });
+
 
 
 
@@ -89,27 +105,26 @@ public static class ViewHolder extends RecyclerView.ViewHolder implements View.O
     // for any view that will be set as you render a row
     public ImageView pic;
     public TextView person;
-    int myDoc,  myStaff,  referringDoc;
+    public CheckBox selected;
 
     ArrayList<StaffObject> message = new ArrayList<StaffObject>();
     Context ctx;
 
     // We also create a constructor that accepts the entire item row
     // and does the view lookups to find each subview
-    public ViewHolder(View itemView, Context ctx, List<StaffObject> message, int myDoc, int myStaff, int referringDoc) {
+    public ViewHolder(View itemView, Context ctx, List<StaffObject> message) {
         // Stores the itemView in a public final member variable that can be used
         // to access the context from any ViewHolder instance.
         super(itemView);
 
         this.ctx = ctx;
         itemView.setOnClickListener(this);
-        this.myDoc = myDoc;
-        this.myStaff = myStaff;
-        this.referringDoc = referringDoc;
+
 
         this.pic = (ImageView) itemView.findViewById(R.id.teamImage);
         this.person = (TextView) itemView.findViewById(R.id.teamName);
         this.message = (ArrayList<StaffObject>) message;
+        this.selected = (CheckBox) itemView.findViewById(R.id.visibleButton);
 
     }
 
@@ -123,13 +138,12 @@ public static class ViewHolder extends RecyclerView.ViewHolder implements View.O
 
         Toast.makeText(ctx, "CLICKED " + obj.getStaffname(), Toast.LENGTH_SHORT).show();
 //
-        Intent myIntent = new Intent(ctx, RecyclerCreateReferringTeamActivity.class);
-//        //myIntent.putParcelableArrayListExtra("NAME", (ArrayList<? extends Parcelable>) selectedStaff);
-        myIntent.putExtra("myDoc", myDoc);
-        myIntent.putExtra("myStaff", myStaff);
-        myIntent.putExtra("referringDoc", referringDoc);
-        myIntent.putExtra("referringStaff", obj.getStaffname());
-        ctx.startActivity(myIntent);
+//        Intent myIntent = new Intent(ctx, RecyclerCreateReferringTeamActivity.class);
+//       myIntent.putParcelableArrayListExtra("myStaff", (ArrayList<? extends Parcelable>) myStaff);
+//        myIntent.putExtra("myDoc", myDoc);
+//        myIntent.putExtra("referringDoc", referringDoc);
+//        //myIntent.putExtra("referringStaff", obj.getStaffname());
+//        ctx.startActivity(myIntent);
     }
 }}
 

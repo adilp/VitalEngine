@@ -1,4 +1,4 @@
-package com.adilpatel.vitalengine.ActivitiesPackage.ReferralStory;
+package com.adilpatel.vitalengine.ActivitiesPackage.RecyclerReferral;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -42,7 +42,7 @@ public class newReferenceActivity extends AppCompatActivity  {
                 patient.setDOB(DOB.getText().toString());
                 patient.setFor(forField.getText().toString());
 
-                Intent myIntent = new Intent(newReferenceActivity.this, CreateMyTeamActivity.class);
+                Intent myIntent = new Intent(newReferenceActivity.this, RecyclerCreateMyTeamActivity.class);
                 myIntent.putExtra("Patient",patient);
                 newReferenceActivity.this.startActivity(myIntent);
             }

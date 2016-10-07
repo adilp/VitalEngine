@@ -3,6 +3,8 @@ package com.adilpatel.vitalengine.ActivitiesPackage.RecyclerReferral;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,23 +19,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.adilpatel.vitalengine.API.BasicAuthInterceptor;
+import com.adilpatel.vitalengine.ActivitiesPackage.LoginActivity;
+import com.adilpatel.vitalengine.ActivitiesPackage.MainActivity;
 import com.adilpatel.vitalengine.Expand2.RecyclerViewAdapter;
 import com.adilpatel.vitalengine.ListAdapters.ReferralConfirmAdapter;
-import com.adilpatel.vitalengine.Models.MessageData;
+import com.adilpatel.vitalengine.Models.Patient;
 import com.adilpatel.vitalengine.Models.StaffObject;
 import com.adilpatel.vitalengine.R;
+import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 
 /**
  * Created by Adil on 9/16/16.
@@ -41,7 +50,7 @@ import okhttp3.Request;
 public class RecyclerReferralConfirmActivity extends AppCompatActivity {
 
 
-    ArrayList<StaffObject> currentStaff;
+    List<StaffObject> currentStaff; //= new ArrayList<>();
 
 
     TextView patientName;
@@ -56,17 +65,27 @@ public class RecyclerReferralConfirmActivity extends AppCompatActivity {
     private RecyclerView ReferralTeamRecyclerlist;
     private RecyclerView myTeamRecyclerList;
 
-    ArrayList<StaffObject> myTeamList;
 
     int mydoc ;
-    int myStaff ;
     int referringDoc ;
-    int referringStaff;
+    List<StaffObject> referringStaff; //= new ArrayList<>();
+
+    RecyclerViewAdapter adapter1;
+    RecyclerViewAdapter adapter;
+    Patient patient;
+    String userId;
+
+    JSONArray refParticipantsArray = new JSONArray();
+    JSONArray recParticipantsArray = new JSONArray();
+
+    JSONObject referralJson;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Stetho.initializeWithDefaults(this);
         setContentView(R.layout.activity_referral_confirm);
 
 
@@ -77,44 +96,24 @@ public class RecyclerReferralConfirmActivity extends AppCompatActivity {
         Intent b = getIntent();
 
 
-         mydoc = b.getExtras().getInt("docId");
-         myStaff = b.getExtras().getInt("myStaff");
-         referringDoc = b.getExtras().getInt("referringDoc");
-         referringStaff = b.getExtras().getInt("referringDoc");
+        mydoc = b.getExtras().getInt("myDoc");
+        currentStaff = new ArrayList<>();
+        currentStaff = b.getExtras().getParcelableArrayList("myStaff");
+        referringDoc = b.getExtras().getInt("referringDoc");
+        referringStaff = new ArrayList<>();
+        referringStaff = b.getExtras().getParcelableArrayList("refStaff");
+        patient = b.getExtras().getParcelable("Patient");
 
+        getDocApi(referringDoc, true);
+        getDocApi(mydoc, false);
 
-        //Referral Team doctor
-//        StaffObject referralDoc = new StaffObject(referralTeamDoc.getDocname());
-//        referralDoc.setStaffLocation(referralTeamDoc.getDocLocation());
-//        referralDoc.setStaffPic(referralTeamDoc.getDocPic());
-//        referralDoc.setStaffSpecialty(referralTeamDoc.getDocspecialty());
-//
-//        //My Team doctor
-//        StaffObject myDoc = new StaffObject(myTeamDoc.getDocname());
-//        myDoc.setStaffLocation(myTeamDoc.getDocLocation());
-//        myDoc.setStaffPic(myTeamDoc.getDocPic());
-//        myDoc.setStaffSpecialty(myTeamDoc.getDocspecialty());
+        SharedPreferences settings = PreferenceManager
+                .getDefaultSharedPreferences(this);
+         userId = settings.getString("userId", "");
 
         /*
         end
          */
-
-
-
-
-        //lvTest = (TwoWayView) findViewById(R.id.MyTeamItems);
-//
-        //lvTest = (ListView)findViewById(R.id.MyTeamItems);
-        //listAdapter = new ReferralConfirmAdapter(this, list);
-
-        //lvTest.setAdapter(listAdapter);
-
-
-
-
-
-        //ArrayAdapter<String> aItems = new ArrayAdapter<String>(this, R.layout.simple_list_item_1, items);
-
 
 
         /*
@@ -128,28 +127,128 @@ public class RecyclerReferralConfirmActivity extends AppCompatActivity {
         refMessage = (EditText)findViewById(R.id.refMessageBodyField);
         refSendButton = (Button)findViewById(R.id.refSendButton);
 
-//        patientName.setText(receivedPatient.getName());
-//        patientDob.setText(receivedPatient.getDOB());
-//        patientFor.setText(receivedPatient.getFor());
-//        patientImage.setImageResource(R.drawable.group);
+        patientName.setText(patient.getName());
+        patientDob.setText(patient.getDOB());
+        patientFor.setText(patient.getFor());
+        patientImage.setImageResource(R.drawable.group);
 
 
-        /*
-        RecyclerView My Team
-         */
 
-        myTeamRecyclerList = (RecyclerView)findViewById(R.id.recyclerViewMyTeam);
-       // myTeamList.add(0,myDoc);
-        //myTeamList.add();
-        //list = StaffObject.createContactsList(20);
-        // Create adapter passing in the sample user data
-        RecyclerViewAdapter adapter1 = new RecyclerViewAdapter(this, myTeamList);
-        // Attach the adapter to the recyclerview to populate items
-        myTeamRecyclerList.setAdapter(adapter1);
-        // Set layout manager to position the items
-        LinearLayoutManager layoutManager
-                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        myTeamRecyclerList.setLayoutManager(layoutManager);
+
+
+
+
+
+
+        refSendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Editable messageText = refMessage.getText();
+                jsonBody(messageText);
+                messageText.clear();
+                sendReferral(referralJson);
+                Log.e("ReferralSendingJson", referralJson.toString());
+
+                Intent myIntent = new Intent(RecyclerReferralConfirmActivity.this, MainActivity.class);
+                RecyclerReferralConfirmActivity.this.startActivity(myIntent);`
+
+            }
+        });
+
+    }
+
+    private void jsonBody(Editable messageText){
+
+        refParticipantsArray = new JSONArray();
+        recParticipantsArray = new JSONArray();
+
+
+        for (int i = 0; i< currentStaff.size(); i++) {
+            try {
+                JSONObject refferralParticipants = new JSONObject();
+                refferralParticipants.put("userId", currentStaff.get(i).getStaffId());
+                refferralParticipants.put("specialityName", currentStaff.get(i).getStaffSpecialty());
+                refferralParticipants.put("fullName", currentStaff.get(i).getStaffname());
+                refferralParticipants.put("photo", "img/user/false/"+ currentStaff.get(i).getStaffId());
+                refferralParticipants.put("practiceName", "");
+                refferralParticipants.put("practiceId", 1);
+                refParticipantsArray.put(refferralParticipants);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        for (int i = 0; i< referringStaff.size(); i++) {
+            try {
+                JSONObject receivingParticipants = new JSONObject();
+
+
+                receivingParticipants.put("practiceName", "");
+                receivingParticipants.put("specialityName", referringStaff.get(i).getStaffSpecialty());
+                receivingParticipants.put("npiNumber", "");
+                receivingParticipants.put("fullName", referringStaff.get(i).getStaffname());
+                receivingParticipants.put("photo", "img/user/false/"+ referringStaff.get(i).getStaffId());
+                receivingParticipants.put("Id", referringStaff.get(i).getStaffId());
+                receivingParticipants.put("userType", "");
+                receivingParticipants.put("type", "");
+                receivingParticipants.put("isNonVitalUser", "");
+                receivingParticipants.put("userId", referringStaff.get(i).getStaffId());
+                receivingParticipants.put("specialityId", referringStaff.get(i).getStaffId());
+                recParticipantsArray.put(receivingParticipants);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        JSONArray Empty1 = new JSONArray();
+        JSONArray Empty2 = new JSONArray();
+        JSONArray Empty3 = new JSONArray();
+        JSONArray Empty4 = new JSONArray();
+        JSONArray Empty5 = new JSONArray();
+
+        referralJson = new JSONObject();
+        try {
+            referralJson.put("userId", userId);
+            referralJson.put("patientName", patient.getName());
+            referralJson.put("patientDob", patient.getDOB());
+            referralJson.put("referralFor", patient.getFor());
+            referralJson.put("patientPhoto", "");
+            referralJson.put("message", messageText);
+            referralJson.put("referralParticipants", refParticipantsArray);
+            referralJson.put("receivingParticipants", recParticipantsArray);
+            referralJson.put("otherParticipants", Empty1);
+            referralJson.put("dicomImages", Empty2);
+            referralJson.put("referralEvents", Empty3);
+            referralJson.put("referralTodo", Empty4);
+            referralJson.put("referralTags", Empty5);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 1:
+                    myTeamRecyclerList = (RecyclerView)findViewById(R.id.recyclerViewMyTeam);
+                    //myTeamList.add();
+                    //list = StaffObject.createContactsList(20);
+                    // Create adapter passing in the sample user data
+                    adapter1 = new RecyclerViewAdapter(RecyclerReferralConfirmActivity.this, currentStaff);
+                    // Attach the adapter to the recyclerview to populate items
+                    myTeamRecyclerList.setAdapter(adapter1);
+                    // Set layout manager to position the items
+                    LinearLayoutManager layoutManager
+                            = new LinearLayoutManager(RecyclerReferralConfirmActivity.this, LinearLayoutManager.HORIZONTAL, false);
+                    myTeamRecyclerList.setLayoutManager(layoutManager);
+
+
 
         /*
         End
@@ -161,18 +260,18 @@ public class RecyclerReferralConfirmActivity extends AppCompatActivity {
         RecyclerView Referral Team
          */
 
-        ReferralTeamRecyclerlist = (RecyclerView)findViewById(R.id.recyclerViewReferralTeam);
-        //list.add(0,referralDoc);
+                    ReferralTeamRecyclerlist = (RecyclerView)findViewById(R.id.recyclerViewReferralTeam);
+                    //list.add(0,referralDoc);
 
-        // Create adapter passing in the sample user data
-        //RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, list);
-        // Attach the adapter to the recyclerview to populate items
-        //ReferralTeamRecyclerlist.setAdapter(adapter);
-        // Set layout manager to position the items
-        LinearLayoutManager layoutManager1
-                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        ReferralTeamRecyclerlist.setLayoutManager(layoutManager1);
-        // That's all!
+                    // Create adapter passing in the sample user data
+                    adapter = new RecyclerViewAdapter(RecyclerReferralConfirmActivity.this, referringStaff);
+                    // Attach the adapter to the recyclerview to populate items
+                    ReferralTeamRecyclerlist.setAdapter(adapter);
+                    // Set layout manager to position the items
+                    LinearLayoutManager layoutManager1
+                            = new LinearLayoutManager(RecyclerReferralConfirmActivity.this, LinearLayoutManager.HORIZONTAL, false);
+                    ReferralTeamRecyclerlist.setLayoutManager(layoutManager1);
+                    // That's all!
 
 
         /*
@@ -180,18 +279,84 @@ public class RecyclerReferralConfirmActivity extends AppCompatActivity {
          */
 
 
-        refSendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Editable messageText = refMessage.getText();
-                //sendMessageApi(messageText);
-            }
-        });
 
+                    break;
+                default:
+                    Log.d("TAG", msg.what + " ? ");
+                    break;
+            }
+        }
+    };
+
+    public void sendReferral(JSONObject referralJson){
+
+
+        OkHttpClient client = new OkHttpClient.Builder().addNetworkInterceptor(new StethoInterceptor()).build();
+
+
+        //OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new BasicAuthInterceptor()).addNetworkInterceptor(new StethoInterceptor()).build();
+
+
+
+        String url = "https://staging.vitalengine.com/portal-api/api/user/referral/save";
+
+        SharedPreferences settings = PreferenceManager
+                .getDefaultSharedPreferences(this);
+        String auth_token_string = settings.getString("token", ""/*default value*/);
+        String auth_token_type = settings.getString("tokenType", "");
+        String userId = settings.getString("userId", "");
+
+         MediaType JSON
+                = MediaType.parse("application/json; charset=utf-8");
+
+        RequestBody body = RequestBody.create(JSON, String.valueOf(referralJson));
+        Request request = new Request.Builder()
+                .url(url)
+                .addHeader("Authorization", auth_token_type + " " + auth_token_string)
+                .addHeader("user-tz", "-330")
+                .post(body)
+                .build();
+
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                //Log.i(TAG, "call api error");
+                Log.e("Volley", e.toString());
+            }
+
+            @Override
+            public void onResponse(Call call, okhttp3.Response response)  {
+
+                try {
+                    if (!response.isSuccessful())
+                        throw new IOException("Unexpected code " + response);
+                    final String body = response.body().string();
+                    Log.e("VolleyAuth", "Success!");
+
+                    JSONObject Jobject = new JSONObject(body);
+
+
+                    //JSONObject sub = Jobject.getJSONObject("response");
+
+                    Log.e("USERAPI", String.valueOf(Jobject));
+
+
+
+
+                    // Log.e("FullJsonReply", body.toString());
+                } catch (Exception e){
+                    Log.e("VolleyAuth", e.toString());
+                }
+
+            }
+
+
+        });
     }
 
 
-    public void getApi (int person){
+    public void getDocApi (int doc, final boolean flag){
 
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new BasicAuthInterceptor()).addNetworkInterceptor(new StethoInterceptor()).build();
 
@@ -214,9 +379,7 @@ public class RecyclerReferralConfirmActivity extends AppCompatActivity {
 
 
         //String url = "https://randomuser.me/api/";
-        String url  = "https://staging.vitalengine.com/portal-api/api/user/inbox/list?userId=" +
-                userId +
-                "&folderId=-1&tagId=0&page=1&itemPerPage=1000&showMsgInFolder=false";
+        String url  = "https://staging.vitalengine.com/portal-api/api/user/quickinfo?userId=" + doc;
 
         //String url = "https://staging.vitalengine.com/portal-api/api/login/getUserDetails?userName=ezhu";
 
@@ -254,52 +417,21 @@ public class RecyclerReferralConfirmActivity extends AppCompatActivity {
 
 
                     //JSONArray Jarray = Jobject.getJSONArray("inboxMsgList");
-                    JSONObject sub = Jobject.getJSONObject("response");
-                    JSONArray Jarray = sub.getJSONArray("inboxMsgList");
-                    Log.e("JSON", String.valueOf(sub));
-                    //Log.e("Array", String.valueOf(Jarray.length()));
 
 
-//                    if (Jarray == null){
-//                        Toast.makeText(getActivity(),
-//                                "Null",
-//                                Toast.LENGTH_LONG).show();
-//                    }
+                    StaffObject msg3 = new StaffObject(String.valueOf(Jobject.get("displayName")));
+                    msg3.setStaffId((Integer) Jobject.get("userId"));
+                    msg3.setStaffSpecialty((String) Jobject.get("specialityName"));
+                    //msg3.setStaffSpecialty((String) Jobject.get("specialityName"));
 
-
-
-                    //arrMessageData = new ArrayList<>();
-
-                    for (int i = 0; i < Jarray.length(); i++) {
-                        JSONObject object = Jarray.getJSONObject(i);
-
-                        if (object.get("messageType").equals("REFERRALS")) {
-
-                            //String time = object.get("conversationDate");
-
-                            MessageData msg3 = new MessageData();
-                            msg3.setName((String) object.get("fromUser"));
-                            msg3.setMessage((String) object.get("message"));
-                            msg3.setImage(R.drawable.msgone);
-                            msg3.setRead(true);
-                            msg3.setSubject((String) object.get("patient"));
-                            msg3.setType((String) object.get("conversationDate"));
-                            msg3.setId((Integer) object.get("referralId"));
-                            //Log.e("RefId", object.getString("referralId"));
-
-                            //arrMessageData.add(msg3);
-                        } else{
-                            // Log.e("DetailObject", object.getString("fromUser"));
-                            //Log.e("RefId", object.getString("referralId"));
+                       if (flag == true) {
+                           referringStaff.add(0,msg3);
+                       }
+                        if (flag == false) {
+                            currentStaff.add(0,msg3);
+                            handler.sendEmptyMessage(1);
                         }
 
-
-                        //Log.e("DetailObject", object.getString("fromUser"));
-                        //Log.e("DetailObject", msg3.getName());
-
-                        //handler.sendEmptyMessage(1);
-
-                    }
 
 
                     // Log.e("FullJsonReply", body.toString());
