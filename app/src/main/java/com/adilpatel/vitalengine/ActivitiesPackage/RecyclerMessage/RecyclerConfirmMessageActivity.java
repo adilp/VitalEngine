@@ -193,15 +193,9 @@ public class RecyclerConfirmMessageActivity extends AppCompatActivity {
         Log.i("prefs", auth_token_type);
 
 
-        //String url = "https://randomuser.me/api/";
+
         String url  = "https://staging.vitalengine.com/portal-api/api/user/quickinfo?userId=" + doc;
 
-        //String url = "https://staging.vitalengine.com/portal-api/api/login/getUserDetails?userName=ezhu";
-
-        //String url = "http://192.168.1.49:8888/portal-api/api/login/getUserDetails?userName=ezhu";
-
-        //String url = "http://httpbin.org/basic-auth/user/passwd";
-        //String url = "http://10.0.2.2:3000/response";
 
         Request request = new Request.Builder().url(url)
                 .addHeader("Authorization", auth_token_type + " "+ auth_token_string )
