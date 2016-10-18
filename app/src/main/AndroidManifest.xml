@@ -50,7 +50,9 @@
         <activity android:name=".ActivitiesPackage.RecyclerReferral.RecyclerCreateMyTeamActivity" />
         <activity android:name=".ActivitiesPackage.RecyclerReferral.CreateMyTeamStaffActivity" />
         <activity android:name=".ActivitiesPackage.RecyclerReferral.RecyclerCreateReferringTeamActivity" />
-        <activity android:name=".ActivitiesPackage.RecyclerReferral.RecyclerCreateReferringTeamStaffActivity"></activity>
+        <activity android:name=".ActivitiesPackage.RecyclerReferral.RecyclerCreateReferringTeamStaffActivity" />
+        <activity android:name=".ActivitiesPackage.RecyclerMessage.RecyclerFromMessage" />
+        <activity android:name=".ActivitiesPackage.RecyclerMessage.RecyclerConfirmMessageActivity"></activity>
     </application>
 
 </manifest>

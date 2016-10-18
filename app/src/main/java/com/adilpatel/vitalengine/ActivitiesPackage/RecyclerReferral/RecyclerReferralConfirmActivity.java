@@ -19,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.adilpatel.vitalengine.API.BasicAuthInterceptor;
-import com.adilpatel.vitalengine.ActivitiesPackage.LoginActivity;
 import com.adilpatel.vitalengine.ActivitiesPackage.MainActivity;
 import com.adilpatel.vitalengine.Expand2.RecyclerViewAdapter;
 import com.adilpatel.vitalengine.ListAdapters.ReferralConfirmAdapter;
@@ -34,6 +33,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,6 +81,8 @@ public class RecyclerReferralConfirmActivity extends AppCompatActivity {
     JSONArray recParticipantsArray = new JSONArray();
 
     JSONObject referralJson;
+
+    int image;
 
 
 
@@ -150,7 +154,7 @@ public class RecyclerReferralConfirmActivity extends AppCompatActivity {
                 Log.e("ReferralSendingJson", referralJson.toString());
 
                 Intent myIntent = new Intent(RecyclerReferralConfirmActivity.this, MainActivity.class);
-                RecyclerReferralConfirmActivity.this.startActivity(myIntent);`
+                RecyclerReferralConfirmActivity.this.startActivity(myIntent);
 
             }
         });
@@ -355,6 +359,39 @@ public class RecyclerReferralConfirmActivity extends AppCompatActivity {
         });
     }
 
+    public void getImage(String id) throws IOException {
+
+        String credentials = "ezhu:Ccare@123";
+        String auth = "Basic "
+                + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+
+        Log.e("Test", auth);
+
+
+        //SharedPreferences preferences = this.getActivity().getSharedPreferences("token", Context.MODE_PRIVATE);
+
+        SharedPreferences settings = PreferenceManager
+                .getDefaultSharedPreferences(RecyclerReferralConfirmActivity.this);
+        String auth_token_string = settings.getString("token", ""/*default value*/);
+        String auth_token_type = settings.getString("tokenType", "");
+        String userId = settings.getString("userId", "");
+
+        Log.i("prefs", auth_token_type);
+
+
+        URL imgurl = new URL("https://staging.vitalengine.com/portal-api/" + id);
+        URLConnection conn = imgurl.openConnection();
+        conn.addRequestProperty("Authorization", auth_token_type + " "+ auth_token_string);
+        conn.connect();
+
+        InputStream in = conn.getInputStream();
+
+//        Bitmap bmp = BitmapFactory.decodeStream(in);
+//        image = bmp;
+
+
+    }
+
 
     public void getDocApi (int doc, final boolean flag){
 
@@ -422,6 +459,9 @@ public class RecyclerReferralConfirmActivity extends AppCompatActivity {
                     StaffObject msg3 = new StaffObject(String.valueOf(Jobject.get("displayName")));
                     msg3.setStaffId((Integer) Jobject.get("userId"));
                     msg3.setStaffSpecialty((String) Jobject.get("specialityName"));
+                    //getImage((String) Jobject.get("userId"));
+                    msg3.setStaffPic(image);
+
                     //msg3.setStaffSpecialty((String) Jobject.get("specialityName"));
 
                        if (flag == true) {
@@ -444,6 +484,9 @@ public class RecyclerReferralConfirmActivity extends AppCompatActivity {
 
 
         });
+
+
+
     }
 
 }
