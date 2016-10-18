@@ -81,7 +81,7 @@ public class CustomAdapterAll extends BaseAdapter{
 
         holder.allMessage.setText("" + arrMessageData.get(position).getMessage());
         holder.allName.setText("" + arrMessageData.get(position).getName());
-        holder.allImage.setImageResource(arrMessageData.get(position).getImage());
+        holder.allImage.setImageBitmap(arrMessageData.get(position).getImage());
         holder.allTitle.setText("" + arrMessageData.get(position).getSubject());
         holder.patient.setText("" + arrMessageData.get(position).getPatient());
 

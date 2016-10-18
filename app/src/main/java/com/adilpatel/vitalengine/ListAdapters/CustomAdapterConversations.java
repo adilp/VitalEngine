@@ -77,7 +77,7 @@ public class CustomAdapterConversations extends BaseAdapter {
 
         holder.conversationMessage.setText("" + arrMessageData.get(position).getMessage());
         holder.conversationName.setText("" + arrMessageData.get(position).getName());
-        holder.conversationImage.setImageResource(arrMessageData.get(position).getImage());
+        holder.conversationImage.setImageBitmap(arrMessageData.get(position).getImage());
         //holder.convoSubject.setText("" + arrMessageData.get(position).getSubject());
        // holder.convoSubject.setText("" + arrMessageData.get(position).getSubject());
 

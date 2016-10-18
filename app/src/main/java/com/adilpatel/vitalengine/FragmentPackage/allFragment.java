@@ -79,7 +79,7 @@ public class allFragment extends Fragment {
         MessageData msg1 = new MessageData();
         msg1.setName("ALL");
         msg1.setMessage("Mustafa Ahmed: What time do you want to get started adding more stuff go over the line");
-        msg1.setImage(R.drawable.msgone);
+        //msg1.setImage(R.drawable.msgone);
         msg1.setRead(true);
         msg1.setSubject("Test Subject");
         msg1.setType("referral");
@@ -88,14 +88,14 @@ public class allFragment extends Fragment {
         MessageData msg2 = new MessageData();
         msg2.setName("Group 1");
         msg2.setMessage("Adil Patel: Presentation is tomorrow adding");
-        msg2.setImage(R.drawable.group);
+        //msg2.setImage(R.drawable.group);
         msg2.setType("conversation");
       // msg2.setSubject("Subject 2");
 
        MessageData msg3 = new MessageData();
         msg3.setName("Adil Patel");
         msg3.setMessage("Presentation is tomorrow");
-        msg3.setImage(R.drawable.msgthree);
+        //msg3.setImage(R.drawable.msgthree);
         msg3.setType("message");
         //msg2.setSubject("Subject 2");
 
@@ -220,7 +220,7 @@ public class allFragment extends Fragment {
                         MessageData msg3 = new MessageData();
                         msg3.setName((String) object.get("fromUser"));
                         msg3.setMessage((String) object.get("message"));
-                        msg3.setImage(R.drawable.msgone);
+                        //msg3.setImage(R.drawable.msgone);
                         msg3.setRead(true);
 
                         msg3.setType((String) object.get("conversationDate"));

@@ -64,7 +64,7 @@ public class allRecyclerViewAdapter extends RecyclerView.Adapter<allRecyclerView
         TextView message = viewHolder.allMessage;
         message.setText(contact.getMessage());
         ImageView image = viewHolder.allImage;
-        image.setImageResource(contact.getImage());
+        image.setImageBitmap(contact.getImage());
         TextView patient = viewHolder.patient;
         patient.setText(contact.getPatient());
         TextView time = viewHolder.allTitle;

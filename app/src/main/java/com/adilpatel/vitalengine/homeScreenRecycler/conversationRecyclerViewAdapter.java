@@ -69,7 +69,7 @@ public class conversationRecyclerViewAdapter extends RecyclerView.Adapter<conver
         TextView message = viewHolder.conversationMessage;
         message.setText(contact.getMessage());
         ImageView image = viewHolder.conversationImage;
-        image.setImageResource(contact.getImage());
+        image.setImageBitmap(contact.getImage());
 //        TextView patient = viewHolder.referralPatient;
 //        patient.setText(contact.getSubject());
 //        TextView time = viewHolder.referralTimeStamp;

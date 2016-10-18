@@ -69,7 +69,7 @@ public class referralsRecyclerViewAdapter extends RecyclerView.Adapter<referrals
         TextView message = viewHolder.referralMessage;
         message.setText(contact.getMessage());
         ImageView image = viewHolder.referralImage;
-        image.setImageResource(contact.getImage());
+        image.setImageBitmap(contact.getImage());
         TextView patient = viewHolder.referralPatient;
         patient.setText(contact.getSubject());
         TextView time = viewHolder.referralTimeStamp;

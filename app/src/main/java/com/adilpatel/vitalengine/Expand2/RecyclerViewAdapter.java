@@ -24,8 +24,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
     // Pass in the contact array into the constructor
-    public RecyclerViewAdapter(Context context, List<StaffObject> contacts) {
-        mStaff = contacts;
+    public RecyclerViewAdapter(Context context, List<StaffObject> mStaff) {
+        this.mStaff = mStaff;
         mContext = context;
 
     }

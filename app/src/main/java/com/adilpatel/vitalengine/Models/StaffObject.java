@@ -63,6 +63,26 @@ public class StaffObject implements Parcelable {
     String StaffLocation = "";
     String staffType = "";
 
+    public int getStaffId() {
+        return staffId;
+    }
+
+    public void setStaffId(int staffId) {
+        this.staffId = staffId;
+    }
+
+    int staffId;
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
+    boolean checked;
+
 
 
     protected StaffObject(Parcel in) {
@@ -71,6 +91,7 @@ public class StaffObject implements Parcelable {
         StaffSpecialty = in.readString();
         StaffLocation = in.readString();
         staffType = in.readString();
+        staffId = in.readInt();
     }
 
     @Override
@@ -85,6 +106,7 @@ public class StaffObject implements Parcelable {
         dest.writeString(StaffSpecialty);
         dest.writeString(StaffLocation);
         dest.writeString(staffType);
+        dest.writeInt(staffId);
     }
 
     @SuppressWarnings("unused")

@@ -29,6 +29,8 @@
         android:layout_alignTop="@+id/teamImage"
         android:layout_marginLeft="20dp"/>
 
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -75,6 +77,14 @@
         android:paddingTop="2dp"
 
         android:layout_toRightOf="@+id/teamLocationTitle"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/visibleButton"
+        android:layout_above="@+id/teamLocation"
+        android:layout_alignParentEnd="true"
+        android:paddingEnd="10dp"/>
     <!--<ImageButton-->
         <!--android:id="@+id/parent_list_item_expand_arrow"-->
         <!--android:layout_width="wrap_content"-->
