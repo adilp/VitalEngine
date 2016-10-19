@@ -278,10 +278,11 @@ public class RecyclerConfirmMessageActivity extends AppCompatActivity {
 
 //        for (int i = 0; i< toList.size(); i++) {
             JSONObject receivingParticipants = new JSONObject();
-            ArrayList<Integer> participants = new ArrayList();
+//            ArrayList<Integer> participants = new ArrayList();
+//            participants.add(0, toList.get(0).getStaffId());
 
-            participants.add(0, toList.get(0).getStaffId());
-
+        JSONArray mJsonArray = new JSONArray();
+        mJsonArray.put(toList.get(0).getStaffId());
 
             //receivingParticipants.put("userId", toList.get(i).getStaffId());
 
@@ -296,7 +297,7 @@ public class RecyclerConfirmMessageActivity extends AppCompatActivity {
         referralJson = new JSONObject();
         try {
             referralJson.put("userId", userId);
-            referralJson.put("participants", participants);
+            referralJson.put("participants", mJsonArray);
             referralJson.put("subject", "Test subject");
             referralJson.put("message", "message");
             referralJson.put("dicomImages", Empty2);
