@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.adilpatel.vitalengine.ActivitiesPackage.RecyclerConversation.RecyclerAddConvMyTeam;
 import com.adilpatel.vitalengine.ActivitiesPackage.RecyclerMessage.RecyclerFromMessage;
 import com.adilpatel.vitalengine.ActivitiesPackage.RecyclerReferral.newReferenceActivity;
 import com.adilpatel.vitalengine.FragmentPackage.allFragment;
@@ -114,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Toast.makeText(MainActivity.this, "New Conversation Button clicked", Toast.LENGTH_SHORT).show();
+                Intent myIntent = new Intent(MainActivity.this, RecyclerAddConvMyTeam.class);
+                MainActivity.this.startActivity(myIntent);
             }
         });
 

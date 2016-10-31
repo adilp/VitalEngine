@@ -101,6 +101,7 @@ public class ChatlistActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Editable messageText = messageBodyField.getText();
                 sendMessageApi(messageText, type);
+                messageBodyField.getText().clear();
             }
         });
 

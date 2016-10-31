@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
@@ -28,6 +29,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -46,6 +48,7 @@ public class referralFragment extends Fragment {
     private RecyclerView usersListView;
     ArrayList<MessageData> arrMessageData; //= new ArrayList<>();
     Bitmap image;
+    SwipeRefreshLayout refreshLayout;
 
 
 
@@ -80,6 +83,18 @@ public class referralFragment extends Fragment {
 
 
         callApi();
+
+        refreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
+
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                callApi();
+            }
+        });
 
 
 
@@ -237,8 +252,8 @@ public class referralFragment extends Fragment {
                             msg3.setId((Integer) object.get("referralId"));
 
                             //Log.e("RefId", object.getString("referralId"));
-                            //getImage((String)object.get("photo"));
-                            //msg3.setImage(image);
+                            getImage((String)object.get("photo"));
+                            msg3.setImage(image);
 
                             //msg3.setImage(R.drawable.msgone);
 
@@ -292,16 +307,64 @@ public class referralFragment extends Fragment {
 
 
         URL imgurl = new URL("https://staging.vitalengine.com/portal-api/" + id);
-        URLConnection conn = imgurl.openConnection();
-        conn.addRequestProperty("Authorization", auth_token_type + " "+ auth_token_string);
-        conn.connect();
+//        URLConnection conn = imgurl.openConnection();
+//        conn.addRequestProperty("Authorization", auth_token_type + " "+ auth_token_string);
+//        conn.connect();
+//
+//        InputStream in = conn.getInputStream();
+//
+//        Bitmap bmp = BitmapFactory.decodeStream(in);
+//
+//
 
-        InputStream in = conn.getInputStream();
 
-        Bitmap bmp = BitmapFactory.decodeStream(in);
+        Bitmap bmp = downloadImage(imgurl,auth_token_type, auth_token_string );
+
         image = bmp;
 
 
+
+
+    }
+
+    public static  Bitmap downloadImage(URL url, String auth_token_type, String auth_token_string) {
+        Bitmap bitmap = null;
+        InputStream stream = null;
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inSampleSize = 6;
+
+        try {
+            stream = getHttpConnection(url,auth_token_type, auth_token_string);
+            bitmap = BitmapFactory.decodeStream(stream, null, bmOptions);
+            stream.close();
+        }
+        catch (IOException e1) {
+            e1.printStackTrace();
+            System.out.println("downloadImage"+ e1.toString());
+        }
+        return bitmap;
+    }
+
+    public static  InputStream getHttpConnection(URL urlString, String auth_token_type, String auth_token_string)  throws IOException {
+
+        InputStream stream = null;
+        URLConnection connection = urlString.openConnection();
+
+
+        try {
+            HttpURLConnection httpConnection = (HttpURLConnection) connection;
+            httpConnection.addRequestProperty("Authorization", auth_token_type + " " + auth_token_string);
+            httpConnection.connect();
+
+            if (httpConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                stream = httpConnection.getInputStream();
+            }
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("downloadImage" + ex.toString());
+        }
+        return stream;
     }
 
 }

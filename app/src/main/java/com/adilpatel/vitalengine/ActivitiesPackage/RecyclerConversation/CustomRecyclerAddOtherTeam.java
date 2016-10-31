@@ -1,7 +1,8 @@
-package com.adilpatel.vitalengine.ActivitiesPackage.RecyclerMessage;
+package com.adilpatel.vitalengine.ActivitiesPackage.RecyclerConversation;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,19 +21,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Adil on 10/15/16.
+ * Created by Adil on 10/22/16.
  */
-public class CustomRecyclerFromMessage extends RecyclerView.Adapter<CustomRecyclerFromMessage.ViewHolder>{
+public class CustomRecyclerAddOtherTeam extends RecyclerView.Adapter<CustomRecyclerAddOtherTeam.ViewHolder>{
 
 
     private List<DoctorObject> messageDataList;
     private Context context;
-
+    private int myDoc;
+    private List<StaffObject> myStaff;
+    private Patient patient;
 
     // Pass in the contact array into the constructor
-    public CustomRecyclerFromMessage(Context mainActivity, ArrayList<DoctorObject> messageDataList) {
+    public CustomRecyclerAddOtherTeam(Context mainActivity, ArrayList<DoctorObject> messageDataList, int myDoc, ArrayList<StaffObject> myStaff, Patient patient) {
         this.messageDataList = messageDataList;
-
+        this.myDoc = myDoc;
+        this.myStaff = myStaff;
+        this.patient= patient;
 
         context = mainActivity;
 
@@ -44,7 +49,7 @@ public class CustomRecyclerFromMessage extends RecyclerView.Adapter<CustomRecycl
     }
 
     @Override
-    public CustomRecyclerFromMessage.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CustomRecyclerAddOtherTeam.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
@@ -56,14 +61,14 @@ public class CustomRecyclerFromMessage extends RecyclerView.Adapter<CustomRecycl
 
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(contactView, context,messageDataList);
+        ViewHolder viewHolder = new ViewHolder(contactView, context,messageDataList, myDoc, myStaff, patient);
         return viewHolder;
     }
 
 
     // Involves populating data into the item through holder
     @Override
-    public void onBindViewHolder(CustomRecyclerFromMessage.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(CustomRecyclerAddOtherTeam.ViewHolder viewHolder, int position) {
         // Get the data model based on position
         DoctorObject contact = messageDataList.get(position);
 
@@ -71,15 +76,8 @@ public class CustomRecyclerFromMessage extends RecyclerView.Adapter<CustomRecycl
         TextView person = viewHolder.person;
         person.setText(contact.getDocname());
         ImageView image = viewHolder.pic;
-
         //image.setImageResource(contact.getDocPic());
         image.setImageBitmap(contact.getDocPic());
-
-        TextView specialty = viewHolder.specialty;
-        specialty.setText(contact.getDocspecialty());
-
-        TextView location = viewHolder.location;
-        location.setText(contact.getDocLocation());
 
         viewHolder.selected.setVisibility(View.INVISIBLE);
 
@@ -104,8 +102,6 @@ public class CustomRecyclerFromMessage extends RecyclerView.Adapter<CustomRecycl
         // for any view that will be set as you render a row
         public ImageView pic;
         public TextView person;
-        public TextView specialty;
-        public TextView location;
         public int myDoc;
         public List<StaffObject> myStaff;
         CheckBox selected;
@@ -116,19 +112,20 @@ public class CustomRecyclerFromMessage extends RecyclerView.Adapter<CustomRecycl
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
-        public ViewHolder(View itemView, Context ctx, List<DoctorObject> message) {
+        public ViewHolder(View itemView, Context ctx, List<DoctorObject> message, int myDoc, List<StaffObject> myStaff, Patient patient) {
             // Stores the itemView in a public final member variable that can be used
             // to access the context from any ViewHolder instance.
             super(itemView);
 
             this.ctx = ctx;
             itemView.setOnClickListener(this);
+            this.myDoc = myDoc;
+            this.myStaff = myStaff;
+            this.patient = patient;
             this.pic = (ImageView) itemView.findViewById(R.id.teamImage);
             this.person = (TextView) itemView.findViewById(R.id.teamName);
             this.message = (ArrayList<DoctorObject>) message;
             this.selected = (CheckBox) itemView.findViewById(R.id.visibleButton);
-            this.specialty = (TextView) itemView.findViewById(R.id.teamSpecialty);
-            this.location = (TextView) itemView.findViewById(R.id.teamLocation);
 
 
         }
@@ -142,12 +139,12 @@ public class CustomRecyclerFromMessage extends RecyclerView.Adapter<CustomRecycl
 
 
             Toast.makeText(ctx, "CLICKED " + obj.getDocname(), Toast.LENGTH_SHORT).show();
-//
-            Intent myIntent = new Intent(ctx, RecyclerConfirmMessageActivity.class);
-//            myIntent.putParcelableArrayListExtra("Staff", (ArrayList<? extends Parcelable>) myStaff);
-            myIntent.putExtra("myDoc", obj.getDocId());
-//            myIntent.putExtra("Patient",patient);
-//            myIntent.putExtra("referringDoc", obj.getDocId());
+
+            Intent myIntent = new Intent(ctx, RecyclerAddOtherTeamStaff.class);
+            myIntent.putParcelableArrayListExtra("Staff", (ArrayList<? extends Parcelable>) myStaff);
+            myIntent.putExtra("myDoc", myDoc);
+            myIntent.putExtra("Patient",patient);
+            myIntent.putExtra("referringDoc", obj.getDocId());
             ctx.startActivity(myIntent);
         }
     }

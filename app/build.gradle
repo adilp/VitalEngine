@@ -42,6 +42,8 @@ dependencies {
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.koushikdutta.ion:ion:2.+'
     compile 'com.bignerdranch.android:recyclerview-multiselect:0.2'
+    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+
 
 
 }

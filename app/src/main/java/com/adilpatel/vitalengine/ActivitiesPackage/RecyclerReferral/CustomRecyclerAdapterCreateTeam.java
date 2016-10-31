@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.adilpatel.vitalengine.Models.DoctorObject;
 import com.adilpatel.vitalengine.Models.Patient;
@@ -43,7 +44,14 @@ public class CustomRecyclerAdapterCreateTeam extends RecyclerView.Adapter<ListVi
         DoctorObject messageData = messageDataList.get(position);
 
         holder.person.setText(messageData.getDocname());
-        holder.pic.setImageResource(messageData.getDocPic());
+        //holder.pic.setImageResource(messageData.getDocPic());
+        holder.pic.setImageBitmap(messageData.getDocPic());
+
+        TextView specialty = holder.specialty;
+        specialty.setText(messageData.getDocspecialty());
+
+        TextView location = holder.location;
+        location.setText(messageData.getDocLocation());
 
         holder.selected.setVisibility(View.INVISIBLE);
 

@@ -78,7 +78,11 @@ public class CustomRecyclerAdapterCreateTeamStaff extends RecyclerView.Adapter<C
         ImageView image = viewHolder.pic;
         image.setImageResource(contact.getStaffPic());
 
+        TextView specialty = viewHolder.specialty;
+        specialty.setText(contact.getStaffSpecialty());
 
+        TextView location = viewHolder.location;
+        location.setText(contact.getStaffLocation());
 
         CheckBox selection = viewHolder.selected;
 
@@ -117,7 +121,8 @@ public class CustomRecyclerAdapterCreateTeamStaff extends RecyclerView.Adapter<C
         public ImageView pic;
         public TextView person;
         public CheckBox selected;
-
+        public TextView specialty;
+        public TextView location;
 
         ArrayList<StaffObject> message = new ArrayList<StaffObject>();
         Context ctx;
@@ -140,6 +145,8 @@ public class CustomRecyclerAdapterCreateTeamStaff extends RecyclerView.Adapter<C
             this.person = (TextView) itemView.findViewById(R.id.teamName);
             this.message = (ArrayList<StaffObject>) message;
             this.selected = (CheckBox) itemView.findViewById(R.id.visibleButton);
+            this.specialty = (TextView) itemView.findViewById(R.id.teamSpecialty);
+            this.location = (TextView) itemView.findViewById(R.id.teamLocation);
 
 
 

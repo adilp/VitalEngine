@@ -76,7 +76,14 @@ public class CustomRecyclerAdapterCreateReferringTeam extends RecyclerView.Adapt
         TextView person = viewHolder.person;
         person.setText(contact.getDocname());
         ImageView image = viewHolder.pic;
-        image.setImageResource(contact.getDocPic());
+        //image.setImageResource(contact.getDocPic());
+        image.setImageBitmap(contact.getDocPic());
+
+        TextView specialty = viewHolder.specialty;
+        specialty.setText(contact.getDocspecialty());
+
+        TextView location = viewHolder.location;
+        location.setText(contact.getDocLocation());
 
         viewHolder.selected.setVisibility(View.INVISIBLE);
 
@@ -105,6 +112,8 @@ public class CustomRecyclerAdapterCreateReferringTeam extends RecyclerView.Adapt
         public List<StaffObject> myStaff;
         CheckBox selected;
         Patient patient;
+        public TextView specialty;
+        public TextView location;
 
         ArrayList<DoctorObject> message = new ArrayList<DoctorObject>();
         Context ctx;
@@ -125,6 +134,8 @@ public class CustomRecyclerAdapterCreateReferringTeam extends RecyclerView.Adapt
             this.person = (TextView) itemView.findViewById(R.id.teamName);
             this.message = (ArrayList<DoctorObject>) message;
             this.selected = (CheckBox) itemView.findViewById(R.id.visibleButton);
+            this.specialty = (TextView) itemView.findViewById(R.id.teamSpecialty);
+            this.location = (TextView) itemView.findViewById(R.id.teamLocation);
 
 
         }

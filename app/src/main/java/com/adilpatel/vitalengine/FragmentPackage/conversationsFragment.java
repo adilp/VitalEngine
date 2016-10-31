@@ -1,13 +1,17 @@
 package com.adilpatel.vitalengine.FragmentPackage;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
@@ -15,7 +19,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 
 import com.adilpatel.vitalengine.API.BasicAuthInterceptor;
 import com.adilpatel.vitalengine.Models.MessageData;
@@ -28,6 +31,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -39,20 +43,14 @@ import okhttp3.Request;
 
 
 public class conversationsFragment extends Fragment {
-    private String currentUserId;
-    private ArrayAdapter namesArrayAdapter;
-    //private ArrayList<String> names;
-    //private ListView usersListView;
+
     private RecyclerView usersListView;
-    String names[] = {"Anant Kharod, MD", "Mustafa Ahmed, MD"};
-    String msg[] = {"What time do you want to get started adding more stuff go over the line", "Presentation is tomorrow"};
-    boolean readUnread [] = {false,false};
-    public static int [] images={R.drawable.msgone,R.drawable.msgtwo};
 
     ArrayList<MessageData> arrMessageData; //= new ArrayList<MessageData>();
-    //CustomAdapterConversations adapter;
+
     conversationRecyclerViewAdapter adapter;
     Bitmap image;
+    SwipeRefreshLayout refreshLayout;
 
 
     public conversationsFragment() {
@@ -63,7 +61,11 @@ public class conversationsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,38 +73,178 @@ public class conversationsFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_conversations, container, false);
-//        usersListView = (ListView) rootView.findViewById(R.id.conversationsListView);
+
         usersListView = (RecyclerView) rootView.findViewById(R.id.conversationsListView);
 
 
-        //ArrayList<MessageData> arrMessageData = new ArrayList<MessageData>();
-//
-        MessageData msg1 = new MessageData();
-        msg1.setName("Group 1");
-        msg1.setMessage("Mustafa Ahmed: What time do you want to get started adding more stuff go over the line");
-        //msg1.setImage(R.drawable.group);
-        msg1.setRead(true);
-        //msg1.setSubject("Test Subject 1");
-
-        MessageData msg2 = new MessageData();
-        msg2.setName("Group 2");
-        msg2.setMessage("Anant Kharod: Presentation is tomorrow");
-        //msg2.setImage(R.drawable.group);
-        //msg2.setSubject("Subject 2");
+        new Load().execute(null, null, null);
 
 
-//        arrMessageData.add(msg1);
-//        arrMessageData.add(msg2);
+        refreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
 
-        callApi();
-//
-//        CustomAdapterConversations adapter = new CustomAdapterConversations(getActivity().getBaseContext(), arrMessageData);
-//        usersListView.setAdapter(adapter);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                new Load().execute(null, null, null);
+            }
+        });
+
+
 
 
         return rootView;
 
     }
+
+
+
+
+
+    class Load extends AsyncTask<Void, Void, Void> {
+
+        ProgressDialog pd;
+
+        private Context context;
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+
+//            try {
+//                Thread.sleep(2000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+
+            OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new BasicAuthInterceptor()).addNetworkInterceptor(new StethoInterceptor()).build();
+
+            String credentials = "ezhu:Ccare@123";
+            String auth = "Basic "
+                    + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+
+            Log.e("Test", auth);
+
+
+
+
+            SharedPreferences settings = PreferenceManager
+                    .getDefaultSharedPreferences(getActivity());
+            String auth_token_string = settings.getString("token", ""/*default value*/);
+            String auth_token_type = settings.getString("tokenType", "");
+            String userId = settings.getString("userId", "");
+
+            Log.i("prefs", auth_token_type);
+
+
+
+            String url  = "https://staging.vitalengine.com/portal-api/api/user/inbox/list?userId=" +
+                    userId +
+                    "&folderId=-1&tagId=0&page=1&itemPerPage=1000&showMsgInFolder=false";
+
+
+            Request request = new Request.Builder().url(url)
+                    .addHeader("Authorization", auth_token_type + " " + auth_token_string)
+                    .addHeader("user-tz", "-330")
+                            //.addHeader("Content-Type", "application/json")
+                    .build();
+
+
+
+
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    // Log.i(TAG, "call api error");
+                    Log.e("Volley", e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, okhttp3.Response response)  {
+
+                    try {
+                        if (!response.isSuccessful())
+                            throw new IOException("Unexpected code " + response);
+                        final String body = response.body().string();
+
+
+                        JSONObject Jobject = new JSONObject(body);
+
+
+
+                        JSONObject sub = Jobject.getJSONObject("response");
+                        JSONArray Jarray = sub.getJSONArray("inboxMsgList");
+
+
+
+                        arrMessageData = new ArrayList<>();
+
+                        for (int i = 0; i < Jarray.length(); i++) {
+                            JSONObject object = Jarray.getJSONObject(i);
+
+                            if (object.get("messageType").equals("CONVERSATION")) {
+
+
+
+                                Log.e("ConversationTest", object.getString("fromUser"));
+
+                                MessageData msg3 = new MessageData();
+                                msg3.setName((String) object.get("fromUser"));
+                                msg3.setMessage((String) object.get("message"));
+                                getImage((String) object.get("photo"));
+                                msg3.setImage(image);
+                                msg3.setRead(true);
+                                msg3.setSubject((String) object.get("subject"));
+                                msg3.setType((String) object.get("conversationDate"));
+
+
+                                msg3.setId((Integer) object.get("conversationId"));
+
+                                arrMessageData.add(msg3);
+                            } else {
+
+                            }
+
+
+
+
+                            handler.sendEmptyMessage(1);
+
+                        }
+
+
+
+                    } catch (Exception e) {
+
+                    }
+
+                }
+
+
+            });
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd = new ProgressDialog(getActivity());
+            pd.setMessage("loading");
+            pd.show();
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            if (pd != null)
+            {
+                pd.dismiss();
+            }
+        }
+    }
+
 
     private Handler handler = new Handler() {
         @Override
@@ -114,6 +256,9 @@ public class conversationsFragment extends Fragment {
                     LinearLayoutManager layoutManager
                             = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
                     usersListView.setLayoutManager(layoutManager);
+
+                    refreshLayout.setRefreshing(false);
+
                     break;
                 default:
                     Log.d("TAG", msg.what + " ? ");
@@ -268,17 +413,66 @@ public class conversationsFragment extends Fragment {
         Log.i("prefs", auth_token_type);
 
 
-        URL imgurl = new URL("https://staging.vitalengine.com/portal-api/" + id);
-        URLConnection conn = imgurl.openConnection();
-        conn.addRequestProperty("Authorization", auth_token_type + " "+ auth_token_string);
-        conn.connect();
 
-        InputStream in = conn.getInputStream();
 
-        Bitmap bmp = BitmapFactory.decodeStream(in);
+
+
+         URL imgurl = new URL("https://staging.vitalengine.com/portal-api/" + id);
+//        URLConnection conn = imgurl.openConnection();
+//        conn.addRequestProperty("Authorization", auth_token_type + " "+ auth_token_string);
+//        conn.connect();
+//
+//        InputStream in = conn.getInputStream();
+//
+//        Bitmap bmp = BitmapFactory.decodeStream(in);
+//
+//
+//        image = bmp;
+
+        Bitmap bmp = downloadImage(imgurl,auth_token_type, auth_token_string );
+
         image = bmp;
 
+    }
 
+    public static  Bitmap downloadImage(URL url, String auth_token_type, String auth_token_string) {
+        Bitmap bitmap = null;
+        InputStream stream = null;
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inSampleSize = 6;
+
+        try {
+            stream = getHttpConnection(url,auth_token_type, auth_token_string);
+            bitmap = BitmapFactory.decodeStream(stream, null, bmOptions);
+            stream.close();
+        }
+        catch (IOException e1) {
+            e1.printStackTrace();
+            System.out.println("downloadImage"+ e1.toString());
+        }
+        return bitmap;
+    }
+
+    public static  InputStream getHttpConnection(URL urlString, String auth_token_type, String auth_token_string)  throws IOException {
+
+        InputStream stream = null;
+        URLConnection connection = urlString.openConnection();
+
+
+        try {
+            HttpURLConnection httpConnection = (HttpURLConnection) connection;
+            httpConnection.addRequestProperty("Authorization", auth_token_type + " " + auth_token_string);
+            httpConnection.connect();
+
+            if (httpConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                stream = httpConnection.getInputStream();
+            }
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("downloadImage" + ex.toString());
+        }
+        return stream;
     }
 
 }

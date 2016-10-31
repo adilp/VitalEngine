@@ -1,4 +1,4 @@
-package com.adilpatel.vitalengine.ActivitiesPackage.RecyclerReferral;
+package com.adilpatel.vitalengine.ActivitiesPackage.RecyclerConversation;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.adilpatel.vitalengine.API.BasicAuthInterceptor;
+import com.adilpatel.vitalengine.ActivitiesPackage.RecyclerReferral.CustomRecyclerAdapterCreateTeamStaff;
 import com.adilpatel.vitalengine.Models.Patient;
 import com.adilpatel.vitalengine.Models.StaffObject;
 import com.adilpatel.vitalengine.R;
@@ -35,7 +36,7 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class CreateMyTeamStaffActivity extends AppCompatActivity {
+public class RecyclerAddConvMyTeamStaff extends AppCompatActivity {
 
     List <StaffObject> messageDataList = new ArrayList<StaffObject>();
     private List<StaffObject> selectedMyStaff = new ArrayList<>();
@@ -61,7 +62,7 @@ public class CreateMyTeamStaffActivity extends AppCompatActivity {
 
         Intent b = getIntent();
 
-        ref = b.getExtras().getInt("docId");
+        ref = b.getExtras().getInt("myDoc");
         patient = b.getExtras().getParcelable("Patient");
 
 
@@ -94,11 +95,11 @@ public class CreateMyTeamStaffActivity extends AppCompatActivity {
                 }
 
                 Log.d("Selected Size", selectedMyStaff.size() + " ? ");
-                Intent myIntent = new Intent(context, RecyclerCreateReferringTeamActivity.class);
-            myIntent.putParcelableArrayListExtra("Staff", (ArrayList<? extends Parcelable>) selectedMyStaff);
-            myIntent.putExtra("myDocId", ref);
+                Intent myIntent = new Intent(context, RecyclerAddOtherTeam.class);
+                myIntent.putParcelableArrayListExtra("Staff", (ArrayList<? extends Parcelable>) selectedMyStaff);
+                myIntent.putExtra("myDocId", ref);
                 myIntent.putExtra("Patient",patient);
-            context.startActivity(myIntent);
+                context.startActivity(myIntent);
             }
         });
 
@@ -113,10 +114,10 @@ public class CreateMyTeamStaffActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
-                    adapter = new CustomRecyclerAdapterCreateTeamStaff(CreateMyTeamStaffActivity.this, messageDataList, ref);
+                    adapter = new CustomRecyclerAdapterCreateTeamStaff(RecyclerAddConvMyTeamStaff.this, messageDataList, ref);
                     mRecycerView.setAdapter(adapter);
                     LinearLayoutManager layoutManager
-                            = new LinearLayoutManager(CreateMyTeamStaffActivity.this, LinearLayoutManager.VERTICAL, false);
+                            = new LinearLayoutManager(RecyclerAddConvMyTeamStaff.this, LinearLayoutManager.VERTICAL, false);
                     mRecycerView.setLayoutManager(layoutManager);
                     break;
                 default:
@@ -197,7 +198,6 @@ public class CreateMyTeamStaffActivity extends AppCompatActivity {
 
 
 
-
                         messageDataList.add(msg3);
 
 
@@ -216,6 +216,3 @@ public class CreateMyTeamStaffActivity extends AppCompatActivity {
     }
 
 }
-
-
-

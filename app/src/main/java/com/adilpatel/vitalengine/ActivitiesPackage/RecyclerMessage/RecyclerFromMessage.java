@@ -244,7 +244,7 @@ public class RecyclerFromMessage  extends AppCompatActivity implements SearchVie
                         String lastname = (String) object.get("last_name");
                         msg3.setDocname(firstname);
                         msg3.setDocLocation((String) object.get("city"));
-                        msg3.setDocPic(R.drawable.msgone);
+                        //msg3.setDocPic(R.drawable.msgone);
                         msg3.setDocspecialty((String) object.get("speciality_name"));
                         msg3.setDocId((Integer) object.get("user_id"));
 

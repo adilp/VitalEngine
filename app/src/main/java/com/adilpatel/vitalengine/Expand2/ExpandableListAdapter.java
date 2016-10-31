@@ -151,7 +151,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         lblListHeader.setText(_listDataHeader.get(groupPosition).getDocname());
 
         ImageView lblListImg = (ImageView) convertView.findViewById(R.id.teamImage);
-        lblListImg.setImageResource(_listDataHeader.get(groupPosition).getDocPic());
+        //lblListImg.setImageResource(_listDataHeader.get(groupPosition).getDocPic());
+        lblListImg.setImageBitmap(_listDataHeader.get(groupPosition).getDocPic());
 
         TextView lblLocation = (TextView)convertView.findViewById(R.id.teamLocation);
         lblLocation.setText(_listDataHeader.get(groupPosition).getDocLocation());

@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.adilpatel.vitalengine.API.BasicAuthInterceptor;
+import com.adilpatel.vitalengine.ActivitiesPackage.MainActivity;
 import com.adilpatel.vitalengine.Expand2.RecyclerViewAdapter;
 import com.adilpatel.vitalengine.ListAdapters.ReferralConfirmAdapter;
 import com.adilpatel.vitalengine.Models.StaffObject;
@@ -47,6 +48,7 @@ public class RecyclerConfirmMessageActivity extends AppCompatActivity {
 
     EditText messageMessage;
     Button messageSendButton;
+    EditText messagesSubject;
 
 
     private ReferralConfirmAdapter listAdapter;
@@ -96,19 +98,21 @@ public class RecyclerConfirmMessageActivity extends AppCompatActivity {
 
         messageMessage = (EditText)findViewById(R.id.messageMessageBodyField);
         messageSendButton = (Button)findViewById(R.id.messageSendButton);
+        messagesSubject = (EditText)findViewById(R.id.messageSubjectBodyField);
 
 
         messageSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Editable messageText = messageMessage.getText();
-                jsonBody(messageText);
+                Editable subjectText = messagesSubject.getText();
+                jsonBody(messageText,subjectText );
                 messageText.clear();
                 sendMessage(referralJson);
                 Log.e("ReferralSendingJson", referralJson.toString());
 
-//                Intent myIntent = new Intent(RecyclerConfirmMessageActivity.this, MainActivity.class);
-//                RecyclerConfirmMessageActivity.this.startActivity(myIntent);
+                Intent myIntent = new Intent(RecyclerConfirmMessageActivity.this, MainActivity.class);
+                RecyclerConfirmMessageActivity.this.startActivity(myIntent);
 
             }
         });
@@ -259,7 +263,7 @@ public class RecyclerConfirmMessageActivity extends AppCompatActivity {
 
     }
 
-    private void jsonBody(Editable messageText){
+    private void jsonBody(Editable messageText, Editable messagesSubject){
 
         refParticipantsArray = new JSONArray();
         recParticipantsArray = new JSONArray();
@@ -278,9 +282,12 @@ public class RecyclerConfirmMessageActivity extends AppCompatActivity {
 
 //        for (int i = 0; i< toList.size(); i++) {
             JSONObject receivingParticipants = new JSONObject();
-            ArrayList<Integer> participants = new ArrayList();
+//            ArrayList<Integer> participants = new ArrayList();
+//
+//            participants.add(0, toList.get(0).getStaffId());
 
-            participants.add(0, toList.get(0).getStaffId());
+        JSONArray aJsonArray = new JSONArray();
+        aJsonArray.put(toList.get(0).getStaffId());
 
 
             //receivingParticipants.put("userId", toList.get(i).getStaffId());
@@ -296,9 +303,9 @@ public class RecyclerConfirmMessageActivity extends AppCompatActivity {
         referralJson = new JSONObject();
         try {
             referralJson.put("userId", userId);
-            referralJson.put("participants", participants);
-            referralJson.put("subject", "Test subject");
-            referralJson.put("message", "message");
+            referralJson.put("participants", aJsonArray);
+            referralJson.put("subject", messagesSubject);
+            referralJson.put("message", messageText);
             referralJson.put("dicomImages", Empty2);
             referralJson.put("conversationTags", Empty3);
 

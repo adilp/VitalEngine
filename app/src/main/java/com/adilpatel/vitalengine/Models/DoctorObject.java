@@ -1,5 +1,6 @@
 package com.adilpatel.vitalengine.Models;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -23,7 +24,7 @@ public class DoctorObject implements Parcelable {
     }
 
     public DoctorObject (Parcel in){
-        this.DocPic = in.readInt();
+        //this.DocPic = in.readInt();
         this.Docname= in.readString();
         this.Docspecialty = in.readString();
         this.DocLocation = in.readString();
@@ -49,11 +50,11 @@ public class DoctorObject implements Parcelable {
         Docname = docname;
     }
 
-    public int getDocPic() {
+    public Bitmap getDocPic() {
         return DocPic;
     }
 
-    public void setDocPic(int docPic) {
+    public void setDocPic(Bitmap docPic) {
         DocPic = docPic;
     }
 
@@ -73,7 +74,7 @@ public class DoctorObject implements Parcelable {
         DocLocation = docLocation;
     }
 
-    int DocPic;
+    Bitmap DocPic;
     String Docspecialty = "";
     String DocLocation = "";
 
@@ -89,10 +90,12 @@ public class DoctorObject implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
 
-        dest.writeInt(DocPic );
+        //dest.writeInt(DocPic );
         dest.writeString(Docname);
         dest.writeString(Docspecialty);
         dest.writeString(DocLocation);
+
+
 
     }
 

@@ -1,4 +1,4 @@
-package com.adilpatel.vitalengine.ActivitiesPackage.RecyclerMessage;
+package com.adilpatel.vitalengine.ActivitiesPackage.RecyclerConversation;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,9 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Adil on 10/15/16.
+ * Created by Adil on 10/22/16.
  */
-public class CustomRecyclerFromMessage extends RecyclerView.Adapter<CustomRecyclerFromMessage.ViewHolder>{
+public class CustomRecyclerAddMyTeam extends RecyclerView.Adapter<CustomRecyclerAddMyTeam.ViewHolder>{
 
 
     private List<DoctorObject> messageDataList;
@@ -30,7 +30,7 @@ public class CustomRecyclerFromMessage extends RecyclerView.Adapter<CustomRecycl
 
 
     // Pass in the contact array into the constructor
-    public CustomRecyclerFromMessage(Context mainActivity, ArrayList<DoctorObject> messageDataList) {
+    public CustomRecyclerAddMyTeam(Context mainActivity, ArrayList<DoctorObject> messageDataList) {
         this.messageDataList = messageDataList;
 
 
@@ -44,7 +44,7 @@ public class CustomRecyclerFromMessage extends RecyclerView.Adapter<CustomRecycl
     }
 
     @Override
-    public CustomRecyclerFromMessage.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CustomRecyclerAddMyTeam.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
@@ -63,7 +63,7 @@ public class CustomRecyclerFromMessage extends RecyclerView.Adapter<CustomRecycl
 
     // Involves populating data into the item through holder
     @Override
-    public void onBindViewHolder(CustomRecyclerFromMessage.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(CustomRecyclerAddMyTeam.ViewHolder viewHolder, int position) {
         // Get the data model based on position
         DoctorObject contact = messageDataList.get(position);
 
@@ -71,15 +71,8 @@ public class CustomRecyclerFromMessage extends RecyclerView.Adapter<CustomRecycl
         TextView person = viewHolder.person;
         person.setText(contact.getDocname());
         ImageView image = viewHolder.pic;
-
         //image.setImageResource(contact.getDocPic());
         image.setImageBitmap(contact.getDocPic());
-
-        TextView specialty = viewHolder.specialty;
-        specialty.setText(contact.getDocspecialty());
-
-        TextView location = viewHolder.location;
-        location.setText(contact.getDocLocation());
 
         viewHolder.selected.setVisibility(View.INVISIBLE);
 
@@ -104,8 +97,6 @@ public class CustomRecyclerFromMessage extends RecyclerView.Adapter<CustomRecycl
         // for any view that will be set as you render a row
         public ImageView pic;
         public TextView person;
-        public TextView specialty;
-        public TextView location;
         public int myDoc;
         public List<StaffObject> myStaff;
         CheckBox selected;
@@ -127,8 +118,6 @@ public class CustomRecyclerFromMessage extends RecyclerView.Adapter<CustomRecycl
             this.person = (TextView) itemView.findViewById(R.id.teamName);
             this.message = (ArrayList<DoctorObject>) message;
             this.selected = (CheckBox) itemView.findViewById(R.id.visibleButton);
-            this.specialty = (TextView) itemView.findViewById(R.id.teamSpecialty);
-            this.location = (TextView) itemView.findViewById(R.id.teamLocation);
 
 
         }
@@ -143,7 +132,7 @@ public class CustomRecyclerFromMessage extends RecyclerView.Adapter<CustomRecycl
 
             Toast.makeText(ctx, "CLICKED " + obj.getDocname(), Toast.LENGTH_SHORT).show();
 //
-            Intent myIntent = new Intent(ctx, RecyclerConfirmMessageActivity.class);
+            Intent myIntent = new Intent(ctx, RecyclerAddConvMyTeamStaff.class);
 //            myIntent.putParcelableArrayListExtra("Staff", (ArrayList<? extends Parcelable>) myStaff);
             myIntent.putExtra("myDoc", obj.getDocId());
 //            myIntent.putExtra("Patient",patient);

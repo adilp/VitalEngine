@@ -52,7 +52,12 @@
         <activity android:name=".ActivitiesPackage.RecyclerReferral.RecyclerCreateReferringTeamActivity" />
         <activity android:name=".ActivitiesPackage.RecyclerReferral.RecyclerCreateReferringTeamStaffActivity" />
         <activity android:name=".ActivitiesPackage.RecyclerMessage.RecyclerFromMessage" />
-        <activity android:name=".ActivitiesPackage.RecyclerMessage.RecyclerConfirmMessageActivity"></activity>
+        <activity android:name=".ActivitiesPackage.RecyclerMessage.RecyclerConfirmMessageActivity" />
+        <activity android:name=".ActivitiesPackage.RecyclerConversation.RecyclerAddConvMyTeam" />
+        <activity android:name=".ActivitiesPackage.RecyclerConversation.RecyclerAddConvMyTeamStaff" />
+        <activity android:name=".ActivitiesPackage.RecyclerConversation.RecyclerConfirmConvActivity" />
+        <activity android:name=".ActivitiesPackage.RecyclerConversation.RecyclerAddOtherTeam" />
+        <activity android:name=".ActivitiesPackage.RecyclerConversation.RecyclerAddOtherTeamStaff"></activity>
     </application>
 
 </manifest>

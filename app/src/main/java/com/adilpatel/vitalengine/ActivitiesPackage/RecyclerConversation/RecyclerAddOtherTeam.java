@@ -1,4 +1,4 @@
-package com.adilpatel.vitalengine.ActivitiesPackage.RecyclerReferral;
+package com.adilpatel.vitalengine.ActivitiesPackage.RecyclerConversation;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +17,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.adilpatel.vitalengine.API.BasicAuthInterceptor;
 import com.adilpatel.vitalengine.Models.DoctorObject;
@@ -38,12 +37,12 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class RecyclerCreateReferringTeamActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class RecyclerAddOtherTeam extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     List<DoctorObject> messageDataList;
 
     private RecyclerView mRecyclerView;
-    private CustomRecyclerAdapterCreateReferringTeam adapter;
+    private CustomRecyclerAddOtherTeam adapter;
 
 
 
@@ -70,9 +69,9 @@ public class RecyclerCreateReferringTeamActivity extends AppCompatActivity imple
 
         myDoc = b.getExtras().getInt("myDocId");
         myStaff = b.getExtras().getParcelableArrayList("Staff");
-        patient = b.getExtras().getParcelable("Patient");
 
-        Toast.makeText(this, "MyStaff " + myStaff.size(), Toast.LENGTH_SHORT).show();
+
+        //Toast.makeText(this, "MyStaff " + myStaff.size(), Toast.LENGTH_SHORT).show();
 
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
@@ -155,10 +154,10 @@ public class RecyclerCreateReferringTeamActivity extends AppCompatActivity imple
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
-                    adapter = new CustomRecyclerAdapterCreateReferringTeam(RecyclerCreateReferringTeamActivity.this, (ArrayList<DoctorObject>) messageDataList, myDoc, (ArrayList<StaffObject>) myStaff, patient);
+                    adapter = new CustomRecyclerAddOtherTeam(RecyclerAddOtherTeam.this, (ArrayList<DoctorObject>) messageDataList, myDoc, (ArrayList<StaffObject>) myStaff, patient);
                     mRecyclerView.setAdapter(adapter);
                     LinearLayoutManager layoutManager
-                            = new LinearLayoutManager(RecyclerCreateReferringTeamActivity.this, LinearLayoutManager.VERTICAL, false);
+                            = new LinearLayoutManager(RecyclerAddOtherTeam.this, LinearLayoutManager.VERTICAL, false);
                     mRecyclerView.setLayoutManager(layoutManager);
                     break;
                 default:

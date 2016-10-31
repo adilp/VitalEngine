@@ -1,7 +1,6 @@
-package com.adilpatel.vitalengine.ActivitiesPackage.RecyclerReferral;
+package com.adilpatel.vitalengine.ActivitiesPackage.RecyclerConversation;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,12 +16,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.adilpatel.vitalengine.API.BasicAuthInterceptor;
 import com.adilpatel.vitalengine.Models.DoctorObject;
 import com.adilpatel.vitalengine.Models.Patient;
-import com.adilpatel.vitalengine.Models.StaffObject;
 import com.adilpatel.vitalengine.R;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
@@ -38,41 +35,27 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class RecyclerCreateReferringTeamActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class RecyclerAddConvMyTeam extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
     List<DoctorObject> messageDataList;
 
     private RecyclerView mRecyclerView;
-    private CustomRecyclerAdapterCreateReferringTeam adapter;
-
+    private CustomRecyclerAddMyTeam adapter;
 
 
     //ListView usersListView;
     Context context;
+    private Patient patient;
 
     private static final String TAG = "MyActivity";
-    int myDoc;
-    List<StaffObject> myStaff;
-    Patient patient;
-
-
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recycler_create_referring_team);
+        setContentView(R.layout.activity_recycler_create_my_team);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewReferringTeam);
 
-        myStaff = new ArrayList<>();
-
-        Intent b = getIntent();
-
-        myDoc = b.getExtras().getInt("myDocId");
-        myStaff = b.getExtras().getParcelableArrayList("Staff");
-        patient = b.getExtras().getParcelable("Patient");
-
-        Toast.makeText(this, "MyStaff " + myStaff.size(), Toast.LENGTH_SHORT).show();
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
@@ -112,6 +95,11 @@ public class RecyclerCreateReferringTeamActivity extends AppCompatActivity imple
 
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
     public void clearData() {
 
 
@@ -131,11 +119,6 @@ public class RecyclerCreateReferringTeamActivity extends AppCompatActivity imple
     }
 
     @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
-
-    @Override
     public boolean onQueryTextChange(String newText) {
         if (newText.isEmpty()){
             clearData();
@@ -150,15 +133,30 @@ public class RecyclerCreateReferringTeamActivity extends AppCompatActivity imple
 
     }
 
+
+
+//    private List<DoctorObject> filter(List<DoctorObject> models, String query) {
+//        query = query.toLowerCase();
+//
+//        final List<DoctorObject> filteredModelList = new ArrayList<>();
+//        for (DoctorObject model : models) {
+//            final String text = model.getDocname().toLowerCase();
+//            if (text.contains(query)) {
+//                filteredModelList.add(model);
+//            }
+//        }
+//        return filteredModelList;
+//    }
+
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
-                    adapter = new CustomRecyclerAdapterCreateReferringTeam(RecyclerCreateReferringTeamActivity.this, (ArrayList<DoctorObject>) messageDataList, myDoc, (ArrayList<StaffObject>) myStaff, patient);
+                    adapter = new CustomRecyclerAddMyTeam(RecyclerAddConvMyTeam.this, (ArrayList<DoctorObject>) messageDataList);
                     mRecyclerView.setAdapter(adapter);
                     LinearLayoutManager layoutManager
-                            = new LinearLayoutManager(RecyclerCreateReferringTeamActivity.this, LinearLayoutManager.VERTICAL, false);
+                            = new LinearLayoutManager(RecyclerAddConvMyTeam.this, LinearLayoutManager.VERTICAL, false);
                     mRecyclerView.setLayoutManager(layoutManager);
                     break;
                 default:
@@ -239,7 +237,7 @@ public class RecyclerCreateReferringTeamActivity extends AppCompatActivity imple
                         String lastname = (String) object.get("last_name");
                         msg3.setDocname(firstname);
                         msg3.setDocLocation((String) object.get("city"));
-                        //msg3.setDocPic(R.drawable.msgone);
+                       // msg3.setDocPic(R.drawable.msgone);
                         msg3.setDocspecialty((String) object.get("speciality_name"));
                         msg3.setDocId((Integer) object.get("user_id"));
 

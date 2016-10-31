@@ -64,6 +64,7 @@ public class allRecyclerViewAdapter extends RecyclerView.Adapter<allRecyclerView
         TextView message = viewHolder.allMessage;
         message.setText(contact.getMessage());
         ImageView image = viewHolder.allImage;
+        //image.setImage(contact.getImage());
         image.setImageBitmap(contact.getImage());
         TextView patient = viewHolder.patient;
         patient.setText(contact.getPatient());
@@ -77,8 +78,14 @@ public class allRecyclerViewAdapter extends RecyclerView.Adapter<allRecyclerView
             subject.setText("Patient: ");
 
         }
+
+        if (contact.getSubject() !=""){
+            subject.setText("Subject: ");
+        }
         else {
             subject.setVisibility(View.GONE);
+            time.setVisibility(View.GONE);
+
         }
 
 //        if (arrMessageData.get(position).getType() == "message"){

@@ -3,6 +3,7 @@ package com.adilpatel.vitalengine.ActivitiesPackage.RecyclerReferral;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -49,6 +50,7 @@ public class RecyclerCreateMyTeamActivity extends AppCompatActivity implements S
     private Patient patient;
 
     private static final String TAG = "MyActivity";
+    Bitmap image;
 
 
     @Override
@@ -242,12 +244,14 @@ public class RecyclerCreateMyTeamActivity extends AppCompatActivity implements S
 
                         DoctorObject msg3 = new DoctorObject();
                         String firstname = (String) object.get("display_name");
-                        String lastname = (String) object.get("last_name");
                         msg3.setDocname(firstname);
                         msg3.setDocLocation((String) object.get("city"));
-                        msg3.setDocPic(R.drawable.msgone);
-                        msg3.setDocspecialty((String) object.get("speciality_name"));
                         msg3.setDocId((Integer) object.get("user_id"));
+
+                        //getImage(String.valueOf(object.get("user_id")));
+                        //msg3.setDocPic(image);
+                        msg3.setDocspecialty((String) object.get("speciality_name"));
+
 
 
 
@@ -267,6 +271,47 @@ public class RecyclerCreateMyTeamActivity extends AppCompatActivity implements S
 
         });
     }
+
+//    public void getImage(String id) throws IOException {
+//
+//        String credentials = "ezhu:Ccare@123";
+//        String auth = "Basic "
+//                + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+//
+//        Log.e("Test", auth);
+//
+//
+//        //SharedPreferences preferences = this.getActivity().getSharedPreferences("token", Context.MODE_PRIVATE);
+//
+//        SharedPreferences settings = PreferenceManager
+//                .getDefaultSharedPreferences(this);
+//        String auth_token_string = settings.getString("token", ""/*default value*/);
+//        String auth_token_type = settings.getString("tokenType", "");
+//        String userId = settings.getString("userId", "");
+//
+//        Log.i("prefs", auth_token_type);
+//
+//
+//
+//
+//
+//
+//        URL imgurl = new URL("https://staging.vitalengine.com/portal-api/" + id);
+//        URLConnection conn = imgurl.openConnection();
+//        conn.addRequestProperty("Authorization", auth_token_type + " "+ auth_token_string);
+//        conn.connect();
+//
+//        InputStream in = conn.getInputStream();
+//
+//        Bitmap bmp = BitmapFactory.decodeStream(in);
+//
+//
+//
+//
+//        image = bmp;
+//
+//
+//    }
 
 }
 

@@ -24,6 +24,8 @@ public class ListViewRowHolder extends RecyclerView.ViewHolder implements View.O
     public TextView person;
     CheckBox selected;
     Patient patient;
+    TextView specialty;
+    TextView location;
 
     Context ctx;
     ArrayList<DoctorObject> message = new ArrayList<DoctorObject>();
@@ -36,7 +38,10 @@ public class ListViewRowHolder extends RecyclerView.ViewHolder implements View.O
         this.message = message;
         this.ctx = ctx;
         this.selected = (CheckBox) itemView.findViewById(R.id.visibleButton);
+        this.specialty = (TextView) itemView.findViewById(R.id.teamSpecialty);
+        this.location = (TextView) itemView.findViewById(R.id.teamLocation);
         this.patient = patient;
+
 
         itemView.setOnClickListener(this);
     }

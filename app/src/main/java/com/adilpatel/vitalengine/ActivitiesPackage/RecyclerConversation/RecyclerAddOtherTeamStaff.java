@@ -1,4 +1,4 @@
-package com.adilpatel.vitalengine.ActivitiesPackage.RecyclerReferral;
+package com.adilpatel.vitalengine.ActivitiesPackage.RecyclerConversation;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.adilpatel.vitalengine.API.BasicAuthInterceptor;
+import com.adilpatel.vitalengine.ActivitiesPackage.RecyclerReferral.CustomRecyclerAdapterCreateReferringTeamStaff;
 import com.adilpatel.vitalengine.Models.Patient;
 import com.adilpatel.vitalengine.Models.StaffObject;
 import com.adilpatel.vitalengine.R;
@@ -35,50 +36,77 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class CreateMyTeamStaffActivity extends AppCompatActivity {
+public class RecyclerAddOtherTeamStaff extends AppCompatActivity {
 
-    List <StaffObject> messageDataList = new ArrayList<StaffObject>();
-    private List<StaffObject> selectedMyStaff = new ArrayList<>();
+    List<StaffObject> messageDataList = new ArrayList<StaffObject>();
+    private List<StaffObject> selectedMyStaff;
 
-    private CustomRecyclerAdapterCreateTeamStaff adapter;
+    private CustomRecyclerAdapterCreateReferringTeamStaff adapter;
 
     RecyclerView mRecycerView;
     Context context;
 
-    int ref;
+    List<StaffObject> myStaff;
 
     Button next;
-
     Patient patient;
+    Button add;
 
 
+    int myDoc;
+
+    int referringDoc;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_my_team_staff);
+        setContentView(R.layout.activity_recycler_create_referring_team_staff);
 
         Intent b = getIntent();
 
-        ref = b.getExtras().getInt("docId");
+        myStaff = new ArrayList<>();
+
+        myDoc = b.getExtras().getInt("myDoc");
+        myStaff = b.getExtras().getParcelableArrayList("Staff");
+        referringDoc = b.getExtras().getInt("referringDoc");
         patient = b.getExtras().getParcelable("Patient");
 
+        selectedMyStaff = new ArrayList<>();
 
-        Toast.makeText(this, "DocId " + ref , Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "DocId " + ref, Toast.LENGTH_SHORT).show();
 
         context = this;
 
-        mRecycerView = (RecyclerView) findViewById(R.id.recyclerViewMyTeamStaff);
+        mRecycerView = (RecyclerView) findViewById(R.id.recyclerViewReferringTeamStaff);
 
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecycerView.setLayoutManager(linearLayoutManager);
 
-        next = (Button) findViewById(R.id.ComfirmButton);
+//        add = (Button)findViewById(R.id.AddButton);
+//
+//
+//        add.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Toast.makeText(context, "ADDDDDDDD", Toast.LENGTH_SHORT).show();
+////                Intent myIntent = new Intent(context, RecyclerAddOtherTeam.class);
+////                myIntent.putParcelableArrayListExtra("myStaff", (ArrayList<? extends Parcelable>) myStaff);
+////                myIntent.putExtra("myDoc", myDoc);
+////                myIntent.putExtra("referringDoc", referringDoc);
+////                myIntent.putParcelableArrayListExtra("refStaff", (ArrayList<? extends Parcelable>) selectedMyStaff);
+////                myIntent.putExtra("Patient",patient);
+////                context.startActivity(myIntent);
+//            }
+//        });
+
+
+        next = (Button)findViewById(R.id.ComfirmButtonReferring);
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 for (int i = 0 ; i<messageDataList.size(); i++){
                     StaffObject temp = messageDataList.get(i);
 
@@ -93,30 +121,36 @@ public class CreateMyTeamStaffActivity extends AppCompatActivity {
 
                 }
 
-                Log.d("Selected Size", selectedMyStaff.size() + " ? ");
-                Intent myIntent = new Intent(context, RecyclerCreateReferringTeamActivity.class);
-            myIntent.putParcelableArrayListExtra("Staff", (ArrayList<? extends Parcelable>) selectedMyStaff);
-            myIntent.putExtra("myDocId", ref);
+
+                Toast.makeText(context, "NEXT", Toast.LENGTH_SHORT).show();
+
+                Intent myIntent = new Intent(context, RecyclerConfirmConvActivity.class);
+                myIntent.putParcelableArrayListExtra("myStaff", (ArrayList<? extends Parcelable>) myStaff);
+                myIntent.putExtra("myDoc", myDoc);
+                myIntent.putExtra("referringDoc", referringDoc);
+                myIntent.putParcelableArrayListExtra("refStaff", (ArrayList<? extends Parcelable>) selectedMyStaff);
                 myIntent.putExtra("Patient",patient);
-            context.startActivity(myIntent);
+                //myIntent.putExtra("refStaff", (Parcelable) selectedMyStaff);
+                context.startActivity(myIntent);
             }
         });
 
 
-        callapi(ref);
+
+
+
+        callapi(referringDoc);
     }
-
-
 
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
-                    adapter = new CustomRecyclerAdapterCreateTeamStaff(CreateMyTeamStaffActivity.this, messageDataList, ref);
+                    adapter = new CustomRecyclerAdapterCreateReferringTeamStaff(RecyclerAddOtherTeamStaff.this, (ArrayList<StaffObject>) messageDataList);
                     mRecycerView.setAdapter(adapter);
                     LinearLayoutManager layoutManager
-                            = new LinearLayoutManager(CreateMyTeamStaffActivity.this, LinearLayoutManager.VERTICAL, false);
+                            = new LinearLayoutManager(RecyclerAddOtherTeamStaff.this, LinearLayoutManager.VERTICAL, false);
                     mRecycerView.setLayoutManager(layoutManager);
                     break;
                 default:
@@ -125,7 +159,6 @@ public class CreateMyTeamStaffActivity extends AppCompatActivity {
             }
         }
     };
-
     private void callapi(int ref){
 
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new BasicAuthInterceptor()).addNetworkInterceptor(new StethoInterceptor()).build();
@@ -197,7 +230,6 @@ public class CreateMyTeamStaffActivity extends AppCompatActivity {
 
 
 
-
                         messageDataList.add(msg3);
 
 
@@ -216,6 +248,3 @@ public class CreateMyTeamStaffActivity extends AppCompatActivity {
     }
 
 }
-
-
-
