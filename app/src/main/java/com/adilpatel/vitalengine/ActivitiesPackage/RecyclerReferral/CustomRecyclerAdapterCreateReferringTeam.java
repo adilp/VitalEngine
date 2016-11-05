@@ -2,8 +2,11 @@ package com.adilpatel.vitalengine.ActivitiesPackage.RecyclerReferral;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +19,9 @@ import com.adilpatel.vitalengine.Models.DoctorObject;
 import com.adilpatel.vitalengine.Models.Patient;
 import com.adilpatel.vitalengine.Models.StaffObject;
 import com.adilpatel.vitalengine.R;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,8 +82,23 @@ public class CustomRecyclerAdapterCreateReferringTeam extends RecyclerView.Adapt
         TextView person = viewHolder.person;
         person.setText(contact.getDocname());
         ImageView image = viewHolder.pic;
-        //image.setImageResource(contact.getDocPic());
-        image.setImageBitmap(contact.getDocPic());
+
+        SharedPreferences settings = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        String auth_token_string = settings.getString("token", ""/*default value*/);
+        String auth_token_type = settings.getString("tokenType", "");
+        String userId = settings.getString("userId", "");
+
+        Log.i("prefs", auth_token_type);
+
+        GlideUrl url = new GlideUrl("https://staging.vitalengine.com/portal-api/img/user/false/" + contact.getDocId(), new LazyHeaders.Builder()
+                .addHeader("Authorization", auth_token_type + " "+ auth_token_string)
+                .build());
+
+        Glide.with(context)
+                .load(url)
+                .centerCrop()
+                .into(image);
 
         TextView specialty = viewHolder.specialty;
         specialty.setText(contact.getDocspecialty());

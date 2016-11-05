@@ -16,6 +16,16 @@ public class MessageData {
     String type = "";
     int id = -1;
 
+    public String getPhotoURL() {
+        return photoURL;
+    }
+
+    public void setPhotoURL(String photoURL) {
+        this.photoURL = photoURL;
+    }
+
+    String photoURL = "";
+
     public int getId() {
         return id;
     }
