@@ -37,6 +37,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import okhttp3.Call;
@@ -53,6 +54,9 @@ public class RecyclerReferralConfirmActivity extends AppCompatActivity {
 
 
     List<StaffObject> currentStaff; //= new ArrayList<>();
+    List<StaffObject> listWithoutDuplicates;
+    LinkedHashSet<StaffObject> listToSet;
+
 
 
     TextView patientName;
@@ -86,11 +90,13 @@ public class RecyclerReferralConfirmActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Stetho.initializeWithDefaults(this);
         setContentView(R.layout.activity_referral_confirm);
+
 
 
 
@@ -144,12 +150,12 @@ public class RecyclerReferralConfirmActivity extends AppCompatActivity {
 
 
 
+
         refSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Editable messageText = refMessage.getText();
                 jsonBody(messageText);
-                messageText.clear();
                 sendReferral(referralJson);
                 Log.e("ReferralSendingJson", referralJson.toString());
 
@@ -262,6 +268,7 @@ public class RecyclerReferralConfirmActivity extends AppCompatActivity {
 
         /*
         RecyclerView Referral Team
+
          */
 
                     ReferralTeamRecyclerlist = (RecyclerView)findViewById(R.id.recyclerViewReferralTeam);

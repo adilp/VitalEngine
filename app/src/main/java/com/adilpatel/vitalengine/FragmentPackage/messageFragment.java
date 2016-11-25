@@ -197,7 +197,7 @@ public class messageFragment extends Fragment{
                                 msg3.setName((String) object.get("fromUser"));
                                 msg3.setMessage((String) object.get("message"));
                                 msg3.setPhotoURL((String) object.get("photo"));
-                                msg3.setRead(true);
+                                //msg3.setRead(true);
                                 msg3.setSubject((String) object.get("patient"));
                                 msg3.setType((String) object.get("conversationDate"));
                                 msg3.setId((Integer) object.get("conversationId"));

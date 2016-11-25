@@ -71,7 +71,7 @@ public class referralsRecyclerViewAdapter extends RecyclerView.Adapter<referrals
 
         // Set item views based on your views and data model
         TextView name = viewHolder.referralName;
-        name.setText(contact.getName());
+        name.setText(contact.getName() + " -> " +contact.getToUser());
         TextView message = viewHolder.referralMessage;
         message.setText(contact.getMessage());
         ImageView image = viewHolder.referralImage;

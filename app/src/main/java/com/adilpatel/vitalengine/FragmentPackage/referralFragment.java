@@ -73,7 +73,7 @@ public class referralFragment extends Fragment {
 
 
 
-       // OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new StethoInterceptor()).build();
+        // OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new StethoInterceptor()).build();
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_referral, container, false);
         //usersListView = (ListView) rootView.findViewById(R.id.referralListView);
@@ -225,7 +225,8 @@ public class referralFragment extends Fragment {
                                 MessageData msg3 = new MessageData();
                                 msg3.setName((String) object.get("fromUser"));
                                 msg3.setMessage((String) object.get("message"));
-                                msg3.setRead(true);
+                                msg3.setToUser((String) object.get("toUser"));
+                               // msg3.setRead(true);
                                 msg3.setSubject((String) object.get("patient"));
                                 msg3.setType((String) object.get("conversationDate"));
                                 msg3.setId((Integer) object.get("referralId"));

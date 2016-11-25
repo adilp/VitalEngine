@@ -28,7 +28,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.TimeZone;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -176,8 +179,27 @@ public class allFragment extends Fragment {
                             MessageData msg3 = new MessageData();
                             msg3.setName((String) object.get("fromUser"));
                             msg3.setMessage((String) object.get("message"));
-                            msg3.setRead(true);
+                            msg3.setToUser((String) object.get("toUser"));
+                            //msg3.setRead(true);
+                            msg3.setRead((Integer) object.get("isRead"));
                             msg3.setPhotoURL((String) object.get("photo"));
+                            String s = "14.015_AUDI";
+                            String time = (String) object.get("conversationDate");
+                            String[] parts = time.split("@"); //returns an array with the 2 parts
+                            String firstPart = parts[1];
+                            String secondPart = parts[0];
+                            msg3.setLastDate(secondPart);
+
+
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+                            dateFormat.setTimeZone(TimeZone.getDefault());
+                            Date date1 = dateFormat.parse(time);
+
+
+
+                            msg3.setTime(dateFormat.format(date1));
+
+
                             //msg3.setImage(image);
 
                             //msg3.setType((String) object.get("messageType"));
@@ -186,14 +208,17 @@ public class allFragment extends Fragment {
 
                                 msg3.setType("conversation");
                                 msg3.setSubject((String) object.get("subject"));
+                                msg3.setId((Integer) object.get("conversationId"));
 
 
                             } else if (object.get("messageType").equals("MESSAGE")) {
                                 msg3.setType("message");
+                                msg3.setId((Integer) object.get("conversationId"));
 
                             } else {
                                 msg3.setType("referral");
                                 msg3.setPatient((String) object.get("patient"));
+                                msg3.setId((Integer) object.get("referralId"));
                             }
 
                             arrMessageData.add(msg3);

@@ -29,7 +29,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -123,6 +125,11 @@ public class RecyclerAddOtherTeamStaff extends AppCompatActivity {
 
 
                 Toast.makeText(context, "NEXT", Toast.LENGTH_SHORT).show();
+
+                Set<StaffObject> hs = new HashSet<>();
+                hs.addAll(selectedMyStaff);
+                selectedMyStaff.clear();
+                selectedMyStaff.addAll(hs);
 
                 Intent myIntent = new Intent(context, RecyclerConfirmConvActivity.class);
                 myIntent.putParcelableArrayListExtra("myStaff", (ArrayList<? extends Parcelable>) myStaff);

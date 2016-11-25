@@ -1,7 +1,10 @@
 package com.adilpatel.vitalengine.Expand2;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,9 @@ import android.widget.TextView;
 
 import com.adilpatel.vitalengine.Models.StaffObject;
 import com.adilpatel.vitalengine.R;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
 
 import java.util.List;
 
@@ -58,7 +64,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView textView = viewHolder.docName;
         textView.setText(contact.getStaffname());
         ImageView button = viewHolder.docImage;
-        button.setImageResource(contact.getStaffPic());
+        SharedPreferences settings = PreferenceManager
+                .getDefaultSharedPreferences(mContext);
+        String auth_token_string = settings.getString("token", ""/*default value*/);
+        String auth_token_type = settings.getString("tokenType", "");
+        String userId = settings.getString("userId", "");
+
+        Log.i("prefs", auth_token_type);
+
+        GlideUrl url = new GlideUrl("https://staging.vitalengine.com/portal-api/img/user/false/" + contact.getStaffId(), new LazyHeaders.Builder()
+                .addHeader("Authorization", auth_token_type + " "+ auth_token_string)
+                .build());
+
+        Glide.with(mContext)
+                .load(url)
+                .centerCrop()
+                .into(button);
     }
 
     // Returns the total count of items in the list

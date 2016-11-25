@@ -29,7 +29,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -93,6 +95,11 @@ public class RecyclerAddConvMyTeamStaff extends AppCompatActivity {
                     }
 
                 }
+
+                Set<StaffObject> hs = new HashSet<>();
+                hs.addAll(selectedMyStaff);
+                selectedMyStaff.clear();
+                selectedMyStaff.addAll(hs);
 
                 Log.d("Selected Size", selectedMyStaff.size() + " ? ");
                 Intent myIntent = new Intent(context, RecyclerAddOtherTeam.class);

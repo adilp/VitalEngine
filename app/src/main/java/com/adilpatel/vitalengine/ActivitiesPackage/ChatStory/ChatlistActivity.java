@@ -44,6 +44,7 @@ public class ChatlistActivity extends AppCompatActivity {
     private HashMap<Integer, chatMessageModel> messages;
     private Integer ref;
     private String type;
+    private String name;
 
     private String conversation = "conversation";
     private String referral = "referral";

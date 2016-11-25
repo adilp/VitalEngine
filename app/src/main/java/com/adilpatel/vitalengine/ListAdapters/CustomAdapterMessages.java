@@ -1,7 +1,6 @@
 package com.adilpatel.vitalengine.ListAdapters;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,16 +80,16 @@ public class CustomAdapterMessages extends BaseAdapter {
         holder.iv.setImageBitmap(arrMessageData.get(position).getImage());
         //holder.subject.setText("" + arrMessageData.get(position).getSubject());
 
-        if (arrMessageData.get(position).isRead() == true){
-            holder.tv1.setTypeface(Typeface.DEFAULT_BOLD);
-
-
-        }
-        if (arrMessageData.get(position).isRead() == false) {
-            holder.unreadCount.setText("");
-            //holder.unreadCountBackground.setBackgroundColor(Color.WHITE);
-            holder.unreadCount.setTypeface(Typeface.DEFAULT_BOLD);
-        }
+//        if (arrMessageData.get(position).isRead() == true){
+//            holder.tv1.setTypeface(Typeface.DEFAULT_BOLD);
+//
+//
+//        }
+//        if (arrMessageData.get(position).isRead() == false) {
+//            holder.unreadCount.setText("");
+//            //holder.unreadCountBackground.setBackgroundColor(Color.WHITE);
+//            holder.unreadCount.setTypeface(Typeface.DEFAULT_BOLD);
+//        }
 
 
 

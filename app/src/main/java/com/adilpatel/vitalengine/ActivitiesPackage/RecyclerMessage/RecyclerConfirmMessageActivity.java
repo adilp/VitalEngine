@@ -107,7 +107,6 @@ public class RecyclerConfirmMessageActivity extends AppCompatActivity {
                 Editable messageText = messageMessage.getText();
                 Editable subjectText = messagesSubject.getText();
                 jsonBody(messageText,subjectText );
-                messageText.clear();
                 sendMessage(referralJson);
                 Log.e("ReferralSendingJson", referralJson.toString());
 

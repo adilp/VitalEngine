@@ -28,7 +28,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -92,6 +94,7 @@ public class RecyclerCreateReferringTeamStaffActivity extends AppCompatActivity 
                     StaffObject temp = messageDataList.get(i);
 
                     if (temp.isChecked() == true){
+
                         selectedMyStaff.add(temp);
 
                     }
@@ -101,7 +104,10 @@ public class RecyclerCreateReferringTeamStaffActivity extends AppCompatActivity 
                     }
 
                 }
-
+                Set<StaffObject> hs = new HashSet<>();
+                hs.addAll(selectedMyStaff);
+                selectedMyStaff.clear();
+                selectedMyStaff.addAll(hs);
 
                 Toast.makeText(context, "NEXT", Toast.LENGTH_SHORT).show();
 

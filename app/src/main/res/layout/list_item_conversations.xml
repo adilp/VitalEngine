@@ -47,14 +47,14 @@
         android:maxLines="1"
         android:paddingBottom="10dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/messageTimestamp"
-        android:text="2:30pm"
-        android:paddingTop="10dp"
-        android:layout_alignTop="@+id/conversationName"
-        android:layout_alignParentEnd="true" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/messageTimestamp"-->
+        <!--android:text="2:30pm"-->
+        <!--android:paddingTop="10dp"-->
+        <!--android:layout_alignTop="@+id/conversationName"-->
+        <!--android:layout_alignParentEnd="true" />-->
 
     <!--<TextView-->
         <!--android:layout_width="26dp"-->

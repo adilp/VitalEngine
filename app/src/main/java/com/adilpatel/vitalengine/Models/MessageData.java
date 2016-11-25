@@ -9,12 +9,33 @@ public class MessageData {
 
 
     String message = "";
-    boolean isRead = false;
+    int isRead = -1;
     Bitmap images;
     String name = "";
     String subject = "";
     String type = "";
     int id = -1;
+
+    public String getLastDate() {
+        return lastDate;
+    }
+
+    public void setLastDate(String lastDate) {
+        this.lastDate = lastDate;
+    }
+
+    String lastDate = "";
+
+
+    public String getToUser() {
+        return toUser;
+    }
+
+    public void setToUser(String toUser) {
+        this.toUser = toUser;
+    }
+
+    String toUser = "";
 
     public String getPhotoURL() {
         return photoURL;
@@ -64,11 +85,11 @@ public class MessageData {
         this.message = message;
     }
 
-    public boolean isRead() {
+    public int isRead() {
         return isRead;
     }
 
-    public void setRead(boolean isRead) {
+    public void setRead(int isRead) {
         this.isRead = isRead;
     }
 

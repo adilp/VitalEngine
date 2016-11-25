@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
@@ -198,7 +198,8 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFrag(new messageFragment(), "Messages");
         adapter.addFrag(new allFragment(), "All");
         viewPager.setAdapter(adapter);
-        viewPager.setCurrentItem(1);
+        viewPager.setCurrentItem(3);
+        viewPager.setOffscreenPageLimit(3);
 
     }
 

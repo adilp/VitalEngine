@@ -86,6 +86,9 @@ public class RecyclerConfirmConvActivity extends AppCompatActivity {
 
         Stetho.initializeWithDefaults(this);
 
+        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+
         /*
         Receiving data from past activity
          */
@@ -99,6 +102,11 @@ public class RecyclerConfirmConvActivity extends AppCompatActivity {
         referringStaff = new ArrayList<>();
         referringStaff = b.getExtras().getParcelableArrayList("refStaff");
         patient = b.getExtras().getParcelable("Patient");
+
+
+        //List<String> al = new ArrayList<>();
+        // add elements to al, including duplicates
+
 
         getDocApi(referringDoc, true);
         getDocApi(mydoc, false);
@@ -227,11 +235,12 @@ public class RecyclerConfirmConvActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
+
                     myTeamRecyclerList = (RecyclerView)findViewById(R.id.recyclerToMessage);
                     //myTeamList.add();
                     //list = StaffObject.createContactsList(20);
                     // Create adapter passing in the sample user data
-                    adapter1 = new RecyclerViewAdapter(RecyclerConfirmConvActivity.this, currentStaff);
+                    adapter1 = new RecyclerViewAdapter(RecyclerConfirmConvActivity.this, referringStaff);
                     // Attach the adapter to the recyclerview to populate items
                     myTeamRecyclerList.setAdapter(adapter1);
                     // Set layout manager to position the items
@@ -255,7 +264,7 @@ public class RecyclerConfirmConvActivity extends AppCompatActivity {
                     //list.add(0,referralDoc);
 
                     // Create adapter passing in the sample user data
-                    adapter = new RecyclerViewAdapter(RecyclerConfirmConvActivity.this, referringStaff);
+                    adapter = new RecyclerViewAdapter(RecyclerConfirmConvActivity.this, currentStaff );
                     // Attach the adapter to the recyclerview to populate items
                     ReferralTeamRecyclerlist.setAdapter(adapter);
                     // Set layout manager to position the items

@@ -58,6 +58,8 @@ public class RecyclerCreateMyTeamActivity extends AppCompatActivity implements S
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler_create_my_team);
 
+        setTitle("Referring Doctor");
+
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -76,9 +78,12 @@ public class RecyclerCreateMyTeamActivity extends AppCompatActivity implements S
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_team, menu);
 
+
         final MenuItem item = menu.findItem(R.id.search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
         searchView.setOnQueryTextListener(this);
+
+
 
         MenuItemCompat.setOnActionExpandListener(item,
                 new MenuItemCompat.OnActionExpandListener() {
@@ -87,7 +92,7 @@ public class RecyclerCreateMyTeamActivity extends AppCompatActivity implements S
                         // Do something when collapsed
 
 
-                        ///HERE IS THE PROBLEM
+
                         adapter.setFilter(messageDataList);
 
 
@@ -97,6 +102,7 @@ public class RecyclerCreateMyTeamActivity extends AppCompatActivity implements S
                     @Override
                     public boolean onMenuItemActionExpand(MenuItem item) {
                         // Do something when expanded
+
                         return true; // Return true to expand action view
                     }
                 });
